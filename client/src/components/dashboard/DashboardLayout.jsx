@@ -5,7 +5,6 @@ import TopNav from './TopNav';
 import ProgressSummaryWidget from './ProgressSummaryWidget';
 import TaskWidget from './TaskWidget';
 import HabitWidget from './HabitWidget';
-import FocusTimerWidget from './FocusTimerWidget';
 import NotesWidget from './NotesWidget';
 import TimeTrackerWidget from './TimeTrackerWidget';
 import { Loader2 } from 'lucide-react';
@@ -13,10 +12,9 @@ import { Loader2 } from 'lucide-react';
 const DashboardLayout = () => {
   const [tasks, setTasks] = useState([]);
   const [habits, setHabits] = useState([]);
-  const [focusTime, setFocusTime] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [globalSettings, setGlobalSettings] = useState({
-    dashboardWidgets: { showTasks: true, showHabits: true, showNotes: true, showFocus: true },
+    dashboardWidgets: { showTasks: true, showHabits: true, showNotes: true },
     theme: 'light'
   });
   
@@ -42,7 +40,6 @@ const DashboardLayout = () => {
         if (logRes.data) {
           setTasks(logRes.data.tasks || []);
           setHabits(logRes.data.habits || []);
-          setFocusTime(logRes.data.focusTime || 0);
         }
         if (settingsRes.data) {
           setGlobalSettings(settingsRes.data);
@@ -67,7 +64,7 @@ const DashboardLayout = () => {
     const syncTimeout = setTimeout(async () => {
       try {
         await axios.put(`${import.meta.env.VITE_API_URL}/dashboard/${getTodayDate()}`, {
-          tasks, habits, focusTime
+          tasks, habits
         }, {
           headers: { Authorization: `Bearer ${token}` }
         });
@@ -102,13 +99,11 @@ const DashboardLayout = () => {
       
       <main className="flex-1 ml-[260px] pt-24 p-8 overflow-y-auto w-full">
         <div className="w-full space-y-6 max-w-[1400px] mx-auto">
-          
           <ProgressSummaryWidget 
             completedTasks={completedTasks} 
             totalTasks={totalTasks}
             completedHabits={completedHabits}
             totalHabits={totalHabits}
-            focusTime={focusTime}
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -122,14 +117,9 @@ const DashboardLayout = () => {
               </div>
             )}
 
-            {(globalSettings.dashboardWidgets.showHabits || globalSettings.dashboardWidgets.showFocus) && (
+            {globalSettings.dashboardWidgets.showHabits && (
               <div className="lg:col-span-4 space-y-6">
-                {globalSettings.dashboardWidgets.showHabits && (
-                  <HabitWidget habits={habits} setHabits={setHabits} />
-                )}
-                {globalSettings.dashboardWidgets.showFocus && (
-                  <FocusTimerWidget focusTime={focusTime} setFocusTime={setFocusTime} />
-                )}
+                <HabitWidget habits={habits} setHabits={setHabits} />
               </div>
             )}
 
