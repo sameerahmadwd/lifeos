@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const Session = require('../models/Session');
-const auth = require('../middleware/auth');
+const { protect } = require('../middleware/authMiddleware');
 
 // @route   POST /api/sessions/start
 // @desc    Start a new tracking session
-router.post('/start', auth, async (req, res) => {
+router.post('/start', protect, async (req, res) => {
   try {
     const today = new Date().toISOString().split('T')[0];
     
@@ -34,7 +35,7 @@ router.post('/start', auth, async (req, res) => {
 
 // @route   POST /api/sessions/heartbeat
 // @desc    Update last active time and duration
-router.post('/heartbeat', auth, async (req, res) => {
+router.post('/heartbeat', protect, async (req, res) => {
   try {
     const today = new Date().toISOString().split('T')[0];
     const session = await Session.findOne({ 
@@ -68,7 +69,7 @@ router.post('/heartbeat', auth, async (req, res) => {
 
 // @route   POST /api/sessions/stop
 // @desc    Close an active session
-router.post('/stop', auth, async (req, res) => {
+router.post('/stop', protect, async (req, res) => {
   try {
     const session = await Session.findOne({ userId: req.user.id, status: 'active' });
 
@@ -95,7 +96,7 @@ router.post('/stop', auth, async (req, res) => {
 
 // @route   GET /api/sessions/today
 // @desc    Get total active time for today
-router.get('/today', auth, async (req, res) => {
+router.get('/today', protect, async (req, res) => {
   try {
     const today = new Date().toISOString().split('T')[0];
     const sessions = await Session.find({ userId: req.user.id, date: today });
@@ -110,7 +111,7 @@ router.get('/today', auth, async (req, res) => {
 
 // @route   GET /api/sessions/history
 // @desc    Get session logs for a specific date
-router.get('/history', auth, async (req, res) => {
+router.get('/history', protect, async (req, res) => {
   try {
     const { date } = req.query; // YYYY-MM-DD
     const sessions = await Session.find({ userId: req.user.id, date }).sort({ startTime: 1 });
@@ -125,7 +126,7 @@ router.get('/history', auth, async (req, res) => {
 
 // @route   GET /api/sessions/calendar
 // @desc    Get dates with activity for heatmap
-router.get('/calendar', auth, async (req, res) => {
+router.get('/calendar', protect, async (req, res) => {
   try {
     const stats = await Session.aggregate([
       { $match: { userId: new mongoose.Types.ObjectId(req.user.id) } },
