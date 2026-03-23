@@ -8,10 +8,12 @@ import Notes from './pages/Notes';
 import Tasks from './pages/Tasks';
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
+import SessionHistory from './pages/SessionHistory';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import axios from 'axios';
 import { ShieldAlert, Zap } from 'lucide-react';
+import useActiveSession from './hooks/useActiveSession';
 
 const ProtectedRoute = ({ children }) => {
   const userInfo = localStorage.getItem('userInfo');
@@ -25,6 +27,10 @@ const AuthGate = ({ children }) => {
 
 function App() {
   const [settings, setSettings] = React.useState(null);
+  const userInfo = JSON.parse(localStorage.getItem('userInfo')) || null;
+
+  // Active Time Tracking
+  const { isActive, isIdle } = useActiveSession(userInfo);
 
   React.useEffect(() => {
     const fetchSettings = async () => {
@@ -131,6 +137,11 @@ function App() {
         <Route path="/settings" element={
           <ProtectedRoute>
             <Settings />
+          </ProtectedRoute>
+        } />
+        <Route path="/sessions" element={
+          <ProtectedRoute>
+            <SessionHistory />
           </ProtectedRoute>
         } />
 

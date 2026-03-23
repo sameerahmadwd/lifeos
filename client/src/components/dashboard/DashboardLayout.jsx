@@ -7,6 +7,7 @@ import TaskWidget from './TaskWidget';
 import HabitWidget from './HabitWidget';
 import FocusTimerWidget from './FocusTimerWidget';
 import NotesWidget from './NotesWidget';
+import TimeTrackerWidget from './TimeTrackerWidget';
 import { Loader2 } from 'lucide-react';
 
 const DashboardLayout = () => {
@@ -109,6 +110,10 @@ const DashboardLayout = () => {
             totalHabits={totalHabits}
             focusTime={focusTime}
           />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <TimeTrackerWidget />
+          </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             {globalSettings.dashboardWidgets.showTasks && (

@@ -39,12 +39,17 @@ app.use('/api/habits', habitRoutes); // Renamed
 app.use('/api/notes', noteRoutes); // Renamed
 app.use('/api/tasks', taskRoutes); // Renamed
 app.use('/api/profile', profileRoutes);
-app.use('/api/log', logRoutes); // Added
-app.use('/api/settings', settingsRoutes); // Added
+const sessionRoutes = require('./routes/session');
+
+// ... (other route registrations) ...
+app.use('/api/log', logRoutes);
+app.use('/api/settings', settingsRoutes);
+app.use('/api/sessions', sessionRoutes);
 
 // --- Background Automation Jobs ---
 const Task = require('./models/Task');
 const Setting = require('./models/Setting');
+const Session = require('./models/Session');
 
 const runAutomations = async () => {
   try {
@@ -53,14 +58,24 @@ const runAutomations = async () => {
 
     // 1. Auto-archive completed tasks
     const archiveThreshold = new Date();
-    archiveThreshold.setDate(archiveThreshold.getDate() - settings.autoArchiveTasksDays);
+    archiveThreshold.setDate(archiveThreshold.getDate() - (settings.autoArchiveTasksDays || 30));
 
-    const result = await Task.updateMany(
+    const taskResult = await Task.updateMany(
       { completed: true, updatedAt: { $lt: archiveThreshold }, archived: { $ne: true } },
       { $set: { archived: true } }
     );
-    if (result.modifiedCount > 0) {
-      console.log(`[Automation] Archived ${result.modifiedCount} old tasks.`);
+    if (taskResult.modifiedCount > 0) {
+      console.log(`[Automation] Archived ${taskResult.modifiedCount} old tasks.`);
+    }
+
+    // 2. Auto-close stale active sessions (no heartbeat for > 2 mins)
+    const sessionThreshold = new Date(Date.now() - 2 * 60 * 1000); // 2 minutes
+    const sessionResult = await Session.updateMany(
+      { status: 'active', lastActiveAt: { $lt: sessionThreshold } },
+      { $set: { status: 'closed', endTime: new Date() } }
+    );
+    if (sessionResult.modifiedCount > 0) {
+      console.log(`[Automation] Closed ${sessionResult.modifiedCount} stale sessions.`);
     }
   } catch (err) {
     console.error('[Automation] Error:', err);
