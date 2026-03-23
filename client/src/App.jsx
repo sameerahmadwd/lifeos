@@ -7,23 +7,36 @@ import Habits from './pages/Habits';
 import Notes from './pages/Notes';
 import Tasks from './pages/Tasks';
 import Profile from './pages/Profile';
+import Settings from './pages/Settings';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
+import axios from 'axios';
 
 const ProtectedRoute = ({ children }) => {
   const userInfo = localStorage.getItem('userInfo');
   return userInfo ? children : <Navigate to="/login" replace />;
 };
 
-// Redundant monolithic assignments purged gracefully
-
-// New AuthGate wrapper component to prevent authenticated users from accessing login/register pages
 const AuthGate = ({ children }) => {
   const userInfo = localStorage.getItem('userInfo');
   return userInfo ? <Navigate to="/" replace /> : children;
 };
 
 function App() {
+  React.useEffect(() => {
+    const fetchTheme = async () => {
+      try {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/settings`);
+        if (res.data?.theme) {
+          document.documentElement.setAttribute('data-theme', res.data.theme);
+        }
+      } catch (err) {
+        console.error('Failed to fetch global theme:', err);
+      }
+    };
+    fetchTheme();
+  }, []);
+
   return (
     <Router>
       <Routes>
@@ -73,6 +86,11 @@ function App() {
         <Route path="/profile" element={
           <ProtectedRoute>
             <Profile />
+          </ProtectedRoute>
+        } />
+        <Route path="/settings" element={
+          <ProtectedRoute>
+            <Settings />
           </ProtectedRoute>
         } />
 

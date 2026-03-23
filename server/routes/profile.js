@@ -76,4 +76,24 @@ router.put('/password', protect, async (req, res) => {
   }
 });
 
+// PUT /api/profile/settings — update user settings
+router.put('/settings', protect, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    if (req.body.theme !== undefined) user.settings.theme = req.body.theme;
+    if (req.body.notifications !== undefined) user.settings.notifications = req.body.notifications;
+    if (req.body.dashboardWidgets !== undefined) {
+      user.settings.dashboardWidgets = { ...user.settings.dashboardWidgets, ...req.body.dashboardWidgets };
+    }
+
+    await user.save();
+    res.json(user.settings);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server Error' });
+  }
+});
+
 module.exports = router;

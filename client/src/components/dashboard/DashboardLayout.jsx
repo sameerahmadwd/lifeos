@@ -14,6 +14,10 @@ const DashboardLayout = () => {
   const [habits, setHabits] = useState([]);
   const [focusTime, setFocusTime] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [globalSettings, setGlobalSettings] = useState({
+    dashboardWidgets: { showTasks: true, showHabits: true, showNotes: true, showFocus: true },
+    theme: 'light'
+  });
   
   const token = JSON.parse(localStorage.getItem('userInfo'))?.token;
   const isInitialMount = useRef(true);
@@ -24,26 +28,32 @@ const DashboardLayout = () => {
   };
 
   useEffect(() => {
-    const fetchDailyLog = async () => {
+    const fetchEverything = async () => {
       try {
         const targetDate = getTodayDate();
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/dashboard/${targetDate}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        const [logRes, settingsRes] = await Promise.all([
+          axios.get(`${import.meta.env.VITE_API_URL}/dashboard/${targetDate}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          }),
+          axios.get(`${import.meta.env.VITE_API_URL}/settings`)
+        ]);
         
-        if (res.data) {
-          setTasks(res.data.tasks || []);
-          setHabits(res.data.habits || []);
-          setFocusTime(res.data.focusTime || 0);
+        if (logRes.data) {
+          setTasks(logRes.data.tasks || []);
+          setHabits(logRes.data.habits || []);
+          setFocusTime(logRes.data.focusTime || 0);
+        }
+        if (settingsRes.data) {
+          setGlobalSettings(settingsRes.data);
         }
       } catch (error) {
-        console.error('Failed to sync daily log with database:', error);
+        console.error('Failed to sync data:', error);
       } finally {
         setIsLoading(false);
       }
     };
     
-    if (token) fetchDailyLog();
+    if (token) fetchEverything();
     else setIsLoading(false);
   }, [token]);
 
@@ -101,18 +111,28 @@ const DashboardLayout = () => {
           />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <div className="lg:col-span-4 space-y-6">
-              <TaskWidget tasks={tasks} setTasks={setTasks} />
-            </div>
+            {globalSettings.dashboardWidgets.showTasks && (
+              <div className="lg:col-span-4 space-y-6">
+                <TaskWidget tasks={tasks} setTasks={setTasks} />
+              </div>
+            )}
 
-            <div className="lg:col-span-4 space-y-6">
-              <HabitWidget habits={habits} setHabits={setHabits} />
-              <FocusTimerWidget focusTime={focusTime} setFocusTime={setFocusTime} />
-            </div>
+            {(globalSettings.dashboardWidgets.showHabits || globalSettings.dashboardWidgets.showFocus) && (
+              <div className="lg:col-span-4 space-y-6">
+                {globalSettings.dashboardWidgets.showHabits && (
+                  <HabitWidget habits={habits} setHabits={setHabits} />
+                )}
+                {globalSettings.dashboardWidgets.showFocus && (
+                  <FocusTimerWidget focusTime={focusTime} setFocusTime={setFocusTime} />
+                )}
+              </div>
+            )}
 
-            <div className="lg:col-span-4 space-y-6">
-              <NotesWidget />
-            </div>
+            {globalSettings.dashboardWidgets.showNotes && (
+              <div className="lg:col-span-4 space-y-6">
+                <NotesWidget />
+              </div>
+            )}
           </div>
 
         </div>

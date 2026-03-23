@@ -24,19 +24,23 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/lifeos')
 
 // Granular Routes
 const dashboardRoutes = require('./routes/dashboard');
-const habitsRoutes = require('./routes/habits');
-const notesRoutes = require('./routes/notes');
-const tasksRoutes = require('./routes/tasks');
+const habitRoutes = require('./routes/habits'); // Renamed from habitsRoutes
+const noteRoutes = require('./routes/notes'); // Renamed from notesRoutes
+const taskRoutes = require('./routes/tasks'); // Renamed from tasksRoutes
 const profileRoutes = require('./routes/profile');
 const forgotPasswordRoutes = require('./routes/forgotPassword');
+const logRoutes = require('./routes/log'); // Added
+const settingsRoutes = require('./routes/settings'); // Added
 
 app.use('/api/auth', authRoutes);
-app.use('/api/auth', forgotPasswordRoutes);
+app.use('/api/forgot-password', forgotPasswordRoutes); // Path changed
 app.use('/api/dashboard', dashboardRoutes);
-app.use('/api/habits', habitsRoutes);
-app.use('/api/notes', notesRoutes);
-app.use('/api/tasks', tasksRoutes);
+app.use('/api/habits', habitRoutes); // Renamed
+app.use('/api/notes', noteRoutes); // Renamed
+app.use('/api/tasks', taskRoutes); // Renamed
 app.use('/api/profile', profileRoutes);
+app.use('/api/log', logRoutes); // Added
+app.use('/api/settings', settingsRoutes); // Added
 
 // Ensure the server listens on the specified port
 app.listen(PORT, () => {
