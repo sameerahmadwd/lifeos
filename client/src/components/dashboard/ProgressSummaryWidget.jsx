@@ -1,7 +1,7 @@
 import React from 'react';
-import { Flame, CheckCircle2, Clock } from 'lucide-react';
+import { Flame, CheckCircle2 } from 'lucide-react';
 
-const ProgressSummaryWidget = ({ completedTasks, totalTasks, completedHabits, totalHabits, focusTime }) => {
+const ProgressSummaryWidget = ({ completedTasks, totalTasks, completedHabits, totalHabits }) => {
   const taskPercent = totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
   const habitPercent = totalHabits === 0 ? 0 : Math.round((completedHabits / totalHabits) * 100);
 

@@ -74,7 +74,7 @@ const DashboardLayout = () => {
     }, 400);
 
     return () => clearTimeout(syncTimeout);
-  }, [tasks, habits, focusTime, token, isLoading]);
+  }, [tasks, habits, token, isLoading]);
 
   const completedTasks = tasks.filter(t => t.completed).length;
   const totalTasks = tasks.length;
