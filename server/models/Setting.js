@@ -6,6 +6,7 @@ const settingSchema = new mongoose.Schema({
   
   // 1. General Settings
   appName: { type: String, default: 'LifeOS' },
+  siteTitle: { type: String, default: 'LifeOS' },
   defaultTimezone: { type: String, default: 'UTC' },
   maintenanceMode: { type: Boolean, default: false },
 

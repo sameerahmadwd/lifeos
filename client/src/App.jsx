@@ -48,6 +48,10 @@ function App() {
             link.href = res.data.favicon;
             document.getElementsByTagName('head')[0].appendChild(link);
           }
+          // Apply browser title
+          if (res.data.siteTitle) {
+            document.title = res.data.siteTitle;
+          }
         }
       } catch (err) {
         console.error('Failed to fetch global settings:', err);

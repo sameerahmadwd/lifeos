@@ -58,6 +58,7 @@ const Settings = () => {
   const [success, setSuccess] = useState(false);
   const [settings, setSettings] = useState({
     appName: 'LifeOS',
+    siteTitle: 'LifeOS',
     defaultTimezone: 'UTC',
     maintenanceMode: false,
     autoDeleteInactiveDays: 30,
@@ -103,6 +104,9 @@ const Settings = () => {
         link.rel = 'icon';
         link.href = updates.favicon;
         document.getElementsByTagName('head')[0].appendChild(link);
+      }
+      if (updates.siteTitle) {
+        document.title = updates.siteTitle;
       }
     } catch (err) {
       console.error(err);
@@ -155,7 +159,13 @@ const Settings = () => {
                     placeholder="e.g. LifeOS"
                   />
                   <InputField 
-                    label="Default Timezone (Fallback)" 
+                    label="Browser Tab Title" 
+                    value={settings.siteTitle} 
+                    onChange={(val) => updateSettings({ siteTitle: val })}
+                    placeholder="e.g. LifeOS - Your Hub"
+                  />
+                  <InputField 
+                    label="Default Timezone" 
                     value={settings.defaultTimezone} 
                     onChange={(val) => updateSettings({ defaultTimezone: val })}
                     placeholder="e.g. UTC"

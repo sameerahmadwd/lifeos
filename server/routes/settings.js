@@ -30,6 +30,7 @@ router.put('/', protect, async (req, res) => {
 
     // 1. General
     if (req.body.appName !== undefined) settings.appName = req.body.appName;
+    if (req.body.siteTitle !== undefined) settings.siteTitle = req.body.siteTitle;
     if (req.body.defaultTimezone !== undefined) settings.defaultTimezone = req.body.defaultTimezone;
     if (req.body.maintenanceMode !== undefined) settings.maintenanceMode = req.body.maintenanceMode;
 
