@@ -1,0 +1,97 @@
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
+import { PencilLine, Plus, Check } from 'lucide-react';
+
+const NotesWidget = () => {
+  const [content, setContent] = useState('');
+  const [noteId, setNoteId] = useState(null);
+  const [saving, setSaving] = useState(false);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+
+  const token = JSON.parse(localStorage.getItem('userInfo'))?.token;
+
+  // Fetch the latest dashboard entry to resume tracking seamlessly
+  useEffect(() => {
+    const fetchLatest = async () => {
+      try {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/notes`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (res.data && res.data.length > 0) {
+          const latest = res.data[0];
+          if (latest.title === 'Dashboard Entry') {
+            setContent(latest.content || '');
+            setNoteId(latest._id);
+          }
+        }
+      } catch (e) { console.error(e); }
+      finally { setIsInitialLoad(false); }
+    };
+    if (token) fetchLatest();
+  }, [token]);
+
+  // Real-time automatic debounce mirroring perfectly mapped to backend Note databases
+  useEffect(() => {
+    if (isInitialLoad || (!content.trim() && !noteId)) return;
+
+    const saveNote = setTimeout(async () => {
+      setSaving(true);
+      try {
+        if (!noteId) {
+          const res = await axios.post(`${import.meta.env.VITE_API_URL}/notes`,
+            { title: 'Dashboard Entry', content },
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
+          setNoteId(res.data._id);
+        } else {
+          await axios.put(`${import.meta.env.VITE_API_URL}/notes/${noteId}`,
+            { title: 'Dashboard Entry', content },
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
+        }
+      } catch (e) { console.error("Widget Auto-save failed", e); }
+      finally { setSaving(false); }
+    }, 400); // 400ms ultra-low latency push
+
+    return () => clearTimeout(saveNote);
+  }, [content, noteId, token, isInitialLoad]);
+
+  const handleNewNote = () => {
+    setContent('');
+    setNoteId(null);
+  };
+
+  return (
+    <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col h-[500px] hover:shadow-md transition-shadow relative">
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-3">
+          <div className="p-2 bg-yellow-50 text-yellow-600 rounded-lg">
+            <PencilLine className="w-5 h-5" />
+          </div>
+          <h2 className="text-xl font-bold text-slate-800">Quick Note</h2>
+        </div>
+
+        <button
+          onClick={handleNewNote}
+          className="px-4 py-2 text-white bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors flex items-center gap-2 text-sm font-bold"
+        >
+          <Plus className="w-4 h-4" /> New
+        </button>
+      </div>
+
+      <div className="flex-1 flex flex-col relative group">
+        <textarea
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="Start typing your quick note... It auto-saves instantly to your Journal module! Click 'New Note' above to generate another fresh one seamlessly."
+          className="flex-1 w-full bg-slate-50 border border-slate-200 rounded-xl p-5 text-slate-700 resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400/20 focus:border-indigo-400 transition-all font-medium text-[1rem] leading-relaxed custom-scrollbar"
+        />
+        <div className={`absolute bottom-4 right-4 text-xs font-bold px-3 py-1.5 rounded transition-all bg-white shadow-sm border border-slate-100 ${saving ? 'text-indigo-400 opacity-100' : (noteId ? 'text-emerald-500 opacity-100' : 'opacity-0')}`}>
+          {saving ? 'Saving...' : 'Auto-saved'}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default NotesWidget;
