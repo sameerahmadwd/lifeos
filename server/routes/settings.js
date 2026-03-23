@@ -28,11 +28,30 @@ router.put('/', protect, async (req, res) => {
   try {
     const settings = await getGlobalSettings();
 
-    if (req.body.theme !== undefined) settings.theme = req.body.theme;
-    if (req.body.notifications !== undefined) settings.notifications = req.body.notifications;
-    if (req.body.dashboardWidgets !== undefined) {
-      settings.dashboardWidgets = { ...settings.dashboardWidgets, ...req.body.dashboardWidgets };
+    // 1. General
+    if (req.body.appName !== undefined) settings.appName = req.body.appName;
+    if (req.body.defaultTimezone !== undefined) settings.defaultTimezone = req.body.defaultTimezone;
+    if (req.body.maintenanceMode !== undefined) settings.maintenanceMode = req.body.maintenanceMode;
+
+    // 2. Automation
+    if (req.body.autoDeleteInactiveDays !== undefined) settings.autoDeleteInactiveDays = req.body.autoDeleteInactiveDays;
+    if (req.body.autoArchiveTasksDays !== undefined) settings.autoArchiveTasksDays = req.body.autoArchiveTasksDays;
+    if (req.body.backupFrequency !== undefined) settings.backupFrequency = req.body.backupFrequency;
+
+    // 9. Announcements
+    if (req.body.announcement !== undefined) {
+      settings.announcement = { ...settings.announcement, ...req.body.announcement };
+      // If the message changes, generate a new ID to reset dismissal for everyone
+      if (req.body.announcement.message) {
+        settings.announcement.id = Math.random().toString(36).substr(2, 9);
+      }
     }
+
+    // 10. UI/Brand Control
+    if (req.body.logo !== undefined) settings.logo = req.body.logo;
+    if (req.body.favicon !== undefined) settings.favicon = req.body.favicon;
+    if (req.body.primaryColor !== undefined) settings.primaryColor = req.body.primaryColor;
+    if (req.body.defaultTheme !== undefined) settings.defaultTheme = req.body.defaultTheme;
 
     await settings.save();
     res.json(settings);

@@ -42,6 +42,36 @@ app.use('/api/profile', profileRoutes);
 app.use('/api/log', logRoutes); // Added
 app.use('/api/settings', settingsRoutes); // Added
 
+// --- Background Automation Jobs ---
+const Task = require('./models/Task');
+const Setting = require('./models/Setting');
+
+const runAutomations = async () => {
+  try {
+    const settings = await Setting.findOne({ identifier: 'global' });
+    if (!settings) return;
+
+    // 1. Auto-archive completed tasks
+    const archiveThreshold = new Date();
+    archiveThreshold.setDate(archiveThreshold.getDate() - settings.autoArchiveTasksDays);
+
+    const result = await Task.updateMany(
+      { completed: true, updatedAt: { $lt: archiveThreshold }, archived: { $ne: true } },
+      { $set: { archived: true } }
+    );
+    if (result.modifiedCount > 0) {
+      console.log(`[Automation] Archived ${result.modifiedCount} old tasks.`);
+    }
+  } catch (err) {
+    console.error('[Automation] Error:', err);
+  }
+};
+
+// Run every hour
+setInterval(runAutomations, 1000 * 60 * 60);
+// Also run on startup after a small delay
+setTimeout(runAutomations, 5000);
+
 // Ensure the server listens on the specified port
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
