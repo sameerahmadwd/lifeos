@@ -3,7 +3,7 @@ import { Clock, Zap, History, TrendingUp } from 'lucide-react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const TimeTrackerWidget = () => {
+const TimeTrackerWidget = ({ variant = 'default' }) => {
   const [totalSeconds, setTotalSeconds] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -25,7 +25,6 @@ const TimeTrackerWidget = () => {
 
   useEffect(() => {
     fetchTodayTime();
-    // Refresh every 30 seconds to show updates
     const interval = setInterval(fetchTodayTime, 30000);
     return () => clearInterval(interval);
   }, []);
@@ -37,9 +36,11 @@ const TimeTrackerWidget = () => {
     return `${h}h ${m}m`;
   };
 
+  const isCompact = variant === 'compact';
+
   if (isLoading) {
     return (
-      <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 animate-pulse">
+      <div className={`${isCompact ? 'bg-white rounded-2xl' : 'bg-white rounded-3xl'} p-6 shadow-sm border border-slate-100 animate-pulse`}>
         <div className="h-4 w-24 bg-slate-100 rounded mb-4"></div>
         <div className="h-8 w-32 bg-slate-100 rounded"></div>
       </div>
@@ -47,46 +48,46 @@ const TimeTrackerWidget = () => {
   }
 
   return (
-    <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 hover:shadow-md transition-shadow group relative overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute -right-4 -top-4 w-24 h-24 bg-indigo-50 rounded-full blur-3xl group-hover:bg-indigo-100 transition-colors"></div>
+    <div className={`bg-white ${isCompact ? 'rounded-2xl' : 'rounded-3xl'} p-6 shadow-sm border border-slate-100 hover:shadow-md transition-shadow group relative overflow-hidden h-full flex flex-col justify-center`}>
+      {/* Background Glow - Only for default */}
+      {!isCompact && (
+        <div className="absolute -right-4 -top-4 w-24 h-24 bg-indigo-50 rounded-full blur-3xl group-hover:bg-indigo-100 transition-colors"></div>
+      )}
       
-      <div className="relative z-10">
-        <div className="flex items-center justify-between mb-4">
+      <div className="relative z-10 w-full">
+        <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
-            <div className="p-2 bg-indigo-50 rounded-xl">
-              <Clock className="w-4 h-4 text-indigo-600" />
+            <div className={`p-2 ${isCompact ? 'bg-emerald-50 text-emerald-600' : 'bg-indigo-50 text-indigo-600'} rounded-xl`}>
+              <Clock className="w-4 h-4" />
             </div>
-            <span className="text-xs font-black text-slate-400 uppercase tracking-widest">Active Time Today</span>
+            <span className="text-[0.65rem] font-bold text-slate-400 uppercase tracking-widest">Active Time Today</span>
           </div>
           <Link 
             to="/sessions" 
             className="p-1.5 hover:bg-slate-50 rounded-lg text-slate-400 hover:text-indigo-600 transition-colors"
-            title="View History"
           >
             <History className="w-4 h-4" />
           </Link>
         </div>
 
-        <div className="flex items-end gap-3">
-          <h2 className="text-4xl font-black text-slate-800 tracking-tight leading-none">
+        <div className="flex items-baseline gap-2">
+          <h2 className="text-3xl font-black text-slate-800 tracking-tighter leading-none">
             {formatTime(totalSeconds)}
           </h2>
-          <div className="flex items-center gap-1 text-[0.7rem] font-bold text-emerald-500 bg-emerald-50 px-2 py-0.5 rounded-full mb-1">
+          <div className="flex items-center gap-1 text-[0.65rem] font-bold text-emerald-500 uppercase tracking-tighter">
             <TrendingUp className="w-3 h-3" />
             <span>Active</span>
           </div>
         </div>
 
-        <div className="mt-6 flex items-center gap-2">
+        <div className="mt-4 flex items-center gap-2">
           <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
-            {/* Simple progress bar - 8 hours as default daily goal */}
             <div 
-              className="h-full bg-indigo-500 rounded-full transition-all duration-1000"
+              className={`h-full ${isCompact ? 'bg-emerald-500' : 'bg-indigo-500'} rounded-full transition-all duration-1000`}
               style={{ width: `${Math.min((totalSeconds / (8 * 3600)) * 100, 100)}%` }}
             ></div>
           </div>
-          <span className="text-[0.65rem] font-black text-slate-400 uppercase">Goal: 8h</span>
+          <span className="text-[0.6rem] font-black text-slate-400 uppercase">8h</span>
         </div>
       </div>
     </div>
