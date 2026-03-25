@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/dashboard/Sidebar';
 import TopNav from '../components/dashboard/TopNav';
+import BottomNav from '../components/dashboard/BottomNav';
 import { 
   Settings as SettingsIcon, Sun, Moon, Monitor, Bell, 
   LayoutDashboard, CheckCircle2, Loader2, AlertCircle,
@@ -123,12 +124,13 @@ const Settings = () => {
     <div className="min-h-screen bg-[#f8fafc] font-sans flex overflow-hidden">
       <TopNav />
       <Sidebar />
-      <main className="flex-1 ml-[260px] pt-[72px] flex flex-col h-screen overflow-hidden">
-        <div className="flex-1 flex overflow-hidden bg-white shadow-sm border-t border-l border-slate-200 mt-2 ml-2 rounded-tl-3xl">
+      <BottomNav />
+      <main className="flex-1 ml-0 md:ml-[260px] pt-[72px] pb-[72px] md:pb-0 flex flex-col h-screen overflow-hidden">
+        <div className="flex-1 flex overflow-hidden bg-white shadow-sm md:border-t md:border-l border-slate-200 mt-0 md:mt-2 ml-0 md:ml-2 md:rounded-tl-3xl">
           <div className="w-full flex flex-col h-full overflow-y-auto custom-scrollbar">
 
             {/* Header */}
-            <div className="px-8 py-5 border-b border-slate-100 flex items-center justify-between flex-shrink-0 sticky top-0 bg-white/80 backdrop-blur-md z-10">
+            <div className="px-5 md:px-8 py-5 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4 flex-shrink-0 sticky top-0 bg-white/80 backdrop-blur-md z-10">
               <div>
                 <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-2">
                   <Globe className="w-6 h-6 text-indigo-500" />
@@ -143,7 +145,7 @@ const Settings = () => {
               )}
             </div>
 
-            <div className="max-w-4xl p-8 space-y-6">
+            <div className="max-w-4xl p-4 md:p-8 space-y-6 mx-auto w-full">
               
               {/* 1. General Settings */}
               <SettingsSection 
@@ -151,7 +153,7 @@ const Settings = () => {
                 title="General Configuration" 
                 description="Core application identifiers and operational modes."
               >
-                <div className="grid grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                   <InputField 
                     label="App Name" 
                     value={settings.appName} 
@@ -184,7 +186,7 @@ const Settings = () => {
                 title="Automation & Data" 
                 description="Manage automated cleanup and data retention policies."
               >
-                <div className="grid grid-cols-2 gap-6 mb-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mb-4">
                   <InputField 
                     label="Auto-delete inactive users (Days)" 
                     type="number"
@@ -236,7 +238,7 @@ const Settings = () => {
                 title="UI & Brand Control" 
                 description="Customize the visual identity of the entire website."
               >
-                <div className="grid grid-cols-2 gap-6 mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mb-6">
                   <InputField 
                     label="Primary Brand Color (Hex)" 
                     value={settings.primaryColor} 
@@ -258,7 +260,7 @@ const Settings = () => {
                 </div>
                 <div className="flex flex-col gap-2">
                   <label className="text-xs font-black text-slate-400 uppercase tracking-widest leading-none">Default Theme</label>
-                  <div className="grid grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
                     {[
                       { id: 'light', label: 'Light', icon: Sun },
                       { id: 'dark', label: 'Dark', icon: Moon },

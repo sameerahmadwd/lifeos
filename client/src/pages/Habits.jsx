@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/dashboard/Sidebar';
 import TopNav from '../components/dashboard/TopNav';
+import BottomNav from '../components/dashboard/BottomNav';
 import { Plus, Trash2, Edit2, Check, X, ArrowLeft, Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const Habits = () => {
@@ -105,20 +106,21 @@ const Habits = () => {
     <div className="min-h-screen bg-[#f8fafc] font-sans flex">
       <TopNav />
       <Sidebar />
-      <main className="flex-1 ml-[260px] pt-24 p-8 overflow-y-auto w-full">
-        <div className="max-w-[1400px] mx-auto space-y-8">
+      <BottomNav />
+      <main className="flex-1 ml-0 md:ml-[260px] pt-16 md:pt-24 p-4 md:p-8 pb-20 md:pb-8 overflow-y-auto w-full">
+        <div className="max-w-[1400px] mx-auto space-y-6 md:space-y-8">
 
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-black text-slate-800 tracking-tight">Habit Tracker</h1>
-              <p className="text-slate-500 font-medium mt-1">Configure daily habits and instantly map your sequential history cleanly effortlessly.</p>
+              <h1 className="text-2xl md:text-3xl font-black text-slate-800 tracking-tight">Habit Tracker</h1>
+              <p className="text-slate-500 font-medium mt-1 text-sm md:text-base">Configure daily habits and instantly map your sequential history cleanly effortlessly.</p>
             </div>
-            <button onClick={() => navigate('/')} className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 shadow-sm rounded-lg hover:bg-slate-50 text-slate-600 font-semibold transition-colors">
+            <button onClick={() => navigate('/')} className="w-full md:w-auto flex justify-center items-center gap-2 px-4 py-2 bg-white border border-slate-200 shadow-sm rounded-lg hover:bg-slate-50 text-slate-600 font-semibold transition-colors">
               <ArrowLeft className="w-4 h-4" /> Back to Dashboard
             </button>
           </div>
 
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-8">
 
             <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 h-fit">
               <h2 className="text-xl font-bold text-slate-800 mb-6">Define Habits</h2>

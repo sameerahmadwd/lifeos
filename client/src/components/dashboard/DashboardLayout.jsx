@@ -6,7 +6,7 @@ import ProgressSummaryWidget from './ProgressSummaryWidget';
 import TaskWidget from './TaskWidget';
 import HabitWidget from './HabitWidget';
 import NotesWidget from './NotesWidget';
-import TimeTrackerWidget from './TimeTrackerWidget';
+import BottomNav from './BottomNav';
 import { Loader2 } from 'lucide-react';
 
 const DashboardLayout = () => {
@@ -96,8 +96,9 @@ const DashboardLayout = () => {
     <div className="min-h-screen bg-[#f8fafc] font-sans flex">
       <TopNav />
       <Sidebar />
+      <BottomNav />
       
-      <main className="flex-1 ml-[260px] pt-24 p-8 overflow-y-auto w-full">
+      <main className="flex-1 ml-0 md:ml-[260px] pt-20 md:pt-24 pb-20 md:pb-8 p-4 md:p-8 overflow-y-auto w-full">
         <div className="w-full space-y-6 max-w-[1400px] mx-auto">
           <ProgressSummaryWidget 
             completedTasks={completedTasks} 

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/dashboard/Sidebar';
 import TopNav from '../components/dashboard/TopNav';
+import BottomNav from '../components/dashboard/BottomNav';
 import {
   User, Mail, Phone, Briefcase, Globe, Edit3, Save, X,
   Lock, Eye, EyeOff, CheckCircle2, Loader2, ListTodo,
@@ -129,12 +130,13 @@ const Profile = () => {
     <div className="min-h-screen bg-[#f8fafc] font-sans flex overflow-hidden">
       <TopNav />
       <Sidebar />
-      <main className="flex-1 ml-[260px] pt-[72px] flex flex-col h-screen overflow-hidden">
-        <div className="flex-1 flex overflow-hidden bg-white shadow-sm border-t border-l border-slate-200 mt-2 ml-2 rounded-tl-3xl">
+      <BottomNav />
+      <main className="flex-1 ml-0 md:ml-[260px] pt-[72px] pb-[72px] md:pb-0 flex flex-col h-screen overflow-hidden">
+        <div className="flex-1 flex overflow-hidden bg-white shadow-sm md:border-t md:border-l border-slate-200 mt-0 md:mt-2 ml-0 md:ml-2 md:rounded-tl-3xl">
           <div className="w-full flex flex-col h-full overflow-y-auto custom-scrollbar">
 
             {/* Header */}
-            <div className="px-8 py-5 border-b border-slate-100 flex items-center justify-between flex-shrink-0">
+            <div className="px-5 md:px-8 py-5 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4 flex-shrink-0">
               <div>
                 <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-2">
                   <User className="w-6 h-6 text-indigo-500" />
@@ -149,7 +151,7 @@ const Profile = () => {
               )}
             </div>
 
-            <div className="flex-1 p-8 grid grid-cols-1 xl:grid-cols-3 gap-8 content-start">
+            <div className="flex-1 p-4 md:p-8 grid grid-cols-1 xl:grid-cols-3 gap-6 md:gap-8 content-start">
 
               {/* Left Column: Avatar + Stats */}
               <div className="space-y-6">
@@ -234,27 +236,27 @@ const Profile = () => {
 
                 {/* Profile Info */}
                 <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
-                  <div className="flex items-center justify-between mb-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
                     <h3 className="text-base font-black text-slate-700">Personal Information</h3>
                     {!isEditing ? (
                       <button
                         onClick={() => setIsEditing(true)}
-                        className="flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 rounded-xl text-sm font-bold transition-all"
+                        className="flex justify-center items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 rounded-xl text-sm font-bold transition-all w-full sm:w-auto"
                       >
                         <Edit3 className="w-4 h-4" /> Edit Profile
                       </button>
                     ) : (
-                      <div className="flex gap-2">
+                      <div className="flex gap-2 w-full sm:w-auto">
                         <button
                           onClick={() => setIsEditing(false)}
-                          className="flex items-center gap-2 px-4 py-2 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-xl text-sm font-bold transition-all"
+                          className="flex-1 sm:flex-none justify-center items-center flex gap-2 px-4 py-2 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-xl text-sm font-bold transition-all"
                         >
                           <X className="w-4 h-4" /> Cancel
                         </button>
                         <button
                           onClick={handleSave}
                           disabled={isSaving}
-                          className="flex items-center gap-2 px-4 py-2 bg-indigo-500 text-white hover:bg-indigo-600 rounded-xl text-sm font-bold transition-all disabled:opacity-60 active:scale-95"
+                          className="flex-1 sm:flex-none justify-center items-center flex gap-2 px-4 py-2 bg-indigo-500 text-white hover:bg-indigo-600 rounded-xl text-sm font-bold transition-all disabled:opacity-60 active:scale-95"
                         >
                           {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                           Save Changes

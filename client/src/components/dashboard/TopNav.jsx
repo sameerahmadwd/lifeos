@@ -104,9 +104,9 @@ const TopNav = () => {
         </div>
       )}
 
-      <header className={`fixed top-0 left-0 right-0 h-16 bg-white/80 backdrop-blur-md border-b border-slate-200 z-[60] flex items-center px-8 transition-all duration-300 ${isScrolled ? 'shadow-sm' : ''} ${showBanner ? 'mt-10' : ''}`}>
+      <header className={`fixed top-0 left-0 right-0 h-16 bg-white/80 backdrop-blur-md border-b border-slate-200 z-[60] flex items-center px-4 md:px-8 transition-all duration-300 ${isScrolled ? 'shadow-sm' : ''} ${showBanner ? 'mt-10' : ''}`}>
         {/* Left: Brand */}
-        <div className="flex items-center gap-3 w-[260px] -ml-8 px-8">
+        <div className="flex items-center gap-3 w-auto md:w-[260px] md:-ml-8 md:px-8">
           <div className="w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200">
             {settings?.logo ? (
               <img src={settings.logo} alt="Logo" className="w-6 h-6 object-contain" />
@@ -120,7 +120,7 @@ const TopNav = () => {
         </div>
 
         {/* Center: Greeting + Clock + Last Login */}
-        <div className="flex-1 flex items-center justify-center gap-6">
+        <div className="hidden md:flex flex-1 items-center justify-center gap-6">
           
           {/* Current Info (Greeting & Clock) */}
           <div className="flex flex-col items-end">
@@ -161,8 +161,8 @@ const TopNav = () => {
         </div>
 
         {/* Right: Actions */}
-        <div className="flex items-center gap-4 w-[260px] justify-end">
-          <div className="flex flex-col items-end mr-2">
+        <div className="flex items-center gap-4 w-auto md:w-[260px] justify-end ml-auto">
+          <div className="hidden md:flex flex-col items-end mr-2">
             <span className="text-xs font-black text-slate-800 leading-none">{userName}</span>
             <span className="text-[0.65rem] text-slate-400 font-bold uppercase tracking-wider">Verified Account</span>
           </div>

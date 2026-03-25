@@ -3,7 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/dashboard/Sidebar';
 import TopNav from '../components/dashboard/TopNav';
-import { Plus, Trash2, Loader2, Search, BookOpen, ChevronDown, ChevronRight, Calendar as CalendarIcon, X } from 'lucide-react';
+import BottomNav from '../components/dashboard/BottomNav';
+import { Plus, Trash2, Loader2, Search, BookOpen, ChevronDown, ChevronRight, ChevronLeft, Calendar as CalendarIcon, X } from 'lucide-react';
 
 const Notes = () => {
   const navigate = useNavigate();
@@ -177,11 +178,12 @@ const Notes = () => {
     <div className="min-h-screen bg-[#f8fafc] font-sans flex overflow-hidden">
       <TopNav />
       <Sidebar />
-      <main className="flex-1 ml-[260px] pt-[72px] flex flex-col h-screen overflow-hidden">
-        <div className="flex-1 flex overflow-hidden bg-white shadow-sm border-t border-l border-slate-200 mt-2 ml-2 rounded-tl-3xl relative">
+      <BottomNav />
+      <main className="flex-1 ml-0 md:ml-[260px] pt-[72px] pb-[72px] md:pb-0 flex flex-col h-screen overflow-hidden">
+        <div className="flex-1 flex flex-col md:flex-row overflow-hidden bg-white shadow-sm md:border-t md:border-l border-slate-200 mt-0 md:mt-2 ml-0 md:ml-2 md:rounded-tl-3xl relative">
 
           {/* Left Sidebar Pane */}
-          <div className="w-[300px] bg-[#f8fafc] border-r border-slate-200 flex flex-col h-full flex-shrink-0">
+          <div className={`${activeNote ? 'hidden md:flex' : 'flex'} w-full md:w-[300px] bg-[#f8fafc] md:border-r border-slate-200 flex-col h-full flex-shrink-0`}>
             
             {/* Header & Controls */}
             <div className="px-5 pt-5 pb-3 border-b border-slate-100">
@@ -382,17 +384,22 @@ const Notes = () => {
           </div>
 
           {/* Right Editor Pane */}
-          <div className="flex-1 bg-white h-full flex flex-col overflow-y-auto custom-scrollbar relative">
+          <div className={`${activeNote ? 'flex' : 'hidden md:flex'} flex-1 bg-white h-full flex-col overflow-y-auto custom-scrollbar relative w-full`}>
             {activeNote ? (
-              <div className="max-w-[860px] w-full mx-auto px-12 py-12 flex flex-col min-h-full">
+              <div className="max-w-[860px] w-full mx-auto px-6 md:px-12 py-6 md:py-12 flex flex-col min-h-full">
+                
+                <button onClick={() => setActiveNote(null)} className="md:hidden flex items-center gap-1 text-slate-400 font-bold mb-6 hover:text-indigo-500 transition-colors">
+                  <ChevronLeft className="w-5 h-5 flex-shrink-0" /> Back to Journals
+                </button>
+
                 <input
                   type="text"
                   value={activeNote.title}
                   onChange={(e) => setActiveNote({ ...activeNote, title: e.target.value })}
                   placeholder="Entry Title"
-                  className="text-[2.5rem] font-black text-slate-800 placeholder:text-slate-200 outline-none w-full bg-transparent mb-2 transition-colors tracking-tight"
+                  className="text-[2rem] md:text-[2.5rem] font-black text-slate-800 placeholder:text-slate-200 outline-none w-full bg-transparent mb-2 transition-colors tracking-tight leading-tight"
                 />
-                <p className="text-sm text-slate-400 font-semibold mb-8 pl-1">
+                <p className="text-xs md:text-sm text-slate-400 font-semibold mb-6 md:mb-8 pl-1">
                   {activeNote.updatedAt
                     ? new Date(activeNote.updatedAt).toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit' })
                     : 'Just now'

@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import Sidebar from '../components/dashboard/Sidebar';
 import TopNav from '../components/dashboard/TopNav';
+import BottomNav from '../components/dashboard/BottomNav';
 
 const SessionHistory = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -69,15 +70,16 @@ const SessionHistory = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] font-sans flex">
+    <div className="min-h-screen bg-[#f8fafc] font-sans flex text-slate-800">
       <TopNav />
       <Sidebar />
+      <BottomNav />
 
-      <main className="flex-1 ml-[260px] pt-24 p-8 overflow-y-auto w-full">
-        <div className="max-w-[1200px] mx-auto space-y-8">
+      <main className="flex-1 ml-0 md:ml-[260px] pt-16 md:pt-24 p-4 md:p-8 pb-20 md:pb-8 overflow-y-auto w-full">
+        <div className="max-w-[1200px] mx-auto space-y-6 md:space-y-8">
           
           {/* Header */}
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <h1 className="text-3xl font-black text-slate-800 tracking-tight mb-1 flex items-center gap-3">
                 <Activity className="w-8 h-8 text-indigo-500" />
@@ -95,7 +97,7 @@ const SessionHistory = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8">
             
             {/* Left: Calendar */}
             <div className="lg:col-span-4 space-y-6">

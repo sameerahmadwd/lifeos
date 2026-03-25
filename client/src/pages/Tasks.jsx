@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/dashboard/Sidebar';
 import TopNav from '../components/dashboard/TopNav';
+import BottomNav from '../components/dashboard/BottomNav';
 import { 
   Plus, Trash2, CheckCircle2, Circle, Loader2, ListTodo, Search, 
   Calendar as CalendarIcon, ChevronLeft, ChevronRight, X, Tag, 
@@ -201,14 +202,15 @@ const Tasks = () => {
     <div className="min-h-screen bg-[#f8fafc] font-sans flex overflow-hidden">
       <TopNav />
       <Sidebar />
-      <main className="flex-1 ml-[260px] pt-[72px] flex flex-col h-screen overflow-hidden">
-        <div className="flex-1 flex overflow-hidden bg-white shadow-sm border-t border-l border-slate-200 mt-2 ml-2 rounded-tl-3xl relative">
+      <BottomNav />
+      <main className="flex-1 ml-0 md:ml-[260px] pt-[72px] pb-[72px] md:pb-0 flex flex-col h-screen overflow-hidden">
+        <div className="flex-1 flex overflow-hidden bg-white shadow-sm md:border-t md:border-l border-slate-200 mt-0 md:mt-2 ml-0 md:ml-2 md:rounded-tl-3xl relative">
           
           <div className="w-full flex flex-col h-full overflow-hidden">
              
              {/* Header Section */}
-             <div className="px-8 py-6 border-b border-slate-100 bg-white">
-                <div className="flex items-center justify-between mb-6">
+             <div className="px-4 md:px-8 py-4 md:py-6 border-b border-slate-100 bg-white">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 md:mb-6">
                    <div>
                       <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-2">
                         <ListTodo className="w-6 h-6 text-indigo-500" />
@@ -232,8 +234,8 @@ const Tasks = () => {
                 </div>
 
                 {/* Creation Area - Elevated */}
-                <form onSubmit={handleAdd} className="flex gap-3 bg-white p-2 rounded-2xl border-2 border-slate-100 shadow-sm focus-within:border-indigo-200 transition-all">
-                   <div className="flex-1 flex items-center gap-3 pl-4">
+                <form onSubmit={handleAdd} className="flex flex-col sm:flex-row gap-3 bg-white p-2 md:p-2 rounded-2xl border-2 border-slate-100 shadow-sm focus-within:border-indigo-200 transition-all">
+                   <div className="flex-1 flex items-center gap-3 pl-3 md:pl-4">
                       <Plus className="w-5 h-5 text-slate-300" />
                       <input 
                         type="text"
@@ -266,8 +268,8 @@ const Tasks = () => {
              </div>
 
              {/* View Controls & Filters */}
-             <div className="px-8 py-4 bg-slate-50/50 border-b border-slate-100 flex items-center justify-between gap-4">
-               <div className="flex items-center gap-3 flex-1">
+             <div className="px-4 md:px-8 py-4 bg-slate-50/50 border-b border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1">
                   <div className="relative flex-1 max-w-sm">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                     <input 
@@ -361,10 +363,10 @@ const Tasks = () => {
              </div>
 
              {/* Main Board - Split Kanban */}
-             <div className="flex-1 flex gap-6 p-8 overflow-hidden bg-slate-50/30">
+             <div className="flex-1 flex gap-6 p-4 md:p-8 overflow-x-auto bg-slate-50/30 custom-scrollbar pb-24 md:pb-8">
                 
                 {/* PENDING COLUMN */}
-                <div className="flex-1 flex flex-col min-w-[400px]">
+                <div className="flex-1 flex flex-col min-w-[300px] md:min-w-[400px]">
                    <div className="flex items-center justify-between mb-6">
                       <h3 className="text-lg font-black text-slate-700 flex items-center gap-3">
                         <div className="w-2 h-2 rounded-full bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)]"></div>
@@ -422,7 +424,7 @@ const Tasks = () => {
                 </div>
 
                 {/* COMPLETED COLUMN */}
-                <div className="flex-1 flex flex-col min-w-[400px]">
+                <div className="flex-1 flex flex-col min-w-[300px] md:min-w-[400px]">
                    <div className="flex items-center justify-between mb-6">
                       <h3 className="text-lg font-black text-slate-700 flex items-center gap-3">
                         <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>

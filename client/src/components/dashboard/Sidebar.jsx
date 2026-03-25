@@ -16,7 +16,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="w-[260px] bg-white border-r border-slate-200 flex flex-col fixed top-16 bottom-0 left-0 z-20 font-sans shadow-sm">
+    <aside className="w-[260px] bg-white border-r border-slate-200 hidden md:flex flex-col fixed top-16 bottom-0 left-0 z-20 font-sans shadow-sm">
       <div className="flex-1 overflow-y-auto pt-8">
         <div className="px-8 mb-4 text-[0.7rem] font-bold text-slate-400 uppercase tracking-widest">
           Main Menu
