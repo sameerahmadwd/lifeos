@@ -1,6 +1,15 @@
 version: '3.8'
 
 services:
+  mongodb:
+    image: mongo:latest
+    container_name: lifeos_mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
   backend:
     build:
       context: ./server
@@ -9,11 +18,13 @@ services:
     restart: unless-stopped
     environment:
       - PORT=5000
-      - MONGO_URI=${MONGO_URI}
-      - JWT_SECRET=${JWT_SECRET}
+      - MONGO_URI=mongodb://mongodb:27017/lifeos
+      - JWT_SECRET=${JWT_SECRET:-supersecret_default_key}
       # Add other SMTP or backend env vars here if needed
     ports:
       - "5000:5000"
+    depends_on:
+      - mongodb
 
   frontend:
     build:
@@ -29,3 +40,6 @@ services:
       - "8080:80"
     depends_on:
       - backend
+
+volumes:
+  mongodb_data:
