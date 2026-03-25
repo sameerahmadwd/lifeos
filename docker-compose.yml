@@ -25,7 +25,7 @@ services:
     container_name: lifeos_frontend
     restart: unless-stopped
     ports:
-      # Map host port 80 to container port 80 (change the host port on the left if you run multiple apps)
-      - "80:80"
+      # Changed from host port 80 to 8080 to fix "address already in use" error
+      - "8080:80"
     depends_on:
       - backend
