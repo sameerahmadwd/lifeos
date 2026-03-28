@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutDashboard, CheckSquare, Flame, StickyNote, UserCircle, History } from 'lucide-react';
+import { LayoutDashboard, CheckSquare, Flame, StickyNote, UserCircle, History, Trophy } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const BottomNav = () => {
@@ -10,7 +10,7 @@ const BottomNav = () => {
     { name: 'Home', path: '/', icon: LayoutDashboard },
     { name: 'Tasks', path: '/tasks', icon: CheckSquare },
     { name: 'Habits', path: '/habits', icon: Flame },
-    { name: 'History', path: '/sessions', icon: History },
+    { name: 'Goals', path: '/goals', icon: Trophy },
     { name: 'Journal', path: '/notes', icon: StickyNote },
     { name: 'Profile', path: '/profile', icon: UserCircle },
   ];

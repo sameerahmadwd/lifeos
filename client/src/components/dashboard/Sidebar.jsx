@@ -1,4 +1,4 @@
-import { LayoutDashboard, Flame, Settings, UserCircle, StickyNote, CheckSquare, Activity } from 'lucide-react';
+import { LayoutDashboard, Flame, Settings, UserCircle, StickyNote, CheckSquare, Activity, Trophy } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const Sidebar = () => {
@@ -9,6 +9,7 @@ const Sidebar = () => {
     { name: 'Dashboard', path: '/', icon: LayoutDashboard },
     { name: 'Master Tasks', path: '/tasks', icon: CheckSquare },
     { name: 'Habits Tracker', path: '/habits', icon: Flame },
+    { name: 'Goals Tracker', path: '/goals', icon: Trophy },
     { name: 'Engagement', path: '/sessions', icon: Activity },
     { name: 'Journal', path: '/notes', icon: StickyNote }, 
     { name: 'Profile', path: '/profile', icon: UserCircle },

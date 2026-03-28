@@ -12,6 +12,7 @@ import { Loader2 } from 'lucide-react';
 const DashboardLayout = () => {
   const [tasks, setTasks] = useState([]);
   const [habits, setHabits] = useState([]);
+  const [goals, setGoals] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [globalSettings, setGlobalSettings] = useState({
     dashboardWidgets: { showTasks: true, showHabits: true, showNotes: true },
@@ -34,7 +35,10 @@ const DashboardLayout = () => {
           axios.get(`${import.meta.env.VITE_API_URL}/dashboard/${targetDate}`, {
             headers: { Authorization: `Bearer ${token}` }
           }),
-          axios.get(`${import.meta.env.VITE_API_URL}/settings`)
+          axios.get(`${import.meta.env.VITE_API_URL}/settings`),
+          axios.get(`${import.meta.env.VITE_API_URL}/goals`, {
+            headers: { Authorization: `Bearer ${token}` }
+          })
         ]);
         
         if (logRes.data) {
@@ -43,6 +47,9 @@ const DashboardLayout = () => {
         }
         if (settingsRes.data) {
           setGlobalSettings(settingsRes.data);
+        }
+        if (goalsRes.data) {
+          setGoals(goalsRes.data);
         }
       } catch (error) {
         console.error('Failed to sync data:', error);
@@ -105,6 +112,7 @@ const DashboardLayout = () => {
             totalTasks={totalTasks}
             completedHabits={completedHabits}
             totalHabits={totalHabits}
+            topGoal={goals[0]}
           />
 
 

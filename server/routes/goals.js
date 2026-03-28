@@ -1,0 +1,123 @@
+const express = require('express');
+const router = express.Router();
+const Goal = require('../models/Goal');
+const ProgressLog = require('../models/ProgressLog');
+const { protect } = require('../middleware/authMiddleware');
+
+// @route   POST /api/goals
+// @desc    Create a new goal with auto-milestones
+router.post('/', protect, async (req, res) => {
+  try {
+    const { title, targetValue, unit, startValue, deadline, category } = req.body;
+    
+    // Auto-generate default milestones: 5%, 10%, 25%, 50%, 75%, 100%
+    const defaultMilestones = [
+      { value: Math.round(targetValue * 0.05), label: 'Starting Strong (5%)' },
+      { value: Math.round(targetValue * 0.10), label: 'Building Momentum (10%)' },
+      { value: Math.round(targetValue * 0.25), label: 'Quarter Way (25%)' },
+      { value: Math.round(targetValue * 0.50), label: 'Halfway Point (50%)' },
+      { value: Math.round(targetValue * 0.75), label: 'The Home Stretch (75%)' },
+      { value: targetValue, label: 'Ultimate Victory (100%)' }
+    ];
+
+    const goal = new Goal({
+      user: req.user.id,
+      title,
+      targetValue,
+      unit: unit || 'units',
+      startValue: startValue || 0,
+      currentValue: startValue || 0,
+      deadline,
+      category: category || 'General',
+      milestones: defaultMilestones
+    });
+
+    // Mark milestones already reached by startValue
+    goal.milestones.forEach(m => {
+        if (goal.currentValue >= m.value) m.isCompleted = true;
+    });
+
+    await goal.save();
+    res.status(201).json(goal);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route   GET /api/goals
+// @desc    Get all goals for user
+router.get('/', protect, async (req, res) => {
+  try {
+    const goals = await Goal.find({ user: req.user.id }).sort({ createdAt: -1 });
+    res.json(goals);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route   GET /api/goals/:id
+// @desc    Get goal details and logs
+router.get('/:id', protect, async (req, res) => {
+  try {
+    const goal = await Goal.findOne({ _id: req.params.id, user: req.user.id });
+    if (!goal) return res.status(404).json({ msg: 'Goal not found' });
+
+    const logs = await ProgressLog.find({ goal: req.params.id }).sort({ createdAt: -1 });
+    res.json({ goal, logs });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route   POST /api/goals/:id/progress
+// @desc    Add progress entry and update goal status
+router.post('/:id/progress', protect, async (req, res) => {
+  try {
+    const { value, note } = req.body;
+    const goal = await Goal.findOne({ _id: req.params.id, user: req.user.id });
+    
+    if (!goal) return res.status(404).json({ msg: 'Goal not found' });
+
+    const log = new ProgressLog({
+      goal: goal._id,
+      user: req.user.id,
+      value: Number(value),
+      note
+    });
+
+    await log.save();
+
+    // Update goal progress
+    goal.currentValue += Number(value);
+
+    // Check milestones
+    goal.milestones.forEach(m => {
+      if (goal.currentValue >= m.value) {
+        m.isCompleted = true;
+      }
+    });
+
+    await goal.save();
+    res.json({ log, goal });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route   DELETE /api/goals/:id
+router.delete('/:id', protect, async (req, res) => {
+    try {
+        await Goal.findOneAndDelete({ _id: req.params.id, user: req.user.id });
+        await ProgressLog.deleteMany({ goal: req.params.id });
+        res.json({ msg: 'Goal and logs deleted' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+module.exports = router;

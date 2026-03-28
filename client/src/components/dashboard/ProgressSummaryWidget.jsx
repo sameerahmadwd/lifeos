@@ -1,12 +1,13 @@
 import { Flame, CheckCircle2 } from 'lucide-react';
 import TimeTrackerWidget from './TimeTrackerWidget';
+import GoalWidget from './GoalWidget';
 
-const ProgressSummaryWidget = ({ completedTasks, totalTasks, completedHabits, totalHabits }) => {
+const ProgressSummaryWidget = ({ completedTasks, totalTasks, completedHabits, totalHabits, topGoal }) => {
   const taskPercent = totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
   const habitPercent = totalHabits === 0 ? 0 : Math.round((completedHabits / totalHabits) * 100);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       
       {/* Habit Overview */}
       <div className="bg-card rounded-2xl p-6 shadow-sm border border-border flex items-center gap-4 hover:shadow-md transition-all duration-300">
@@ -44,6 +45,9 @@ const ProgressSummaryWidget = ({ completedTasks, totalTasks, completedHabits, to
 
       {/* Active Time Overview */}
       <TimeTrackerWidget variant="compact" />
+
+      {/* Goal Overview */}
+      <GoalWidget goal={topGoal} />
 
     </div>
   );

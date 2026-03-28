@@ -10,6 +10,8 @@ import Settings from './pages/Settings';
 import SessionHistory from './pages/SessionHistory';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
+import Goals from './pages/Goals';
+import GoalDetail from './pages/GoalDetail';
 import axios from 'axios';
 import { ShieldAlert, Zap } from 'lucide-react';
 import useActiveSession from './hooks/useActiveSession';
@@ -126,6 +128,16 @@ function App() {
         <Route path="/sessions" element={
           <ProtectedRoute>
             <SessionHistory />
+          </ProtectedRoute>
+        } />
+        <Route path="/goals" element={
+          <ProtectedRoute>
+            <Goals />
+          </ProtectedRoute>
+        } />
+        <Route path="/goals/:id" element={
+          <ProtectedRoute>
+            <GoalDetail />
           </ProtectedRoute>
         } />
 

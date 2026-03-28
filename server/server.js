@@ -31,6 +31,7 @@ const profileRoutes = require('./routes/profile');
 const forgotPasswordRoutes = require('./routes/forgotPassword');
 const logRoutes = require('./routes/log'); // Added
 const settingsRoutes = require('./routes/settings'); // Added
+const goalRoutes = require('./routes/goals');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/forgot-password', forgotPasswordRoutes); // Path changed
@@ -45,6 +46,7 @@ const sessionRoutes = require('./routes/session');
 app.use('/api/log', logRoutes);
 app.use('/api/settings', settingsRoutes);
 app.use('/api/sessions', sessionRoutes);
+app.use('/api/goals', goalRoutes);
 
 // --- Background Automation Jobs ---
 const Task = require('./models/Task');
