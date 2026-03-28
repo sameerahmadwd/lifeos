@@ -7,7 +7,7 @@ import BottomNav from '../components/dashboard/BottomNav';
 import { 
   Plus, Trash2, CheckCircle2, Circle, Loader2, ListTodo, Search, 
   Calendar as CalendarIcon, ChevronLeft, ChevronRight, X, Tag, 
-  Filter, MoreVertical, LayoutGrid, LayoutList
+  Filter, MoreVertical, LayoutGrid, LayoutList, Trophy
 } from 'lucide-react';
 
 const CATEGORIES = ['General', 'Work', 'Personal', 'Health', 'Finance', 'Urgent'];
