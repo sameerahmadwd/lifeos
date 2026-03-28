@@ -522,51 +522,6 @@ const GoalDetail = () => {
                 </div>
               </div>
 
-              {/* Level Definition Section */}
-              <div className="space-y-4 pt-4 border-t border-border/50">
-                 <div className="flex items-center justify-between">
-                    <label className="text-[0.7rem] font-black text-muted uppercase tracking-widest pl-1 text-primary">Level Gamification</label>
-                    <div className="flex bg-input rounded-xl p-1 gap-1">
-                       {[5, 10].map(count => (
-                         <button
-                           key={count}
-                           type="button"
-                           onClick={() => {
-                              const default5 = ['Novice', 'Apprentice', 'Journeyman', 'Expert', 'Master'];
-                              const default10 = Array.from({length: 10}, (_, i) => `Level ${i + 1}`);
-                              setEditData({
-                                ...editData, 
-                                numberOfLevels: count, 
-                                levelLabels: count === 10 ? default10 : default5
-                              });
-                           }}
-                           className={`px-3 py-1 rounded-lg text-[0.65rem] font-black transition-all ${editData.numberOfLevels === count ? 'bg-primary text-white shadow-sm' : 'text-muted hover:text-main'}`}
-                         >
-                           {count} Levels
-                         </button>
-                       ))}
-                    </div>
-                 </div>
-                 
-                 <div className="grid grid-cols-2 gap-3 max-h-[150px] overflow-y-auto pr-2 custom-scrollbar">
-                    {editData.levelLabels.map((lbl, i) => (
-                      <div key={i} className="relative">
-                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[0.5rem] font-black text-primary/40 uppercase">L{i+1}</span>
-                        <input 
-                          type="text"
-                          value={lbl}
-                          onChange={(e) => {
-                            const updated = [...editData.levelLabels];
-                            updated[i] = e.target.value;
-                            setEditData({ ...editData, levelLabels: updated });
-                          }}
-                          className="w-full bg-input/50 border border-border rounded-xl py-2 pl-8 pr-3 text-[0.75rem] font-bold outline-none focus:border-primary/30 transition-all placeholder:text-muted/20"
-                        />
-                      </div>
-                    ))}
-                 </div>
-               </div>
-
               <div className="flex gap-4 pt-4">
                 <button 
                   type="button"
