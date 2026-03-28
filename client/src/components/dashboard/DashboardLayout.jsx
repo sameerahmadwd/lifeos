@@ -31,7 +31,7 @@ const DashboardLayout = () => {
     const fetchEverything = async () => {
       try {
         const targetDate = getTodayDate();
-        const [logRes, settingsRes] = await Promise.all([
+        const [logRes, settingsRes, goalsRes] = await Promise.all([
           axios.get(`${import.meta.env.VITE_API_URL}/dashboard/${targetDate}`, {
             headers: { Authorization: `Bearer ${token}` }
           }),
@@ -48,7 +48,7 @@ const DashboardLayout = () => {
         if (settingsRes.data) {
           setGlobalSettings(settingsRes.data);
         }
-        if (goalsRes.data) {
+        if (goalsRes && goalsRes.data) {
           setGoals(goalsRes.data);
         }
       } catch (error) {
