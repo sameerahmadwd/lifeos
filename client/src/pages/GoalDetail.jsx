@@ -98,19 +98,22 @@ const GoalDetail = () => {
   };
 
   const progressPercentage = useMemo(() => {
-    if (!goal) return 0;
+    if (!goal || !goal.targetValue) return 0;
     return Math.min(Math.round((goal.currentValue / goal.targetValue) * 100), 100);
   }, [goal]);
 
   const currentLevel = useMemo(() => {
-    if (!goal || !goal.levelConfig) return { level: 1, label: 'Novice' };
-    const { numberOfLevels, levelLabels } = goal.levelConfig;
-    const segment = 100 / numberOfLevels;
+    if (!goal) return { level: 1, label: 'Novice' };
+    const numLevels = goal.levelConfig?.numberOfLevels || 5;
+    const labels = goal.levelConfig?.levelLabels || ['Novice', 'Apprentice', 'Journeyman', 'Expert', 'Master'];
+    const segment = 100 / numLevels;
+    
     // Calculate which segment the progress falls into
-    const levelIdx = Math.min(Math.floor(progressPercentage / segment), numberOfLevels - 1);
+    const levelIdx = Math.min(Math.floor(progressPercentage / segment), numLevels - 1);
+    
     return {
       level: levelIdx + 1,
-      label: levelLabels?.[levelIdx] || `Level ${levelIdx + 1}`
+      label: labels[levelIdx] || `Level ${levelIdx + 1}`
     };
   }, [goal, progressPercentage]);
 
