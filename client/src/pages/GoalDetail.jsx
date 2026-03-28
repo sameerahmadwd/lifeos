@@ -5,7 +5,8 @@ import {
   Trophy, ArrowLeft, Plus, Target, 
   Calendar, CheckCircle2, Circle, 
   TrendingUp, Rocket, Medal, Star,
-  LineChart as LineChartIcon, Clock, ChevronRight, Loader2
+  LineChart as LineChartIcon, Clock, ChevronRight, Loader2,
+  Trash2, Edit, Save, X as CloseIcon
 } from 'lucide-react';
 import { 
   LineChart, Line, XAxis, YAxis, CartesianGrid, 
@@ -22,7 +23,9 @@ const GoalDetail = () => {
   const [logs, setLogs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showLogModal, setShowLogModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [newLog, setNewLog] = useState({ value: '', note: '' });
+  const [editData, setEditData] = useState(null);
 
   const token = JSON.parse(localStorage.getItem('userInfo'))?.token;
 
@@ -37,11 +40,46 @@ const GoalDetail = () => {
       });
       setGoal(res.data.goal);
       setLogs(res.data.logs);
+      setEditData({
+        title: res.data.goal.title,
+        targetValue: res.data.goal.targetValue,
+        unit: res.data.goal.unit,
+        category: res.data.goal.category,
+        deadline: res.data.goal.deadline ? res.data.goal.deadline.split('T')[0] : '',
+        numberOfLevels: res.data.goal.levelConfig?.numberOfLevels || 5,
+        levelLabels: [...(res.data.goal.levelConfig?.levelLabels || [])]
+      });
     } catch (err) {
       console.error('Failed to fetch goal:', err);
       if (err.response?.status === 404) navigate('/goals');
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleEdit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put(`${import.meta.env.VITE_API_URL}/goals/${id}`, editData, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setShowEditModal(false);
+      fetchGoalData();
+    } catch (err) {
+      console.error('Editing goal failed:', err);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (window.confirm('Are you sure you want to delete this goal and all its progress history? This cannot be undone.')) {
+       try {
+         await axios.delete(`${import.meta.env.VITE_API_URL}/goals/${id}`, {
+           headers: { Authorization: `Bearer ${token}` }
+         });
+         navigate('/goals');
+       } catch (err) {
+         console.error('Deletion failed:', err);
+       }
     }
   };
 
@@ -121,8 +159,26 @@ const GoalDetail = () => {
              
              <div className="flex flex-col md:flex-row justify-between items-start gap-6 relative z-10">
                <div className="space-y-4 flex-1">
-                 <div className="inline-flex px-4 py-1.5 bg-primary/10 text-primary border border-primary/20 rounded-full text-[0.7rem] font-black uppercase tracking-widest">
-                    {goal.category}
+                 <div className="flex items-center justify-between gap-4 w-full">
+                    <div className="inline-flex px-4 py-1.5 bg-primary/10 text-primary border border-primary/20 rounded-full text-[0.7rem] font-black uppercase tracking-widest">
+                       {goal.category}
+                    </div>
+                    <div className="flex items-center gap-2">
+                       <button 
+                         onClick={() => setShowEditModal(true)}
+                         className="p-2.5 bg-card border border-border rounded-xl text-muted hover:text-primary hover:border-primary/30 transition-all shadow-sm group"
+                         title="Edit Goal"
+                       >
+                         <Edit className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                       </button>
+                       <button 
+                         onClick={handleDelete}
+                         className="p-2.5 bg-card border border-border rounded-xl text-muted hover:text-red-500 hover:border-red-500/30 transition-all shadow-sm group"
+                         title="Delete Goal"
+                       >
+                         <Trash2 className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                       </button>
+                    </div>
                  </div>
                  <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-tight">{goal.title}</h1>
                  <div className="flex flex-wrap items-center gap-6 text-muted">
@@ -380,6 +436,147 @@ const GoalDetail = () => {
                   className="flex-[2] bg-primary text-white py-4 rounded-xl font-black shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all text-sm uppercase tracking-widest"
                 >
                   Record Entry
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Goal Modal */}
+      {showEditModal && editData && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-site/80 backdrop-blur-md" onClick={() => setShowEditModal(false)} />
+          <div className="bg-card w-full max-w-2xl rounded-[2.5rem] p-8 md:p-10 shadow-2xl border border-border relative z-10 max-h-[90vh] overflow-y-auto custom-scrollbar">
+            <div className="flex items-center justify-between mb-8">
+               <div className="flex items-center gap-4">
+                 <div className="p-2.5 bg-primary/10 text-primary rounded-2xl">
+                    <Edit className="w-8 h-8" />
+                 </div>
+                 <h2 className="text-2xl font-black tracking-tight">Edit Goal</h2>
+               </div>
+               <button onClick={() => setShowEditModal(false)} className="p-2 hover:bg-input rounded-full transition-colors">
+                  <CloseIcon className="w-6 h-6 text-muted" />
+               </button>
+            </div>
+            
+            <form onSubmit={handleEdit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-[0.7rem] font-black text-muted uppercase tracking-widest pl-1">Goal Title</label>
+                  <input 
+                    type="text" 
+                    required
+                    value={editData.title}
+                    onChange={(e) => setEditData({...editData, title: e.target.value})}
+                    className="w-full bg-input border border-border rounded-2xl py-4 px-6 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none font-bold text-main transition-all"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <label className="text-[0.7rem] font-black text-muted uppercase tracking-widest pl-1">Category</label>
+                  <select 
+                    value={editData.category}
+                    onChange={(e) => setEditData({...editData, category: e.target.value})}
+                    className="w-full bg-input border border-border rounded-2xl py-4 px-6 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none font-bold text-main transition-all appearance-none"
+                  >
+                    {['Finance', 'Health', 'Learning', 'Personal', 'Fitness', 'Career', 'Other'].map(cat => (
+                      <option key={cat} value={cat}>{cat}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[0.7rem] font-black text-muted uppercase tracking-widest pl-1">Target Value</label>
+                  <input 
+                    type="number" 
+                    required
+                    value={editData.targetValue}
+                    onChange={(e) => setEditData({...editData, targetValue: e.target.value})}
+                    className="w-full bg-input border border-border rounded-2xl py-4 px-6 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none font-bold text-main transition-all"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[0.7rem] font-black text-muted uppercase tracking-widest pl-1">Unit (e.g. kg, INR, steps)</label>
+                  <input 
+                    type="text" 
+                    required
+                    value={editData.unit}
+                    onChange={(e) => setEditData({...editData, unit: e.target.value})}
+                    className="w-full bg-input border border-border rounded-2xl py-4 px-6 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none font-bold text-main transition-all"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[0.7rem] font-black text-muted uppercase tracking-widest pl-1">Deadline</label>
+                  <input 
+                    type="date" 
+                    value={editData.deadline}
+                    onChange={(e) => setEditData({...editData, deadline: e.target.value})}
+                    className="w-full bg-input border border-border rounded-2xl py-4 px-6 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none font-bold text-main transition-all"
+                  />
+                </div>
+              </div>
+
+              {/* Level Definition Section */}
+              <div className="space-y-4 pt-4 border-t border-border/50">
+                 <div className="flex items-center justify-between">
+                    <label className="text-[0.7rem] font-black text-muted uppercase tracking-widest pl-1 text-primary">Level Gamification</label>
+                    <div className="flex bg-input rounded-xl p-1 gap-1">
+                       {[5, 10].map(count => (
+                         <button
+                           key={count}
+                           type="button"
+                           onClick={() => {
+                              const default5 = ['Novice', 'Apprentice', 'Journeyman', 'Expert', 'Master'];
+                              const default10 = Array.from({length: 10}, (_, i) => `Level ${i + 1}`);
+                              setEditData({
+                                ...editData, 
+                                numberOfLevels: count, 
+                                levelLabels: count === 10 ? default10 : default5
+                              });
+                           }}
+                           className={`px-3 py-1 rounded-lg text-[0.65rem] font-black transition-all ${editData.numberOfLevels === count ? 'bg-primary text-white shadow-sm' : 'text-muted hover:text-main'}`}
+                         >
+                           {count} Levels
+                         </button>
+                       ))}
+                    </div>
+                 </div>
+                 
+                 <div className="grid grid-cols-2 gap-3 max-h-[150px] overflow-y-auto pr-2 custom-scrollbar">
+                    {editData.levelLabels.map((lbl, i) => (
+                      <div key={i} className="relative">
+                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[0.5rem] font-black text-primary/40 uppercase">L{i+1}</span>
+                        <input 
+                          type="text"
+                          value={lbl}
+                          onChange={(e) => {
+                            const updated = [...editData.levelLabels];
+                            updated[i] = e.target.value;
+                            setEditData({ ...editData, levelLabels: updated });
+                          }}
+                          className="w-full bg-input/50 border border-border rounded-xl py-2 pl-8 pr-3 text-[0.75rem] font-bold outline-none focus:border-primary/30 transition-all placeholder:text-muted/20"
+                        />
+                      </div>
+                    ))}
+                 </div>
+               </div>
+
+              <div className="flex gap-4 pt-4">
+                <button 
+                  type="button"
+                  onClick={() => setShowEditModal(false)}
+                  className="flex-1 bg-input text-muted py-5 rounded-2xl font-black hover:bg-border transition-all text-sm uppercase tracking-widest"
+                >
+                  Discard
+                </button>
+                <button 
+                  type="submit"
+                  className="flex-[2] bg-primary text-white py-5 rounded-2xl font-black shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all text-sm uppercase tracking-widest flex items-center justify-center gap-2"
+                >
+                  <Save className="w-5 h-5" /> Save Changes
                 </button>
               </div>
             </form>

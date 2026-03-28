@@ -114,6 +114,52 @@ router.post('/:id/progress', protect, async (req, res) => {
   }
 });
 
+// @route   PUT /api/goals/:id
+// @desc    Update goal details
+router.put('/:id', protect, async (req, res) => {
+  try {
+    const { title, targetValue, unit, deadline, category, numberOfLevels, levelLabels } = req.body;
+    const goal = await Goal.findOne({ _id: req.params.id, user: req.user.id });
+    
+    if (!goal) return res.status(404).json({ msg: 'Goal not found' });
+
+    if (title) goal.title = title;
+    if (unit) goal.unit = unit;
+    if (category) goal.category = category;
+    if (deadline !== undefined) goal.deadline = deadline;
+    
+    if (targetValue && targetValue !== goal.targetValue) {
+      goal.targetValue = targetValue;
+      // Recalculate milestones based on new target
+      goal.milestones = [
+        { value: Math.round(targetValue * 0.05), label: 'Starting Strong (5%)' },
+        { value: Math.round(targetValue * 0.10), label: 'Building Momentum (10%)' },
+        { value: Math.round(targetValue * 0.25), label: 'Quarter Way (25%)' },
+        { value: Math.round(targetValue * 0.50), label: 'Halfway Point (50%)' },
+        { value: Math.round(targetValue * 0.75), label: 'The Home Stretch (75%)' },
+        { value: targetValue, label: 'Ultimate Victory (100%)' }
+      ];
+    }
+
+    if (numberOfLevels || levelLabels) {
+      if (numberOfLevels) goal.levelConfig.numberOfLevels = numberOfLevels;
+      if (levelLabels) goal.levelConfig.levelLabels = levelLabels;
+    }
+
+    // Refresh milestone completion status
+    goal.milestones.forEach(m => {
+      if (goal.currentValue >= m.value) m.isCompleted = true;
+      else m.isCompleted = false;
+    });
+
+    await goal.save();
+    res.json(goal);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+});
+
 // @route   DELETE /api/goals/:id
 router.delete('/:id', protect, async (req, res) => {
     try {
