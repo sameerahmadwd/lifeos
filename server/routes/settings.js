@@ -53,8 +53,14 @@ router.put('/', protect, async (req, res) => {
     if (req.body.favicon !== undefined) settings.favicon = req.body.favicon;
     if (req.body.primaryColor !== undefined) settings.primaryColor = req.body.primaryColor;
     if (req.body.defaultTheme !== undefined) settings.defaultTheme = req.body.defaultTheme;
+    
+    // 11. Dashboard Control
+    if (req.body.dashboardWidgets !== undefined) {
+      settings.dashboardWidgets = { ...settings.dashboardWidgets, ...req.body.dashboardWidgets };
+    }
 
     await settings.save();
+
     res.json(settings);
   } catch (err) {
     console.error(err);

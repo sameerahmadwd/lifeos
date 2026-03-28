@@ -110,24 +110,25 @@ const DashboardLayout = () => {
 
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            {globalSettings.dashboardWidgets.showTasks && (
+            {globalSettings.dashboardWidgets?.showTasks && (
               <div className="lg:col-span-4 space-y-6">
                 <TaskWidget tasks={tasks} setTasks={setTasks} />
               </div>
             )}
 
-            {globalSettings.dashboardWidgets.showHabits && (
+            {globalSettings.dashboardWidgets?.showHabits && (
               <div className="lg:col-span-4 space-y-6">
                 <HabitWidget habits={habits} setHabits={setHabits} />
               </div>
             )}
 
-            {globalSettings.dashboardWidgets.showNotes && (
+            {globalSettings.dashboardWidgets?.showNotes && (
               <div className="lg:col-span-4 space-y-6">
                 <NotesWidget />
               </div>
             )}
           </div>
+
 
         </div>
       </main>

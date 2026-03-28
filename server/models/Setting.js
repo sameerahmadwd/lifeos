@@ -26,7 +26,14 @@ const settingSchema = new mongoose.Schema({
   logo: { type: String, default: '' },
   favicon: { type: String, default: '' },
   primaryColor: { type: String, default: '#6366f1' },
-  defaultTheme: { type: String, enum: ['light', 'dark', 'system'], default: 'light' }
+  defaultTheme: { type: String, enum: ['light', 'dark', 'system'], default: 'light' },
+
+  // 11. Dashboard Control
+  dashboardWidgets: {
+    showTasks: { type: Boolean, default: true },
+    showHabits: { type: Boolean, default: true },
+    showNotes: { type: Boolean, default: true }
+  }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Setting', settingSchema);
