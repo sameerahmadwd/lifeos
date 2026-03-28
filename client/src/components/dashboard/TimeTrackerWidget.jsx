@@ -40,38 +40,38 @@ const TimeTrackerWidget = ({ variant = 'default' }) => {
 
   if (isLoading) {
     return (
-      <div className={`${isCompact ? 'bg-white rounded-2xl' : 'bg-white rounded-3xl'} p-6 shadow-sm border border-slate-100 animate-pulse`}>
-        <div className="h-4 w-24 bg-slate-100 rounded mb-4"></div>
-        <div className="h-8 w-32 bg-slate-100 rounded"></div>
+      <div className={`${isCompact ? 'bg-card rounded-2xl' : 'bg-card rounded-3xl'} p-6 shadow-sm border border-border animate-pulse`}>
+        <div className="h-4 w-24 bg-bg-input rounded mb-4"></div>
+        <div className="h-8 w-32 bg-bg-input rounded"></div>
       </div>
     );
   }
 
   return (
-    <div className={`bg-white ${isCompact ? 'rounded-2xl' : 'rounded-3xl'} p-6 shadow-sm border border-slate-100 hover:shadow-md transition-shadow group relative overflow-hidden h-full flex flex-col justify-center`}>
+    <div className={`bg-card ${isCompact ? 'rounded-2xl' : 'rounded-3xl'} p-6 shadow-sm border border-border hover:shadow-md transition-all duration-300 group relative overflow-hidden h-full flex flex-col justify-center`}>
       {/* Background Glow - Only for default */}
       {!isCompact && (
-        <div className="absolute -right-4 -top-4 w-24 h-24 bg-indigo-50 rounded-full blur-3xl group-hover:bg-indigo-100 transition-colors"></div>
+        <div className="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors"></div>
       )}
       
       <div className="relative z-10 w-full">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
-            <div className={`p-2 ${isCompact ? 'bg-emerald-50 text-emerald-600' : 'bg-indigo-50 text-indigo-600'} rounded-xl`}>
+            <div className={`p-2 ${isCompact ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600' : 'bg-primary/10 text-primary'} rounded-xl`}>
               <Clock className="w-4 h-4" />
             </div>
-            <span className="text-[0.65rem] font-bold text-slate-400 uppercase tracking-widest">Active Time Today</span>
+            <span className="text-[0.65rem] font-bold text-muted uppercase tracking-widest">Active Time Today</span>
           </div>
           <Link 
             to="/sessions" 
-            className="p-1.5 hover:bg-slate-50 rounded-lg text-slate-400 hover:text-indigo-600 transition-colors"
+            className="p-1.5 hover:bg-bg-input rounded-lg text-muted hover:text-primary transition-colors"
           >
             <History className="w-4 h-4" />
           </Link>
         </div>
 
         <div className="flex items-baseline gap-2">
-          <h2 className="text-3xl font-black text-slate-800 tracking-tighter leading-none">
+          <h2 className="text-3xl font-black text-main tracking-tighter leading-none">
             {formatTime(totalSeconds)}
           </h2>
           <div className="flex items-center gap-1 text-[0.65rem] font-bold text-emerald-500 uppercase tracking-tighter">
@@ -81,13 +81,13 @@ const TimeTrackerWidget = ({ variant = 'default' }) => {
         </div>
 
         <div className="mt-4 flex items-center gap-2">
-          <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+          <div className="flex-1 h-1.5 bg-bg-input rounded-full overflow-hidden">
             <div 
               className={`h-full ${isCompact ? 'bg-emerald-500' : 'bg-indigo-500'} rounded-full transition-all duration-1000`}
               style={{ width: `${Math.min((totalSeconds / (8 * 3600)) * 100, 100)}%` }}
             ></div>
           </div>
-          <span className="text-[0.6rem] font-black text-slate-400 uppercase">8h</span>
+          <span className="text-[0.6rem] font-black text-muted uppercase">8h</span>
         </div>
       </div>
     </div>

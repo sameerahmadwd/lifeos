@@ -23,13 +23,13 @@ const TIMEZONES = [
 ];
 
 const StatCard = ({ icon: Icon, label, value, color }) => (
-  <div className="bg-slate-50 rounded-xl p-4 border border-slate-100 flex items-center gap-4">
+  <div className="bg-bg-input rounded-xl p-4 border border-border flex items-center gap-4">
     <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${color}`}>
       <Icon className="w-5 h-5" />
     </div>
     <div>
-      <p className="text-[0.65rem] font-black text-slate-400 uppercase tracking-widest">{label}</p>
-      <p className="text-xl font-black text-slate-800 leading-tight">{value}</p>
+      <p className="text-[0.65rem] font-black text-muted uppercase tracking-widest">{label}</p>
+      <p className="text-xl font-black text-main leading-tight">{value}</p>
     </div>
   </div>
 );
@@ -121,31 +121,31 @@ const Profile = () => {
   const getInitials = (name) => name ? name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2) : '?';
 
   if (isLoading) return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-      <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+    <div className="min-h-screen bg-site flex items-center justify-center">
+      <Loader2 className="w-8 h-8 text-primary animate-spin" />
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] font-sans flex overflow-hidden">
+    <div className="min-h-screen bg-site font-sans flex overflow-hidden">
       <TopNav />
       <Sidebar />
       <BottomNav />
       <main className="flex-1 ml-0 md:ml-[260px] pt-[72px] pb-[72px] md:pb-0 flex flex-col h-screen overflow-hidden">
-        <div className="flex-1 flex overflow-hidden bg-white shadow-sm md:border-t md:border-l border-slate-200 mt-0 md:mt-2 ml-0 md:ml-2 md:rounded-tl-3xl">
+        <div className="flex-1 flex overflow-hidden bg-card shadow-sm md:border-t md:border-l border-border mt-0 md:mt-2 ml-0 md:ml-2 md:rounded-tl-3xl">
           <div className="w-full flex flex-col h-full overflow-y-auto custom-scrollbar">
 
             {/* Header */}
-            <div className="px-5 md:px-8 py-5 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4 flex-shrink-0">
+            <div className="px-5 md:px-8 py-5 border-b border-border flex flex-col sm:flex-row sm:items-center justify-between gap-4 flex-shrink-0">
               <div>
-                <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-2">
-                  <User className="w-6 h-6 text-indigo-500" />
+                <h1 className="text-2xl font-black text-main tracking-tight flex items-center gap-2">
+                  <User className="w-6 h-6 text-primary" />
                   My Profile
                 </h1>
-                <p className="text-slate-500 text-sm font-medium mt-0.5">Manage your personal info and account settings.</p>
+                <p className="text-muted text-sm font-medium mt-0.5">Manage your personal info and account settings.</p>
               </div>
               {saveSuccess && (
-                <div className="flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-600 border border-emerald-200 rounded-xl text-sm font-bold">
+                <div className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 rounded-xl text-sm font-bold">
                   <CheckCircle2 className="w-4 h-4" /> Profile saved!
                 </div>
               )}
@@ -157,27 +157,27 @@ const Profile = () => {
               <div className="space-y-6">
 
                 {/* Avatar Card */}
-                <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col items-center text-center">
+                <div className="bg-card border border-border rounded-2xl p-6 shadow-sm flex flex-col items-center text-center">
                   <div
                     className="w-24 h-24 rounded-full flex items-center justify-center text-white text-3xl font-black shadow-lg mb-4 transition-all"
                     style={{ backgroundColor: form.avatarColor || profile?.avatarColor || '#6366f1' }}
                   >
                     {getInitials(profile?.name)}
                   </div>
-                  <h2 className="text-xl font-black text-slate-800">{profile?.name}</h2>
-                  <p className="text-sm text-slate-500 font-medium mt-0.5">{profile?.jobTitle || 'No title set'}</p>
-                  <p className="text-xs text-slate-400 mt-1">{profile?.email}</p>
+                  <h2 className="text-xl font-black text-main">{profile?.name}</h2>
+                  <p className="text-sm text-muted font-medium mt-0.5">{profile?.jobTitle || 'No title set'}</p>
+                  <p className="text-xs text-muted/60 mt-1">{profile?.email}</p>
 
                   {/* Avatar Color Picker */}
                   {isEditing && (
                     <div className="mt-4">
-                      <p className="text-[0.65rem] font-black text-slate-400 uppercase tracking-wider mb-2">Avatar Color</p>
+                      <p className="text-[0.65rem] font-black text-muted uppercase tracking-wider mb-2">Avatar Color</p>
                       <div className="flex gap-2 flex-wrap justify-center">
                         {AVATAR_COLORS.map(color => (
                           <button
                             key={color}
                             onClick={() => setForm(f => ({ ...f, avatarColor: color }))}
-                            className={`w-6 h-6 rounded-full transition-all hover:scale-110 ${form.avatarColor === color ? 'ring-2 ring-offset-2 ring-slate-400 scale-110' : ''}`}
+                            className={`w-6 h-6 rounded-full transition-all hover:scale-110 ${form.avatarColor === color ? 'ring-2 ring-offset-2 ring-muted/50 scale-110' : ''}`}
                             style={{ backgroundColor: color }}
                           />
                         ))}
@@ -188,31 +188,31 @@ const Profile = () => {
 
                 {/* Stats */}
                 {stats && (
-                  <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
-                    <h3 className="text-sm font-black text-slate-700 mb-4 uppercase tracking-wider">Your Stats</h3>
+                  <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
+                    <h3 className="text-sm font-black text-main mb-4 uppercase tracking-wider">Your Stats</h3>
                     <div className="space-y-3">
-                      <StatCard icon={ListTodo} label="Total Tasks" value={stats.tasks} color="bg-indigo-50 text-indigo-500" />
-                      <StatCard icon={CheckCircle2} label="Completed" value={stats.completedTasks} color="bg-emerald-50 text-emerald-500" />
-                      <StatCard icon={BookOpen} label="Journal Entries" value={stats.notes} color="bg-purple-50 text-purple-500" />
-                      <StatCard icon={Flame} label="Active Habits" value={stats.habits} color="bg-orange-50 text-orange-500" />
+                      <StatCard icon={ListTodo} label="Total Tasks" value={stats.tasks} color="bg-primary/10 text-primary" />
+                      <StatCard icon={CheckCircle2} label="Completed" value={stats.completedTasks} color="bg-emerald-500/10 text-emerald-500" />
+                      <StatCard icon={BookOpen} label="Journal Entries" value={stats.notes} color="bg-purple-500/10 text-purple-500" />
+                      <StatCard icon={Flame} label="Active Habits" value={stats.habits} color="bg-orange-500/10 text-orange-500" />
                     </div>
                   </div>
                 )}
 
                 {/* Activity History */}
-                <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
-                  <h3 className="text-sm font-black text-slate-700 mb-4 uppercase tracking-wider flex items-center gap-2">
-                    <History className="w-4 h-4 text-indigo-500" />
+                <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
+                  <h3 className="text-sm font-black text-main mb-4 uppercase tracking-wider flex items-center gap-2">
+                    <History className="w-4 h-4 text-primary" />
                     Activity History
                   </h3>
                   <div className="space-y-4 max-h-[300px] overflow-y-auto custom-scrollbar pr-2">
                     {profile?.activityLog?.length > 0 ? (
                       profile.activityLog.slice(0, 10).map((act, i) => (
-                        <div key={i} className="flex items-start gap-3 border-l-2 border-slate-100 pl-4 py-1 relative">
-                          <div className={`absolute -left-[5px] top-2 w-2 h-2 rounded-full ${act.type === 'login' ? 'bg-emerald-400' : 'bg-slate-300'}`}></div>
+                        <div key={i} className="flex items-start gap-3 border-l-2 border-border pl-4 py-1 relative">
+                          <div className={`absolute -left-[5px] top-2 w-2 h-2 rounded-full ${act.type === 'login' ? 'bg-emerald-400' : 'bg-muted/30'}`}></div>
                           <div>
-                            <p className="text-xs font-bold text-slate-700 capitalize">{act.type} Activity</p>
-                            <p className="text-[0.65rem] text-slate-400 font-medium tracking-tight">
+                            <p className="text-xs font-bold text-main capitalize">{act.type} Activity</p>
+                            <p className="text-[0.65rem] text-muted font-medium tracking-tight">
                               {new Date(act.timestamp).toLocaleString('en-US', { 
                                 month: 'short', 
                                 day: 'numeric', 
@@ -225,7 +225,7 @@ const Profile = () => {
                         </div>
                       ))
                     ) : (
-                      <p className="text-xs text-slate-400 text-center py-4 font-medium italic">No recent activity found.</p>
+                      <p className="text-xs text-muted text-center py-4 font-medium italic">No recent activity found.</p>
                     )}
                   </div>
                 </div>
@@ -235,13 +235,13 @@ const Profile = () => {
               <div className="xl:col-span-2 space-y-6">
 
                 {/* Profile Info */}
-                <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
+                <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
-                    <h3 className="text-base font-black text-slate-700">Personal Information</h3>
+                    <h3 className="text-base font-black text-main">Personal Information</h3>
                     {!isEditing ? (
                       <button
                         onClick={() => setIsEditing(true)}
-                        className="flex justify-center items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 rounded-xl text-sm font-bold transition-all w-full sm:w-auto"
+                        className="flex justify-center items-center gap-2 px-4 py-2 bg-primary/10 text-primary hover:bg-primary/20 rounded-xl text-sm font-bold transition-all w-full sm:w-auto"
                       >
                         <Edit3 className="w-4 h-4" /> Edit Profile
                       </button>
@@ -249,14 +249,14 @@ const Profile = () => {
                       <div className="flex gap-2 w-full sm:w-auto">
                         <button
                           onClick={() => setIsEditing(false)}
-                          className="flex-1 sm:flex-none justify-center items-center flex gap-2 px-4 py-2 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-xl text-sm font-bold transition-all"
+                          className="flex-1 sm:flex-none justify-center items-center flex gap-2 px-4 py-2 bg-bg-input text-muted hover:bg-muted/10 rounded-xl text-sm font-bold transition-all"
                         >
                           <X className="w-4 h-4" /> Cancel
                         </button>
                         <button
                           onClick={handleSave}
                           disabled={isSaving}
-                          className="flex-1 sm:flex-none justify-center items-center flex gap-2 px-4 py-2 bg-indigo-500 text-white hover:bg-indigo-600 rounded-xl text-sm font-bold transition-all disabled:opacity-60 active:scale-95"
+                          className="flex-1 sm:flex-none justify-center items-center flex gap-2 px-4 py-2 bg-primary text-white hover:bg-primary-hover rounded-xl text-sm font-bold transition-all disabled:opacity-60 active:scale-95"
                         >
                           {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                           Save Changes
@@ -268,15 +268,15 @@ const Profile = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     {/* Name */}
                     <div>
-                      <label className="block text-[0.7rem] font-black text-slate-400 uppercase tracking-wider mb-1.5">Full Name</label>
+                      <label className="block text-[0.7rem] font-black text-muted uppercase tracking-wider mb-1.5">Full Name</label>
                       <div className="relative">
-                        <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                        <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
                         <input
                           type="text"
                           value={form.name}
                           onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
                           disabled={!isEditing}
-                          className="w-full pl-10 pr-4 py-2.5 border border-slate-200 rounded-xl text-sm font-semibold text-slate-700 bg-white outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-300 disabled:bg-slate-50 disabled:text-slate-400 transition-all"
+                          className="w-full pl-10 pr-4 py-2.5 border border-border rounded-xl text-sm font-semibold text-main bg-card outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 disabled:bg-bg-input disabled:text-muted/50 transition-all"
                         />
                       </div>
                     </div>
@@ -297,46 +297,46 @@ const Profile = () => {
 
                     {/* Phone */}
                     <div>
-                      <label className="block text-[0.7rem] font-black text-slate-400 uppercase tracking-wider mb-1.5">Phone</label>
+                      <label className="block text-[0.7rem] font-black text-muted uppercase tracking-wider mb-1.5">Phone</label>
                       <div className="relative">
-                        <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                        <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
                         <input
                           type="tel"
                           value={form.phone}
                           onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
                           disabled={!isEditing}
                           placeholder="e.g. +91 300 1234567"
-                          className="w-full pl-10 pr-4 py-2.5 border border-slate-200 rounded-xl text-sm font-semibold text-slate-700 bg-white outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-300 disabled:bg-slate-50 disabled:text-slate-400 transition-all"
+                          className="w-full pl-10 pr-4 py-2.5 border border-border rounded-xl text-sm font-semibold text-main bg-card outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 disabled:bg-bg-input disabled:text-muted/50 transition-all"
                         />
                       </div>
                     </div>
 
                     {/* Job Title */}
                     <div>
-                      <label className="block text-[0.7rem] font-black text-slate-400 uppercase tracking-wider mb-1.5">Job Title</label>
+                      <label className="block text-[0.7rem] font-black text-muted uppercase tracking-wider mb-1.5">Job Title</label>
                       <div className="relative">
-                        <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                        <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
                         <input
                           type="text"
                           value={form.jobTitle}
                           onChange={e => setForm(f => ({ ...f, jobTitle: e.target.value }))}
                           disabled={!isEditing}
                           placeholder="e.g. Software Engineer"
-                          className="w-full pl-10 pr-4 py-2.5 border border-slate-200 rounded-xl text-sm font-semibold text-slate-700 bg-white outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-300 disabled:bg-slate-50 disabled:text-slate-400 transition-all"
+                          className="w-full pl-10 pr-4 py-2.5 border border-border rounded-xl text-sm font-semibold text-main bg-card outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 disabled:bg-bg-input disabled:text-muted/50 transition-all"
                         />
                       </div>
                     </div>
 
                     {/* Timezone */}
                     <div>
-                      <label className="block text-[0.7rem] font-black text-slate-400 uppercase tracking-wider mb-1.5">Timezone</label>
+                      <label className="block text-[0.7rem] font-black text-muted uppercase tracking-wider mb-1.5">Timezone</label>
                       <div className="relative">
-                        <Globe className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                        <Globe className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
                         <select
                           value={form.timezone}
                           onChange={e => setForm(f => ({ ...f, timezone: e.target.value }))}
                           disabled={!isEditing}
-                          className="w-full pl-10 pr-4 py-2.5 border border-slate-200 rounded-xl text-sm font-semibold text-slate-700 bg-white outline-none appearance-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-300 disabled:bg-slate-50 disabled:text-slate-400 transition-all cursor-pointer"
+                          className="w-full pl-10 pr-4 py-2.5 border border-border rounded-xl text-sm font-semibold text-main bg-card outline-none appearance-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 disabled:bg-bg-input disabled:text-muted/50 transition-all cursor-pointer"
                         >
                           {TIMEZONES.map(tz => <option key={tz} value={tz}>{tz}</option>)}
                         </select>
@@ -345,23 +345,23 @@ const Profile = () => {
 
                     {/* Bio */}
                     <div className="md:col-span-2">
-                      <label className="block text-[0.7rem] font-black text-slate-400 uppercase tracking-wider mb-1.5">Bio</label>
+                      <label className="block text-[0.7rem] font-black text-muted uppercase tracking-wider mb-1.5">Bio</label>
                       <textarea
                         value={form.bio}
                         onChange={e => setForm(f => ({ ...f, bio: e.target.value }))}
                         disabled={!isEditing}
                         placeholder="A short bio about yourself..."
                         rows={3}
-                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm font-semibold text-slate-700 bg-white outline-none resize-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-300 disabled:bg-slate-50 disabled:text-slate-400 transition-all"
+                        className="w-full px-4 py-2.5 border border-border rounded-xl text-sm font-semibold text-main bg-card outline-none resize-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 disabled:bg-bg-input disabled:text-muted/50 transition-all"
                       />
                     </div>
                   </div>
                 </div>
 
                 {/* Change Password */}
-                <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
-                  <h3 className="text-base font-black text-slate-700 mb-6 flex items-center gap-2">
-                    <Lock className="w-4 h-4 text-slate-500" /> Change Password
+                <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
+                  <h3 className="text-base font-black text-main mb-6 flex items-center gap-2">
+                    <Lock className="w-4 h-4 text-muted" /> Change Password
                   </h3>
                   <form onSubmit={handlePasswordChange} className="space-y-4">
                     {[
@@ -370,15 +370,15 @@ const Profile = () => {
                       { key: 'confirmPassword', label: 'Confirm New Password' }
                     ].map(({ key, label }) => (
                       <div key={key}>
-                        <label className="block text-[0.7rem] font-black text-slate-400 uppercase tracking-wider mb-1.5">{label}</label>
+                        <label className="block text-[0.7rem] font-black text-muted uppercase tracking-wider mb-1.5">{label}</label>
                         <div className="relative">
-                          <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                          <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
                           <input
                             type={showPw[key.replace('Password', '').replace('confirm', 'confirm')] ? 'text' : 'password'}
                             value={pwForm[key]}
                             onChange={e => setPwForm(f => ({ ...f, [key]: e.target.value }))}
                             placeholder="••••••••"
-                            className="w-full pl-10 pr-10 py-2.5 border border-slate-200 rounded-xl text-sm font-semibold text-slate-700 bg-white outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-300 transition-all"
+                            className="w-full pl-10 pr-10 py-2.5 border border-border rounded-xl text-sm font-semibold text-main bg-card outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all"
                           />
                           <button
                             type="button"
@@ -405,7 +405,7 @@ const Profile = () => {
                     <button
                       type="submit"
                       disabled={pwLoading || !pwForm.currentPassword || !pwForm.newPassword || !pwForm.confirmPassword}
-                      className="flex items-center gap-2 px-5 py-2.5 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl text-sm font-bold transition-all disabled:opacity-50 active:scale-95"
+                      className="flex items-center gap-2 px-5 py-2.5 bg-primary hover:bg-primary-hover text-white rounded-xl text-sm font-bold transition-all disabled:opacity-50 active:scale-95"
                     >
                       {pwLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Lock className="w-4 h-4" />}
                       Update Password

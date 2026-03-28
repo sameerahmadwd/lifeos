@@ -16,9 +16,9 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="w-[260px] bg-white border-r border-slate-200 hidden md:flex flex-col fixed top-16 bottom-0 left-0 z-20 font-sans shadow-sm">
+    <aside className="w-[260px] bg-card border-r border-border hidden md:flex flex-col fixed top-16 bottom-0 left-0 z-20 font-sans shadow-sm transition-colors duration-300">
       <div className="flex-1 overflow-y-auto pt-8">
-        <div className="px-8 mb-4 text-[0.7rem] font-bold text-slate-400 uppercase tracking-widest">
+        <div className="px-8 mb-4 text-[0.7rem] font-bold text-muted uppercase tracking-widest">
           Main Menu
         </div>
         
@@ -33,8 +33,8 @@ const Sidebar = () => {
                 onClick={() => navigate(link.path)}
                 className={`px-4 py-3 mx-4 rounded-xl text-[0.95rem] cursor-pointer flex items-center gap-3 transition-all group ${
                   isActive 
-                  ? 'bg-indigo-50 text-indigo-700 font-bold' 
-                  : 'text-slate-500 font-medium hover:text-indigo-600 hover:bg-indigo-50/50'
+                  ? 'bg-primary/10 text-primary font-bold' 
+                  : 'text-muted font-medium hover:text-primary hover:bg-primary/5'
                 }`}
               >
                 <Icon className={`w-5 h-5 transition-colors ${isActive ? 'text-indigo-600' : 'group-hover:text-indigo-500'}`} strokeWidth={isActive ? 2.5 : 2} />

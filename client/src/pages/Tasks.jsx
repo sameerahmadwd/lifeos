@@ -196,37 +196,37 @@ const Tasks = () => {
     });
   };
 
-  if (isLoading) return <div className="min-h-screen bg-slate-50 flex items-center justify-center"><Loader2 className="w-8 h-8 animate-spin text-indigo-500" /></div>;
+  if (isLoading) return <div className="min-h-screen bg-site flex items-center justify-center transition-colors duration-300"><Loader2 className="w-8 h-8 animate-spin text-primary" /></div>;
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] font-sans flex overflow-hidden">
+    <div className="min-h-screen bg-site font-sans flex overflow-hidden transition-colors duration-300">
       <TopNav />
       <Sidebar />
       <BottomNav />
-      <main className="flex-1 ml-0 md:ml-[260px] pt-[72px] pb-[72px] md:pb-0 flex flex-col h-screen overflow-hidden">
-        <div className="flex-1 flex overflow-hidden bg-white shadow-sm md:border-t md:border-l border-slate-200 mt-0 md:mt-2 ml-0 md:ml-2 md:rounded-tl-3xl relative">
+      <main className="flex-1 ml-0 md:ml-[260px] pt-[72px] pb-[72px] md:pb-0 flex flex-col h-screen overflow-hidden bg-site transition-colors duration-300">
+        <div className="flex-1 flex overflow-hidden bg-card shadow-sm md:border-t md:border-l border-border mt-0 md:mt-2 ml-0 md:ml-2 md:rounded-tl-3xl relative">
           
           <div className="w-full flex flex-col h-full overflow-hidden">
              
              {/* Header Section */}
-             <div className="px-4 md:px-8 py-4 md:py-6 border-b border-slate-100 bg-white">
+             <div className="px-4 md:px-8 py-4 md:py-6 border-b border-border bg-card">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 md:mb-6">
                    <div>
-                      <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-2">
-                        <ListTodo className="w-6 h-6 text-indigo-500" />
+                      <h1 className="text-2xl font-black text-main tracking-tight flex items-center gap-2">
+                        <ListTodo className="w-6 h-6 text-primary" />
                         Master Tasks
                       </h1>
-                      <p className="text-slate-500 text-sm font-medium mt-1">Manage and track your tasks.</p>
+                      <p className="text-muted text-sm font-medium mt-1">Manage and track your tasks.</p>
                    </div>
                    <div className="flex items-center gap-4">
-                      <div className="flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-xl border border-slate-100 shadow-sm">
+                      <div className="flex items-center gap-2 px-4 py-2 bg-bg-input rounded-xl border border-border shadow-sm">
                         <div className="text-center">
-                          <span className="block text-[0.6rem] font-bold text-slate-400 uppercase tracking-widest">Active</span>
-                          <span className="text-lg font-black text-indigo-500 leading-none">{stats.active}</span>
+                          <span className="block text-[0.6rem] font-bold text-muted uppercase tracking-widest">Active</span>
+                          <span className="text-lg font-black text-primary leading-none">{stats.active}</span>
                         </div>
-                        <div className="w-px h-6 bg-slate-200 mx-2"></div>
+                        <div className="w-px h-6 bg-border mx-2"></div>
                         <div className="text-center">
-                          <span className="block text-[0.6rem] font-bold text-slate-400 uppercase tracking-widest">Done</span>
+                          <span className="block text-[0.6rem] font-bold text-muted uppercase tracking-widest">Done</span>
                           <span className="text-lg font-black text-emerald-500 leading-none">{stats.completed}</span>
                         </div>
                       </div>
@@ -234,24 +234,24 @@ const Tasks = () => {
                 </div>
 
                 {/* Creation Area - Elevated */}
-                <form onSubmit={handleAdd} className="flex flex-col sm:flex-row gap-3 bg-white p-2 md:p-2 rounded-2xl border-2 border-slate-100 shadow-sm focus-within:border-indigo-200 transition-all">
+                <form onSubmit={handleAdd} className="flex flex-col sm:flex-row gap-3 bg-card p-2 md:p-2 rounded-2xl border-2 border-border shadow-sm focus-within:border-primary/30 transition-all">
                    <div className="flex-1 flex items-center gap-3 pl-3 md:pl-4">
-                      <Plus className="w-5 h-5 text-slate-300" />
+                      <Plus className="w-5 h-5 text-muted/30" />
                       <input 
                         type="text"
                         value={newTaskText}
                         onChange={(e) => setNewTaskText(e.target.value)}
                         placeholder="Create a new task..."
-                        className="w-full bg-transparent py-2.5 focus:outline-none font-bold text-slate-700 placeholder:text-slate-300"
+                        className="w-full bg-transparent py-2.5 focus:outline-none font-bold text-main placeholder:text-muted/30"
                       />
                    </div>
                    <div className="flex items-center gap-2 pr-1">
                       <div className="relative">
-                        <Tag className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
+                        <Tag className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted" />
                         <select 
                           value={newTaskCategory}
                           onChange={(e) => setNewTaskCategory(e.target.value)}
-                          className="bg-slate-50 border border-slate-200 rounded-xl py-2 pl-9 pr-6 text-xs font-bold text-slate-600 appearance-none outline-none focus:ring-2 focus:ring-indigo-500/10 cursor-pointer hover:bg-slate-100 transition-colors"
+                          className="bg-bg-input border border-border rounded-xl py-2 pl-9 pr-6 text-xs font-bold text-muted appearance-none outline-none focus:ring-2 focus:ring-primary/10 cursor-pointer hover:bg-muted/5 transition-colors"
                         >
                           {CATEGORIES.map(cat => <option key={cat} value={cat}>{cat}</option>)}
                         </select>
@@ -259,7 +259,7 @@ const Tasks = () => {
                       <button 
                         type="submit"
                         disabled={!newTaskText.trim()}
-                        className="bg-indigo-500 text-white px-6 py-2.5 rounded-xl font-black text-sm hover:bg-indigo-600 disabled:opacity-40 transition-all shadow-md shadow-indigo-500/20 active:scale-95"
+                        className="bg-primary text-white px-6 py-2.5 rounded-xl font-black text-sm hover:bg-primary-hover disabled:opacity-40 transition-all shadow-md shadow-primary/20 active:scale-95"
                       >
                         Create Task
                       </button>
@@ -268,16 +268,16 @@ const Tasks = () => {
              </div>
 
              {/* View Controls & Filters */}
-             <div className="px-4 md:px-8 py-4 bg-slate-50/50 border-b border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+             <div className="px-4 md:px-8 py-4 bg-site/50 border-b border-border flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1">
                   <div className="relative flex-1 max-w-sm">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
                     <input 
                       type="text"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="Search tasks..."
-                      className="w-full bg-white border border-slate-200 rounded-xl py-2 pl-9 pr-4 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-300 transition-all"
+                      className="w-full bg-card border border-border rounded-xl py-2 pl-9 pr-4 text-sm font-semibold text-main focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary/30 transition-all"
                     />
                   </div>
 
@@ -285,9 +285,9 @@ const Tasks = () => {
                   <div className="relative" ref={calendarRef}>
                     <button 
                       onClick={() => setIsCalendarOpen(!isCalendarOpen)}
-                      className="bg-white border border-slate-200 rounded-xl py-2 px-4 text-sm font-bold text-slate-600 flex items-center gap-2 hover:bg-white hover:border-indigo-300 transition-all shadow-sm"
+                      className="bg-card border border-border rounded-xl py-2 px-4 text-sm font-bold text-muted flex items-center gap-2 hover:bg-card hover:border-primary/30 transition-all shadow-sm"
                     >
-                      <CalendarIcon className="w-4 h-4 text-slate-400" />
+                      <CalendarIcon className="w-4 h-4 text-muted" />
                       {(!dateFilter.start && !dateFilter.end) 
                         ? 'All Time' 
                         : (dateFilter.start && !dateFilter.end)
@@ -296,24 +296,24 @@ const Tasks = () => {
                       }
                       {(dateFilter.start || dateFilter.end) && (
                         <X 
-                          className="w-3.5 h-3.5 text-slate-400 hover:text-red-500 ml-1" 
+                          className="w-3.5 h-3.5 text-muted hover:text-red-500 ml-1" 
                           onClick={(e) => { e.stopPropagation(); setDateFilter({ start: null, end: null }); }} 
                         />
                       )}
                     </button>
 
                     {isCalendarOpen && (
-                      <div className="absolute top-11 left-0 w-[280px] bg-white border border-slate-200 rounded-2xl shadow-xl p-4 z-50">
+                      <div className="absolute top-11 left-0 w-[280px] bg-card border border-border rounded-2xl shadow-xl p-4 z-50">
                         <div className="flex items-center justify-between mb-4">
-                          <button onClick={handlePrevMonth} className="p-1 hover:bg-slate-100 rounded text-slate-500"><ChevronLeft className="w-5 h-5"/></button>
-                          <span className="font-bold text-sm text-slate-700">
+                          <button onClick={handlePrevMonth} className="p-1 hover:bg-bg-input rounded text-muted"><ChevronLeft className="w-5 h-5"/></button>
+                          <span className="font-bold text-sm text-main">
                             {calendarDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
                           </span>
-                          <button onClick={handleNextMonth} className="p-1 hover:bg-slate-100 rounded text-slate-500"><ChevronRight className="w-5 h-5"/></button>
+                          <button onClick={handleNextMonth} className="p-1 hover:bg-bg-input rounded text-muted"><ChevronRight className="w-5 h-5"/></button>
                         </div>
                         <div className="grid grid-cols-7 gap-1 mb-2">
                           {['Su','Mo','Tu','We','Th','Fr','Sa'].map((d) => (
-                            <div key={d} className="text-center text-[0.65rem] font-bold text-slate-400">{d}</div>
+                            <div key={d} className="text-center text-[0.65rem] font-bold text-muted/40">{d}</div>
                           ))}
                         </div>
                         <div className="grid grid-cols-7 gap-1">
@@ -333,11 +333,11 @@ const Tasks = () => {
                                 key={day}
                                 onClick={() => selectDateFilter(day)}
                                 className={`aspect-square rounded flex items-center justify-center text-xs transition-all ${
-                                  isSelected ? 'bg-indigo-500 text-white font-bold' :
-                                  isInRange ? 'bg-indigo-100 text-indigo-700 font-bold' :
-                                  hasTasks ? 'bg-indigo-50 text-indigo-600 font-bold hover:bg-indigo-100' :
-                                  'hover:bg-slate-50 text-slate-400'
-                                } ${isToday && !isSelected ? 'ring-2 ring-indigo-400 ring-offset-1' : ''}`}
+                                  isSelected ? 'bg-primary text-white font-bold' :
+                                  isInRange ? 'bg-primary/10 text-primary font-bold' :
+                                  hasTasks ? 'bg-primary/5 text-primary font-bold hover:bg-primary/15' :
+                                  'hover:bg-bg-input text-muted/40'
+                                } ${isToday && !isSelected ? 'ring-2 ring-primary ring-offset-1 dark:ring-offset-card' : ''}`}
                               >
                                 {day}
                               </button>
@@ -349,11 +349,11 @@ const Tasks = () => {
                   </div>
 
                   <div className="relative">
-                    <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
                     <select 
                       value={categoryFilter}
                       onChange={(e) => setCategoryFilter(e.target.value)}
-                      className="bg-white border border-slate-200 rounded-xl py-2 pl-9 pr-4 text-sm font-bold text-slate-600 appearance-none outline-none focus:ring-2 focus:ring-indigo-500/10 hover:border-indigo-300 transition-all cursor-pointer"
+                      className="bg-card border border-border rounded-xl py-2 pl-9 pr-4 text-sm font-bold text-muted appearance-none outline-none focus:ring-2 focus:ring-primary/10 hover:border-primary/30 transition-all cursor-pointer"
                     >
                       <option value="all">Every Category</option>
                       {CATEGORIES.map(cat => <option key={cat} value={cat}>{cat}</option>)}
@@ -363,29 +363,29 @@ const Tasks = () => {
              </div>
 
              {/* Main Board - Split Kanban */}
-             <div className="flex-1 flex gap-6 p-4 md:p-8 overflow-x-auto bg-slate-50/30 custom-scrollbar pb-24 md:pb-8">
+             <div className="flex-1 flex gap-6 p-4 md:p-8 overflow-x-auto bg-site/30 custom-scrollbar pb-24 md:pb-8">
                 
                 {/* PENDING COLUMN */}
                 <div className="flex-1 flex flex-col min-w-[300px] md:min-w-[400px]">
                    <div className="flex items-center justify-between mb-6">
-                      <h3 className="text-lg font-black text-slate-700 flex items-center gap-3">
-                        <div className="w-2 h-2 rounded-full bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)]"></div>
+                      <h3 className="text-lg font-black text-main flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full bg-primary shadow-[0_0_10px_rgba(99,102,241,0.5)]"></div>
                         Pending
-                        <span className="text-slate-400 font-bold text-sm ml-1">({stats.active})</span>
+                        <span className="text-muted font-bold text-sm ml-1">({stats.active})</span>
                       </h3>
                    </div>
                    
                    <div className="flex-1 overflow-y-auto custom-scrollbar pr-3 space-y-6">
                       {pendingData.sorted.length === 0 ? (
                         <div className="flex flex-col items-center justify-center h-full py-12 opacity-40">
-                           <ListTodo className="w-12 h-12 text-slate-300 mb-4" />
-                           <p className="font-bold text-slate-400">No pending tasks found.</p>
+                           <ListTodo className="w-12 h-12 text-muted mb-4" />
+                           <p className="font-bold text-muted">No pending tasks found.</p>
                         </div>
                       ) : (
                         pendingData.sorted.map(dateStr => (
                           <div key={dateStr} className="space-y-3">
-                            <h4 className="text-[0.65rem] font-black text-slate-400 uppercase tracking-widest pl-2 flex items-center gap-2">
-                               <div className="w-1 h-3 bg-indigo-200 rounded-full"></div>
+                            <h4 className="text-[0.65rem] font-black text-muted uppercase tracking-widest pl-2 flex items-center gap-2">
+                               <div className="w-1 h-3 bg-primary/20 rounded-full"></div>
                                {parseLongDate(dateStr)}
                             </h4>
                             <div className="space-y-2.5">
@@ -393,23 +393,23 @@ const Tasks = () => {
                                 <div 
                                   key={task._id} 
                                   onClick={() => toggleTask(task)}
-                                  className="group flex flex-col p-3 rounded-xl border-2 bg-white border-white shadow-sm hover:border-indigo-100 hover:shadow-md transition-all duration-300 cursor-pointer relative overflow-hidden active:scale-[0.98]"
+                                  className="group flex flex-col p-3 rounded-xl border-2 bg-bg-input/50 border-transparent hover:bg-card hover:border-primary/20 hover:shadow-md transition-all duration-300 cursor-pointer relative overflow-hidden active:scale-[0.98]"
                                 >
                                   <div className="flex items-center gap-3">
-                                    <div className="transition-all duration-300 transform text-slate-200 group-hover:text-indigo-500">
+                                    <div className="transition-all duration-300 transform text-muted/30 group-hover:text-primary">
                                       <Circle className="w-4 h-4" strokeWidth={2} />
                                     </div>
                                     <div className="flex-1 min-w-0 flex items-center gap-2">
-                                      <span className="text-[1.05rem] font-semibold text-slate-700 leading-tight truncate">
+                                      <span className="text-[1.05rem] font-semibold text-main leading-tight truncate">
                                         {task.text}
                                       </span>
-                                      <span className={`px-2 py-0.5 rounded-full text-[0.6rem] font-bold uppercase tracking-wider flex-shrink-0 ${CATEGORY_COLORS[task.category || 'General'] || 'bg-slate-100 text-slate-600'}`}>
+                                      <span className={`px-2 py-0.5 rounded-full text-[0.6rem] font-bold uppercase tracking-wider flex-shrink-0 ${CATEGORY_COLORS[task.category || 'General'] || 'bg-bg-input text-muted'}`}>
                                         {task.category || 'General'}
                                       </span>
                                     </div>
                                     <button 
                                       onClick={(e) => { e.stopPropagation(); deleteTask(task._id); }}
-                                      className="opacity-0 group-hover:opacity-100 p-1.5 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all flex-shrink-0"
+                                      className="opacity-0 group-hover:opacity-100 p-1.5 text-muted/50 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-all flex-shrink-0"
                                     >
                                       <Trash2 className="w-3.5 h-3.5" />
                                     </button>
@@ -426,23 +426,23 @@ const Tasks = () => {
                 {/* COMPLETED COLUMN */}
                 <div className="flex-1 flex flex-col min-w-[300px] md:min-w-[400px]">
                    <div className="flex items-center justify-between mb-6">
-                      <h3 className="text-lg font-black text-slate-700 flex items-center gap-3">
+                      <h3 className="text-lg font-black text-main flex items-center gap-3">
                         <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
                         Completed
-                        <span className="text-slate-400 font-bold text-sm ml-1">({stats.completed})</span>
+                        <span className="text-muted font-bold text-sm ml-1">({stats.completed})</span>
                       </h3>
                    </div>
 
                    <div className="flex-1 overflow-y-auto custom-scrollbar pr-3 space-y-6">
                       {completedData.sorted.length === 0 ? (
                         <div className="flex flex-col items-center justify-center h-full py-12 opacity-40">
-                           <CheckCircle2 className="w-12 h-12 text-slate-300 mb-4" />
-                           <p className="font-bold text-slate-400 text-sm">No tasks completed yet.</p>
+                           <CheckCircle2 className="w-12 h-12 text-muted mb-4" />
+                           <p className="font-bold text-muted text-sm">No tasks completed yet.</p>
                         </div>
                       ) : (
                         completedData.sorted.map(dateStr => (
                           <div key={dateStr} className="space-y-3">
-                            <h4 className="text-[0.65rem] font-black text-slate-400 uppercase tracking-widest pl-2">
+                            <h4 className="text-[0.65rem] font-black text-muted uppercase tracking-widest pl-2">
                                {parseLongDate(dateStr)}
                             </h4>
                             <div className="space-y-2.5">
@@ -450,23 +450,23 @@ const Tasks = () => {
                                 <div
                                   key={task._id}
                                   onClick={() => toggleTask(task)}
-                                  className="group flex flex-col p-3 rounded-xl border-2 bg-white/40 border-slate-100/50 hover:bg-white hover:border-emerald-100 transition-all duration-300 cursor-pointer"
+                                  className="group flex flex-col p-3 rounded-xl border-2 bg-card/40 border-border/50 hover:bg-card hover:border-emerald-100 transition-all duration-300 cursor-pointer"
                                 >
                                   <div className="flex items-center gap-3">
                                     <div className="text-emerald-500">
                                       <CheckCircle2 className="w-4 h-4" strokeWidth={2} />
                                     </div>
                                     <div className="flex-1 min-w-0 flex items-center gap-2">
-                                      <span className="text-[1.05rem] font-semibold text-slate-400 line-through decoration-slate-300 leading-tight truncate">
+                                      <span className="text-[1.05rem] font-semibold text-muted line-through decoration-muted/50 leading-tight truncate">
                                         {task.text}
                                       </span>
-                                      <span className={`px-2 py-0.5 rounded-full text-[0.6rem] font-bold uppercase tracking-wider flex-shrink-0 opacity-50 ${CATEGORY_COLORS[task.category || 'General'] || 'bg-slate-100 text-slate-600'}`}>
+                                      <span className={`px-2 py-0.5 rounded-full text-[0.6rem] font-bold uppercase tracking-wider flex-shrink-0 opacity-50 ${CATEGORY_COLORS[task.category || 'General'] || 'bg-bg-input text-muted'}`}>
                                         {task.category || 'General'}
                                       </span>
                                     </div>
                                     <button
                                       onClick={(e) => { e.stopPropagation(); deleteTask(task._id); }}
-                                      className="opacity-0 group-hover:opacity-100 p-1.5 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all flex-shrink-0"
+                                      className="opacity-0 group-hover:opacity-100 p-1.5 text-muted hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-all flex-shrink-0"
                                     >
                                       <Trash2 className="w-3.5 h-3.5" />
                                     </button>

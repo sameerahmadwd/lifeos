@@ -22,12 +22,12 @@ const TaskWidget = ({ tasks, setTasks }) => {
   };
 
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col h-[500px] hover:shadow-md transition-shadow">
+    <div className="bg-card rounded-2xl p-6 shadow-sm border border-border flex flex-col h-[500px] hover:shadow-md transition-all duration-300">
       <div className="flex items-center gap-3 mb-6">
-        <div className="p-2 bg-indigo-50 text-indigo-500 rounded-lg">
+        <div className="p-2 bg-primary/10 text-primary rounded-lg">
           <CheckCircle2 className="w-5 h-5" />
         </div>
-        <h2 className="text-xl font-bold text-slate-800">Today's Tasks</h2>
+        <h2 className="text-xl font-bold text-main">Today's Tasks</h2>
       </div>
 
       <form onSubmit={addTask} className="mb-6">
@@ -37,7 +37,7 @@ const TaskWidget = ({ tasks, setTasks }) => {
             value={newTask}
             onChange={(e) => setNewTask(e.target.value)}
             placeholder="Add a new task..."
-            className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 pl-4 pr-12 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm"
+            className="w-full bg-bg-input border border-border rounded-xl py-3 pl-4 pr-12 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm text-main"
           />
           <button 
             type="submit"
@@ -51,7 +51,7 @@ const TaskWidget = ({ tasks, setTasks }) => {
 
       <div className="flex-1 overflow-y-auto space-y-3 pr-2 custom-scrollbar">
         {tasks.length === 0 ? (
-          <div className="h-full flex flex-col items-center justify-center text-slate-400 space-y-3">
+          <div className="h-full flex flex-col items-center justify-center text-muted space-y-3">
             <CheckCircle2 className="w-12 h-12 opacity-20" />
             <p className="font-medium text-sm">All caught up for today!</p>
           </div>
@@ -61,19 +61,19 @@ const TaskWidget = ({ tasks, setTasks }) => {
               key={task.id} 
               className={`group flex items-center justify-between p-4 rounded-xl border transition-all duration-200 cursor-pointer ${
                 task.completed 
-                  ? 'bg-slate-50 border-transparent' 
-                  : 'bg-white border-slate-100 hover:border-indigo-100'
+                  ? 'bg-bg-input border-transparent' 
+                  : 'bg-card border-border hover:border-primary/30'
               }`}
               onClick={() => toggleTask(task.id)}
             >
               <div 
                 className="flex items-center gap-3 flex-1"
               >
-                <div className={`transition-colors duration-200 ${task.completed ? 'text-indigo-500' : 'text-slate-300 group-hover:text-indigo-300'}`}>
+                <div className={`transition-colors duration-200 ${task.completed ? 'text-primary' : 'text-slate-300 dark:text-slate-600 group-hover:text-primary'}`}>
                   {task.completed ? <CheckCircle2 className="w-5 h-5" /> : <Circle className="w-5 h-5" />}
                 </div>
                 <span className={`text-sm font-medium transition-all duration-200 ${
-                  task.completed ? 'text-slate-400 line-through' : 'text-slate-700'
+                  task.completed ? 'text-muted line-through' : 'text-main'
                 }`}>
                   {task.text}
                 </span>

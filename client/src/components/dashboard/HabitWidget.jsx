@@ -12,21 +12,21 @@ const HabitWidget = ({ habits = [], setHabits }) => {
   };
 
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col hover:shadow-md transition-shadow">
+    <div className="bg-card rounded-2xl p-6 shadow-sm border border-border flex flex-col hover:shadow-md transition-all duration-300">
       <div className="flex items-center gap-3 mb-6">
-        <div className="p-2 bg-orange-50 text-orange-500 rounded-lg">
+        <div className="p-2 bg-orange-50 dark:bg-orange-900/20 text-orange-500 rounded-lg">
           <Flame className="w-5 h-5" />
         </div>
-        <h2 className="text-xl font-bold text-slate-800">Daily Habits</h2>
+        <h2 className="text-xl font-bold text-main">Daily Habits</h2>
       </div>
 
       <div className="flex flex-col gap-3">
         {habits.length === 0 ? (
-          <div className="flex flex-col items-center justify-center p-6 text-slate-400 space-y-3">
+          <div className="flex flex-col items-center justify-center p-6 text-muted space-y-3">
             <span className="text-sm font-semibold tracking-wide">No habits added.</span>
             <button 
               onClick={() => navigate('/habits')} 
-              className="text-xs bg-indigo-50 text-indigo-500 px-4 py-2 rounded-lg font-bold hover:bg-indigo-100 transition-colors"
+              className="text-xs bg-primary/10 text-primary px-4 py-2 rounded-lg font-bold hover:bg-primary/20 transition-colors"
             >
               Configure Habits
             </button>
@@ -39,8 +39,8 @@ const HabitWidget = ({ habits = [], setHabits }) => {
                 key={id || Math.random()} 
                 className={`flex items-center justify-between p-4 rounded-xl border transition-all cursor-pointer group hover:shadow-sm ${
                   habit.completed 
-                    ? 'bg-orange-50/30 border-orange-100' 
-                    : 'bg-white border-slate-100 hover:border-slate-200 hover:bg-slate-50/50'
+                    ? 'bg-orange-50/30 dark:bg-orange-900/10 border-orange-100 dark:border-orange-900/30' 
+                    : 'bg-card border-border hover:border-primary/30 hover:bg-primary/5'
                 }`}
                 onClick={() => id && toggleHabit(id)}
               >
@@ -49,13 +49,13 @@ const HabitWidget = ({ habits = [], setHabits }) => {
                     className={`w-6 h-6 rounded-md flex items-center justify-center border-2 transition-colors duration-300 ${
                       habit.completed 
                         ? 'bg-orange-500 border-orange-500 text-white' 
-                        : 'border-slate-300 bg-white text-transparent group-hover:border-slate-400'
+                        : 'border-slate-300 dark:border-slate-600 bg-card text-transparent group-hover:border-primary'
                     }`}
                   >
                     <Check className="w-4 h-4" strokeWidth={3} />
                   </div>
                   <span className={`font-semibold tracking-wide transition-colors ${
-                    habit.completed ? 'text-slate-400 line-through' : 'text-slate-700'
+                    habit.completed ? 'text-muted line-through' : 'text-main'
                   }`}>
                     {habit.name}
                   </span>

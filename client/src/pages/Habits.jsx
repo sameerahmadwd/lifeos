@@ -100,10 +100,10 @@ const Habits = () => {
     return monthLogs.find(log => log.date === target);
   };
 
-  if (isLoading) return <div className="min-h-screen bg-slate-50 flex items-center justify-center"><Loader2 className="w-8 h-8 text-indigo-500 animate-spin" /></div>;
+  if (isLoading) return <div className="min-h-screen bg-site flex items-center justify-center"><Loader2 className="w-8 h-8 text-primary animate-spin" /></div>;
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] font-sans flex">
+    <div className="min-h-screen bg-site font-sans flex">
       <TopNav />
       <Sidebar />
       <BottomNav />
@@ -112,53 +112,53 @@ const Habits = () => {
 
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <h1 className="text-2xl md:text-3xl font-black text-slate-800 tracking-tight">Habit Tracker</h1>
-              <p className="text-slate-500 font-medium mt-1 text-sm md:text-base">Configure daily habits and instantly map your sequential history cleanly effortlessly.</p>
+              <h1 className="text-2xl md:text-3xl font-black text-main tracking-tight">Habit Tracker</h1>
+              <p className="text-muted font-medium mt-1 text-sm md:text-base">Configure daily habits and instantly map your sequential history cleanly effortlessly.</p>
             </div>
-            <button onClick={() => navigate('/')} className="w-full md:w-auto flex justify-center items-center gap-2 px-4 py-2 bg-white border border-slate-200 shadow-sm rounded-lg hover:bg-slate-50 text-slate-600 font-semibold transition-colors">
+            <button onClick={() => navigate('/')} className="w-full md:w-auto flex justify-center items-center gap-2 px-4 py-2 bg-card border border-border shadow-sm rounded-lg hover:bg-bg-input text-muted font-semibold transition-colors">
               <ArrowLeft className="w-4 h-4" /> Back to Dashboard
             </button>
           </div>
 
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-8">
 
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 h-fit">
-              <h2 className="text-xl font-bold text-slate-800 mb-6">Define Habits</h2>
+            <div className="bg-card rounded-2xl shadow-sm border border-border p-8 h-fit">
+              <h2 className="text-xl font-bold text-main mb-6">Define Habits</h2>
 
-              <form onSubmit={handleAdd} className="flex gap-4 mb-8 bg-slate-50 p-2 rounded-2xl border border-slate-200">
+              <form onSubmit={handleAdd} className="flex gap-4 mb-8 bg-bg-input p-2 rounded-2xl border border-border">
                 <input
                   type="text"
                   value={newHabitName}
                   onChange={e => setNewHabitName(e.target.value)}
                   placeholder="e.g. Meditate for 20 minutes..."
-                  className="flex-1 bg-transparent px-4 py-3 text-slate-700 outline-none focus:ring-0 font-bold text-[1.05rem] placeholder:font-semibold placeholder:text-slate-400"
+                  className="flex-1 bg-transparent px-4 py-3 text-main outline-none focus:ring-0 font-bold text-[1.05rem] placeholder:font-semibold placeholder:text-muted/30"
                 />
-                <button type="submit" disabled={!newHabitName.trim()} className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2.5 rounded-xl font-bold transition-colors disabled:opacity-50 flex items-center gap-2 shadow-sm text-[0.95rem]">
+                <button type="submit" disabled={!newHabitName.trim()} className="bg-primary hover:bg-primary-hover text-white px-6 py-2.5 rounded-xl font-bold transition-colors disabled:opacity-50 flex items-center gap-2 shadow-sm text-[0.95rem]">
                   <Plus className="w-5 h-5" strokeWidth={2.5} /> Add
                 </button>
               </form>
 
               <div className="space-y-4 custom-scrollbar overflow-y-auto max-h-[440px] pr-2">
                 {activeHabits.length === 0 ? (
-                  <div className="text-center py-8 text-slate-400 font-bold uppercase tracking-wider text-sm border-2 border-dashed border-slate-200 rounded-xl">Define custom habits actively above</div>
+                  <div className="text-center py-8 text-muted font-bold uppercase tracking-wider text-sm border-2 border-dashed border-border rounded-xl">Define custom habits actively above</div>
                 ) : (
                   activeHabits.map((habit) => (
-                    <div key={habit._id} className="flex items-center justify-between bg-white border border-slate-200 p-4 rounded-xl shadow-[0_2px_4px_rgba(0,0,0,0.02)] hover:border-indigo-300 transition-colors group/row">
+                    <div key={habit._id} className="flex items-center justify-between bg-card border border-border p-4 rounded-xl shadow-[0_2px_4px_rgba(0,0,0,0.02)] hover:border-primary/30 transition-colors group/row">
 
                       {editingId === habit._id ? (
                         <div className="flex items-center gap-4 w-full">
-                          <input type="text" value={editName} onChange={e => setEditName(e.target.value)} className="flex-1 border-b-2 border-indigo-400 bg-indigo-50/50 rounded-t px-3 py-1.5 focus:outline-none focus:border-indigo-600 font-bold text-slate-700 text-[1rem]" autoFocus />
+                          <input type="text" value={editName} onChange={e => setEditName(e.target.value)} className="flex-1 border-b-2 border-primary bg-bg-input rounded-t px-3 py-1.5 focus:outline-none focus:border-primary font-bold text-main text-[1rem]" autoFocus />
                           <div className="flex items-center gap-1">
-                            <button onClick={saveEdit} disabled={!editName.trim()} className="p-2 bg-emerald-100 text-emerald-600 rounded-lg hover:bg-emerald-200 transition-colors disabled:opacity-50"><Check className="w-5 h-5" strokeWidth={3} /> </button>
-                            <button onClick={() => setEditingId(null)} className="p-2 bg-slate-100 text-slate-500 rounded-lg hover:bg-slate-200 transition-colors"><X className="w-5 h-5" strokeWidth={3} /> </button>
+                            <button onClick={saveEdit} disabled={!editName.trim()} className="p-2 bg-emerald-500/10 text-emerald-500 rounded-lg hover:bg-emerald-500/20 transition-colors disabled:opacity-50"><Check className="w-5 h-5" strokeWidth={3} /> </button>
+                            <button onClick={() => setEditingId(null)} className="p-2 bg-bg-input text-muted rounded-lg hover:bg-muted/10 transition-colors"><X className="w-5 h-5" strokeWidth={3} /> </button>
                           </div>
                         </div>
                       ) : (
                         <>
-                          <span className="font-bold text-slate-700 tracking-wide text-[1.05rem] px-2">{habit.name}</span>
+                          <span className="font-bold text-main tracking-wide text-[1.05rem] px-2">{habit.name}</span>
                           <div className="flex items-center gap-2 transition-opacity">
-                            <button onClick={() => startEdit(habit)} className="p-2 text-slate-400 hover:text-indigo-500 hover:bg-indigo-50 rounded-lg transition-colors"><Edit2 className="w-4 h-4" strokeWidth={2.5} /></button>
-                            <button onClick={() => handleDelete(habit._id)} className="p-2 text-slate-400 hover:text-[#d93839] hover:bg-red-50 rounded-lg transition-colors"><Trash2 className="w-4 h-4" strokeWidth={2.5} /></button>
+                            <button onClick={() => startEdit(habit)} className="p-2 text-muted/30 hover:text-primary hover:bg-primary/10 rounded-lg transition-colors"><Edit2 className="w-4 h-4" strokeWidth={2.5} /></button>
+                            <button onClick={() => handleDelete(habit._id)} className="p-2 text-muted/30 hover:text-[#d93839] hover:bg-red-500/10 rounded-lg transition-colors"><Trash2 className="w-4 h-4" strokeWidth={2.5} /></button>
                           </div>
                         </>
                       )}
@@ -169,33 +169,33 @@ const Habits = () => {
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 h-fit">
+            <div className="bg-card rounded-2xl shadow-sm border border-border p-8 h-fit">
               <div className="flex items-center justify-between mb-8">
-                <h2 className="text-[1.3rem] font-bold text-slate-800">Tracking Heatmap</h2>
-                <div className="flex items-center gap-5 bg-slate-50 px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm">
-                  <button onClick={handlePrevMonth} className="text-slate-400 hover:text-indigo-600 hover:scale-110 transition-all"><ChevronLeft className="w-5 h-5" strokeWidth={3} /></button>
-                  <span className="text-[0.95rem] font-bold text-slate-700 uppercase tracking-widest min-w-[150px] text-center">
+                <h2 className="text-[1.3rem] font-bold text-main">Tracking Heatmap</h2>
+                <div className="flex items-center gap-5 bg-bg-input px-4 py-2.5 rounded-xl border border-border shadow-sm">
+                  <button onClick={handlePrevMonth} className="text-muted/40 hover:text-primary hover:scale-110 transition-all"><ChevronLeft className="w-5 h-5" strokeWidth={3} /></button>
+                  <span className="text-[0.95rem] font-bold text-main uppercase tracking-widest min-w-[150px] text-center">
                     {currentDate.toLocaleString('default', { month: 'short', year: 'numeric' })}
                   </span>
-                  <button onClick={handleNextMonth} className="text-slate-400 hover:text-indigo-600 hover:scale-110 transition-all"><ChevronRight className="w-5 h-5" strokeWidth={3} /></button>
+                  <button onClick={handleNextMonth} className="text-muted/40 hover:text-primary hover:scale-110 transition-all"><ChevronRight className="w-5 h-5" strokeWidth={3} /></button>
                 </div>
               </div>
 
-              {/* UI Legend Panel Natively Displayed Explicitly Tracking Colors Identically Correctly Effectively Properly Efficiently */}
-              <div className="flex items-center gap-6 mb-6 px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl relative">
+              {/* UI Legend Panel */}
+              <div className="flex items-center gap-6 mb-6 px-4 py-3 bg-bg-input border border-border rounded-xl relative">
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-md bg-indigo-50 border border-indigo-200"></div>
-                  <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Partial Effort</span>
+                  <div className="w-3 h-3 rounded-md bg-primary/5 border border-primary/20"></div>
+                  <span className="text-xs font-bold text-muted uppercase tracking-wider">Partial Effort</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-md bg-emerald-500 shadow-sm shadow-emerald-500/30"></div>
-                  <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Flawless 100%</span>
+                  <span className="text-xs font-bold text-muted uppercase tracking-wider">Flawless 100%</span>
                 </div>
               </div>
 
               <div className="grid grid-cols-7 gap-3 mb-6">
                 {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((d, i) => (
-                  <div key={i} className="text-center text-[0.8rem] font-bold text-slate-400 uppercase tracking-widest mb-2 bg-slate-50/50 py-1 rounded">{d}</div>
+                  <div key={i} className="text-center text-[0.8rem] font-bold text-muted uppercase tracking-widest mb-2 bg-bg-input/50 py-1 rounded">{d}</div>
                 ))}
                 {Array.from({ length: new Date(year, month - 1, 1).getDay() }).map((_, i) => (
                   <div key={`empty-${i}`} className="aspect-square rounded-xl bg-transparent"></div>
@@ -207,12 +207,12 @@ const Habits = () => {
                   const total = log ? log.totalCount : activeHabits.length;
                   const completedNames = log ? log.completedHabits : [];
 
-                  let cellColor = 'bg-slate-50 border-slate-100 hover:border-slate-300';
-                  let textColor = 'text-slate-300';
+                  let cellColor = 'bg-bg-input border-border hover:border-muted/30';
+                  let textColor = 'text-muted/30';
 
                   if (comps > 0 && comps < total) {
-                    cellColor = 'bg-indigo-50 border-indigo-200 hover:border-indigo-400 cursor-pointer shadow-sm';
-                    textColor = 'text-indigo-600';
+                    cellColor = 'bg-primary/10 border-primary/20 hover:border-primary/40 cursor-pointer shadow-sm';
+                    textColor = 'text-primary';
                   } else if (comps > 0 && comps === total) {
                     cellColor = 'bg-emerald-500 border-emerald-600 hover:bg-emerald-400 cursor-pointer shadow-md text-white shadow-emerald-500/20';
                     textColor = 'text-white';

@@ -12,14 +12,14 @@ import {
 } from 'lucide-react';
 
 const SettingsSection = ({ icon: Icon, title, description, children }) => (
-  <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm mb-6">
+  <div className="bg-card border border-border rounded-2xl p-6 shadow-sm mb-6 transition-all duration-300">
     <div className="flex items-start gap-4 mb-6">
-      <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center flex-shrink-0">
-        <Icon className="w-5 h-5 text-indigo-500" />
+      <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+        <Icon className="w-5 h-5 text-primary" />
       </div>
       <div>
-        <h3 className="text-base font-black text-slate-800 tracking-tight">{title}</h3>
-        <p className="text-sm text-slate-500 font-medium">{description}</p>
+        <h3 className="text-base font-black text-main tracking-tight">{title}</h3>
+        <p className="text-sm text-muted font-medium">{description}</p>
       </div>
     </div>
     {children}
@@ -27,11 +27,11 @@ const SettingsSection = ({ icon: Icon, title, description, children }) => (
 );
 
 const Toggle = ({ label, enabled, onChange }) => (
-  <div className="flex items-center justify-between py-3 border-b border-slate-50 last:border-0">
-    <span className="text-sm font-bold text-slate-700">{label}</span>
+  <div className="flex items-center justify-between py-3 border-b border-border/50 last:border-0">
+    <span className="text-sm font-bold text-main">{label}</span>
     <button 
       onClick={() => onChange(!enabled)}
-      className={`transition-colors duration-200 focus:outline-none ${enabled ? 'text-indigo-500' : 'text-slate-300'}`}
+      className={`transition-colors duration-200 focus:outline-none ${enabled ? 'text-primary' : 'text-muted/30'}`}
     >
       {enabled ? <ToggleRight className="w-10 h-10" /> : <ToggleLeft className="w-10 h-10" />}
     </button>
@@ -40,13 +40,13 @@ const Toggle = ({ label, enabled, onChange }) => (
 
 const InputField = ({ label, value, onChange, placeholder, type = "text" }) => (
   <div className="flex flex-col gap-1.5 mb-4">
-    <label className="text-xs font-black text-slate-400 uppercase tracking-widest leading-none">{label}</label>
+    <label className="text-xs font-black text-muted uppercase tracking-widest leading-none">{label}</label>
     <input 
       type={type}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-sm font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+      className="w-full px-4 py-3 bg-bg-input border border-border rounded-xl text-sm font-bold text-main focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-muted/30"
     />
   </div>
 );
@@ -114,28 +114,28 @@ const Settings = () => {
   };
 
   if (isLoading) return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-      <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+    <div className="min-h-screen bg-site flex items-center justify-center">
+      <Loader2 className="w-8 h-8 text-primary animate-spin" />
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] font-sans flex overflow-hidden">
+    <div className="min-h-screen bg-site font-sans flex overflow-hidden transition-colors duration-300">
       <TopNav />
       <Sidebar />
       <BottomNav />
-      <main className="flex-1 ml-0 md:ml-[260px] pt-[72px] pb-[72px] md:pb-0 flex flex-col h-screen overflow-hidden">
-        <div className="flex-1 flex overflow-hidden bg-white shadow-sm md:border-t md:border-l border-slate-200 mt-0 md:mt-2 ml-0 md:ml-2 md:rounded-tl-3xl">
+      <main className="flex-1 ml-0 md:ml-[260px] pt-[72px] pb-[72px] md:pb-0 flex flex-col h-screen overflow-hidden bg-site">
+        <div className="flex-1 flex overflow-hidden bg-card shadow-sm md:border-t md:border-l border-border mt-0 md:mt-2 ml-0 md:ml-2 md:rounded-tl-3xl">
           <div className="w-full flex flex-col h-full overflow-y-auto custom-scrollbar">
 
             {/* Header */}
-            <div className="px-5 md:px-8 py-5 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4 flex-shrink-0 sticky top-0 bg-white/80 backdrop-blur-md z-10">
+            <div className="px-5 md:px-8 py-5 border-b border-border flex flex-col sm:flex-row sm:items-center justify-between gap-4 flex-shrink-0 sticky top-0 bg-card/80 backdrop-blur-md z-10">
               <div>
-                <h1 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-2">
-                  <Globe className="w-6 h-6 text-indigo-500" />
+                <h1 className="text-2xl font-black text-main tracking-tight flex items-center gap-2">
+                  <Globe className="w-6 h-6 text-primary" />
                   System Settings
                 </h1>
-                <p className="text-slate-500 text-sm font-medium mt-0.5">Global configuration and website-wide management.</p>
+                <p className="text-muted text-sm font-medium mt-0.5">Global configuration and website-wide management.</p>
               </div>
               {success && (
                 <div className="flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-600 border border-emerald-200 rounded-xl text-sm font-bold animate-pulse">
@@ -199,7 +199,7 @@ const Settings = () => {
                   <select 
                     value={settings.backupFrequency}
                     onChange={(e) => updateSettings({ backupFrequency: e.target.value })}
-                    className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-sm font-bold text-slate-700 outline-none"
+                    className="w-full px-4 py-3 bg-bg-input border border-border rounded-xl text-sm font-bold text-main outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                   >
                     <option value="daily">Daily</option>
                     <option value="weekly">Weekly</option>

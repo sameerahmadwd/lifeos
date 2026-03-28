@@ -172,32 +172,32 @@ const Notes = () => {
 
   const hasActiveFilter = dateFilter.start || dateFilter.end;
 
-  if (isLoading) return <div className="min-h-screen bg-slate-50 flex items-center justify-center"><Loader2 className="w-8 h-8 text-indigo-500 animate-spin" /></div>;
+  if (isLoading) return <div className="min-h-screen bg-site flex items-center justify-center"><Loader2 className="w-8 h-8 text-primary animate-spin" /></div>;
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] font-sans flex overflow-hidden">
+    <div className="min-h-screen bg-site font-sans flex overflow-hidden">
       <TopNav />
       <Sidebar />
       <BottomNav />
       <main className="flex-1 ml-0 md:ml-[260px] pt-[72px] pb-[72px] md:pb-0 flex flex-col h-screen overflow-hidden">
-        <div className="flex-1 flex flex-col md:flex-row overflow-hidden bg-white shadow-sm md:border-t md:border-l border-slate-200 mt-0 md:mt-2 ml-0 md:ml-2 md:rounded-tl-3xl relative">
+        <div className="flex-1 flex flex-col md:flex-row overflow-hidden bg-card shadow-sm md:border-t md:border-l border-border mt-0 md:mt-2 ml-0 md:ml-2 md:rounded-tl-3xl relative">
 
           {/* Left Sidebar Pane */}
-          <div className={`${activeNote ? 'hidden md:flex' : 'flex'} w-full md:w-[300px] bg-[#f8fafc] md:border-r border-slate-200 flex-col h-full flex-shrink-0`}>
+          <div className={`${activeNote ? 'hidden md:flex' : 'flex'} w-full md:w-[300px] bg-card md:border-r border-border flex-col h-full flex-shrink-0`}>
             
             {/* Header & Controls */}
-            <div className="px-5 pt-5 pb-3 border-b border-slate-100">
+            <div className="px-5 pt-5 pb-3 border-b border-border">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-black text-slate-800 tracking-tight flex items-center gap-2">
-                  <BookOpen className="w-5 h-5 text-indigo-500" />
+                <h2 className="text-xl font-black text-main tracking-tight flex items-center gap-2">
+                  <BookOpen className="w-5 h-5 text-primary" />
                   Journals
-                  <span className="ml-1 px-2 py-0.5 bg-slate-100 text-slate-400 text-[0.65rem] font-black rounded-full border border-slate-200 uppercase tracking-tighter">
+                  <span className="ml-1 px-2 py-0.5 bg-bg-input text-muted text-[0.65rem] font-black rounded-full border border-border uppercase tracking-tighter">
                     {notes.length} Total
                   </span>
                 </h2>
                 <button
                   onClick={handleAdd}
-                  className="p-2 bg-indigo-500 text-white hover:bg-indigo-600 rounded-xl transition-all shadow-sm font-bold active:scale-95"
+                  className="p-2 bg-primary text-white hover:bg-primary-hover rounded-xl transition-all shadow-sm font-bold active:scale-95"
                   title="New Entry"
                 >
                   <Plus className="w-4 h-4" strokeWidth={2.5} />
@@ -206,13 +206,13 @@ const Notes = () => {
 
               {/* Search */}
               <div className="relative mb-2">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search journals..."
-                  className="w-full bg-white border border-slate-200 rounded-xl py-2 pl-9 pr-4 text-sm font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-300 transition-all placeholder:text-slate-400"
+                  className="w-full bg-bg-input border border-border rounded-xl py-2 pl-9 pr-4 text-sm font-semibold text-main outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all placeholder:text-muted/30"
                 />
               </div>
 
@@ -222,8 +222,8 @@ const Notes = () => {
                   onClick={() => setIsCalendarOpen(!isCalendarOpen)}
                   className={`w-full flex items-center gap-2 justify-between px-3 py-2 rounded-xl border text-sm font-bold transition-all ${
                     hasActiveFilter
-                      ? 'bg-indigo-50 border-indigo-200 text-indigo-600'
-                      : 'bg-white border-slate-200 text-slate-500 hover:border-indigo-300'
+                      ? 'bg-primary/10 border-primary/20 text-primary'
+                      : 'bg-bg-input border-border text-muted hover:border-primary/30'
                   }`}
                 >
                   <div className="flex items-center gap-2">
@@ -239,26 +239,26 @@ const Notes = () => {
                 </button>
 
                 {isCalendarOpen && (
-                  <div className="absolute top-11 left-0 w-full bg-white border border-slate-200 rounded-2xl shadow-xl p-4 z-50">
+                  <div className="absolute top-11 left-0 w-full bg-card border border-border rounded-2xl shadow-xl p-4 z-50">
                     {/* Calendar Nav */}
                     <div className="flex items-center justify-between mb-3">
                       <button
                         onClick={() => setCalendarDate(new Date(calYear, calMonth - 1, 1))}
-                        className="p-1 hover:bg-slate-100 rounded text-slate-500 text-xs font-bold"
+                        className="p-1 hover:bg-bg-input rounded text-muted text-xs font-bold"
                       >‹</button>
-                      <span className="text-xs font-black text-slate-700">
+                      <span className="text-xs font-black text-main">
                         {calendarDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
                       </span>
                       <button
                         onClick={() => setCalendarDate(new Date(calYear, calMonth + 1, 1))}
-                        className="p-1 hover:bg-slate-100 rounded text-slate-500 text-xs font-bold"
+                        className="p-1 hover:bg-bg-input rounded text-muted text-xs font-bold"
                       >›</button>
                     </div>
 
                     {/* Day Headers */}
                     <div className="grid grid-cols-7 gap-0.5 mb-1">
                       {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d, i) => (
-                        <div key={i} className="text-center text-[0.6rem] font-bold text-slate-400">{d}</div>
+                        <div key={i} className="text-center text-[0.6rem] font-bold text-muted/30">{d}</div>
                       ))}
                     </div>
 
@@ -282,11 +282,11 @@ const Notes = () => {
                             onClick={() => selectDay(day)}
                             title={hasNote ? 'Has journal entries' : undefined}
                             className={`aspect-square rounded flex items-center justify-center text-[0.7rem] transition-all font-semibold ${
-                              (isStart || isEnd) ? 'bg-indigo-500 text-white font-bold' :
-                              inRange ? 'bg-indigo-100 text-indigo-700 font-bold' :
-                              hasNote ? 'bg-indigo-50 text-indigo-600 font-bold hover:bg-indigo-100 cursor-pointer' :
-                              'hover:bg-slate-50 text-slate-400'
-                            } ${isToday && !(isStart || isEnd) ? 'ring-2 ring-indigo-400 ring-offset-1' : ''}`}
+                              (isStart || isEnd) ? 'bg-primary text-white font-bold' :
+                              inRange ? 'bg-primary/10 text-primary font-bold' :
+                              hasNote ? 'bg-primary/5 text-primary font-bold hover:bg-primary/10 cursor-pointer' :
+                              'hover:bg-bg-input text-muted/30'
+                            } ${isToday && !(isStart || isEnd) ? 'ring-2 ring-primary ring-offset-1 dark:ring-offset-card' : ''}`}
                           >
                             {day}
                           </button>
@@ -309,8 +309,8 @@ const Notes = () => {
             <div className="flex-1 overflow-y-auto custom-scrollbar py-2">
               {groupedNotes.sortedDates.length === 0 ? (
                 <div className="flex flex-col items-center py-10 px-5 opacity-60">
-                  <BookOpen className="w-10 h-10 text-slate-300 mb-3" />
-                  <span className="font-bold text-slate-400 tracking-wide text-sm text-center">
+                  <BookOpen className="w-10 h-10 text-muted/30 mb-3" />
+                  <span className="font-bold text-muted tracking-wide text-sm text-center">
                     {searchQuery || hasActiveFilter ? 'No matching entries.' : 'No entries yet.'}
                   </span>
                 </div>
@@ -322,16 +322,16 @@ const Notes = () => {
                     <div key={dateKey}>
                       <button
                         onClick={() => toggleDateCollapse(dateKey)}
-                        className="w-full flex items-center gap-2 px-5 py-2 hover:bg-slate-100 transition-colors group"
+                        className="w-full flex items-center gap-2 px-5 py-2 hover:bg-bg-input transition-colors group"
                       >
                         {isCollapsed
-                          ? <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-                          : <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+                          ? <ChevronRight className="w-3.5 h-3.5 text-muted/30" />
+                          : <ChevronDown className="w-3.5 h-3.5 text-muted/30" />
                         }
-                        <span className="text-[0.62rem] font-black text-slate-500 uppercase tracking-widest">
+                        <span className="text-[0.62rem] font-black text-muted uppercase tracking-widest">
                           {dateKey}
                         </span>
-                        <span className="ml-auto text-[0.6rem] font-bold text-slate-400 bg-slate-100 group-hover:bg-white px-1.5 py-0.5 rounded-full transition-colors">
+                        <span className="ml-auto text-[0.6rem] font-bold text-muted bg-bg-input group-hover:bg-card px-1.5 py-0.5 rounded-full transition-colors">
                           {group.length}
                         </span>
                       </button>
@@ -344,19 +344,19 @@ const Notes = () => {
                               onClick={() => setActiveNote(note)}
                               className={`p-3 rounded-xl cursor-pointer transition-all border group/card relative overflow-hidden ${
                                 activeNote?._id === note._id
-                                  ? 'bg-indigo-500 border-indigo-500 shadow-md'
-                                  : 'bg-white border-slate-200 hover:border-indigo-300 hover:shadow-sm'
+                                  ? 'bg-primary border-primary shadow-md'
+                                  : 'bg-card border-border hover:border-primary/30 hover:shadow-sm'
                               }`}
                             >
                               <div className="flex items-start justify-between gap-2">
                                 <div className="flex-1 min-w-0">
                                   <h3 className={`font-black truncate text-[0.9rem] tracking-tight leading-tight mb-1 ${
-                                    activeNote?._id === note._id ? 'text-white' : 'text-slate-800'
+                                    activeNote?._id === note._id ? 'text-white' : 'text-main'
                                   }`}>
                                     {note.title || 'Untitled Entry'}
                                   </h3>
                                   <p className={`text-[0.75rem] truncate font-medium leading-snug ${
-                                    activeNote?._id === note._id ? 'text-indigo-100' : 'text-slate-400'
+                                    activeNote?._id === note._id ? 'text-white/70' : 'text-muted'
                                   }`}>
                                     {note.content || 'Empty entry...'}
                                   </p>
@@ -365,8 +365,8 @@ const Notes = () => {
                                   onClick={(e) => handleDelete(e, note._id)}
                                   className={`p-1 rounded-lg flex-shrink-0 transition-colors ${
                                     activeNote?._id === note._id
-                                      ? 'text-indigo-200 hover:text-white hover:bg-indigo-400'
-                                      : 'text-slate-300 hover:text-red-500 hover:bg-red-50 opacity-0 group-hover/card:opacity-100'
+                                      ? 'text-white/70 hover:text-white hover:bg-white/10'
+                                      : 'text-muted/30 hover:text-red-500 hover:bg-red-500/10 opacity-0 group-hover/card:opacity-100'
                                   }`}
                                 >
                                   <Trash2 className="w-3.5 h-3.5" strokeWidth={2.5} />
@@ -384,11 +384,11 @@ const Notes = () => {
           </div>
 
           {/* Right Editor Pane */}
-          <div className={`${activeNote ? 'flex' : 'hidden md:flex'} flex-1 bg-white h-full flex-col overflow-y-auto custom-scrollbar relative w-full`}>
+          <div className={`${activeNote ? 'flex' : 'hidden md:flex'} flex-1 bg-card h-full flex-col overflow-y-auto custom-scrollbar relative w-full`}>
             {activeNote ? (
               <div className="max-w-[860px] w-full mx-auto px-6 md:px-12 py-6 md:py-12 flex flex-col min-h-full">
                 
-                <button onClick={() => setActiveNote(null)} className="md:hidden flex items-center gap-1 text-slate-400 font-bold mb-6 hover:text-indigo-500 transition-colors">
+                <button onClick={() => setActiveNote(null)} className="md:hidden flex items-center gap-1 text-muted font-bold mb-6 hover:text-primary transition-colors">
                   <ChevronLeft className="w-5 h-5 flex-shrink-0" /> Back to Journals
                 </button>
 
@@ -397,9 +397,9 @@ const Notes = () => {
                   value={activeNote.title}
                   onChange={(e) => setActiveNote({ ...activeNote, title: e.target.value })}
                   placeholder="Entry Title"
-                  className="text-[2rem] md:text-[2.5rem] font-black text-slate-800 placeholder:text-slate-200 outline-none w-full bg-transparent mb-2 transition-colors tracking-tight leading-tight"
+                  className="text-[2rem] md:text-[2.5rem] font-black text-main placeholder:text-muted/10 outline-none w-full bg-transparent mb-2 transition-colors tracking-tight leading-tight"
                 />
-                <p className="text-xs md:text-sm text-slate-400 font-semibold mb-6 md:mb-8 pl-1">
+                <p className="text-xs md:text-sm text-muted font-semibold mb-6 md:mb-8 pl-1">
                   {activeNote.updatedAt
                     ? new Date(activeNote.updatedAt).toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit' })
                     : 'Just now'
@@ -409,18 +409,18 @@ const Notes = () => {
                   value={activeNote.content}
                   onChange={(e) => setActiveNote({ ...activeNote, content: e.target.value })}
                   placeholder="Start writing your thoughts..."
-                  className="flex-1 w-full resize-none outline-none text-[1.05rem] leading-loose font-medium text-slate-600 placeholder:text-slate-300 bg-transparent"
+                  className="flex-1 w-full resize-none outline-none text-[1.05rem] leading-loose font-medium text-main placeholder:text-muted/10 bg-transparent"
                 />
               </div>
             ) : (
-              <div className="flex flex-col items-center justify-center flex-1 text-slate-400 opacity-60">
+              <div className="flex flex-col items-center justify-center flex-1 text-muted/30 opacity-60">
                 <div
                   onClick={handleAdd}
-                  className="w-24 h-24 bg-indigo-50 hover:bg-indigo-100 cursor-pointer transition-colors rounded-full flex items-center justify-center mb-6 border-2 border-indigo-200 shadow-sm text-indigo-400 hover:text-indigo-600"
+                  className="w-24 h-24 bg-primary/5 hover:bg-primary/10 cursor-pointer transition-colors rounded-full flex items-center justify-center mb-6 border-2 border-primary/20 shadow-sm text-primary hover:text-primary-hover"
                 >
                   <Plus className="w-10 h-10" strokeWidth={3} />
                 </div>
-                <p className="font-bold text-xl text-slate-400 tracking-tight">Create a new journal entry</p>
+                <p className="font-bold text-xl text-muted tracking-tight">Create a new journal entry</p>
               </div>
             )}
           </div>

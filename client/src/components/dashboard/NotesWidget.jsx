@@ -62,18 +62,18 @@ const NotesWidget = () => {
   };
 
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col h-[500px] hover:shadow-md transition-shadow relative">
+    <div className="bg-card rounded-2xl p-6 shadow-sm border border-border flex flex-col h-[500px] hover:shadow-md transition-all duration-300 relative">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-yellow-50 text-yellow-600 rounded-lg">
+          <div className="p-2 bg-yellow-50 dark:bg-yellow-900/20 text-yellow-600 rounded-lg">
             <PencilLine className="w-5 h-5" />
           </div>
-          <h2 className="text-xl font-bold text-slate-800">Quick Note</h2>
+          <h2 className="text-xl font-bold text-main">Quick Note</h2>
         </div>
 
         <button
           onClick={handleNewNote}
-          className="px-4 py-2 text-white bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors flex items-center gap-2 text-sm font-bold"
+          className="px-4 py-2 text-white bg-slate-800 dark:bg-slate-700 hover:bg-slate-700 dark:hover:bg-slate-600 rounded-lg transition-colors flex items-center gap-2 text-sm font-bold shadow-lg shadow-slate-900/20"
         >
           <Plus className="w-4 h-4" /> New
         </button>
@@ -84,9 +84,9 @@ const NotesWidget = () => {
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="Start typing your quick note... It auto-saves instantly to your Journal module! Click 'New Note' above to generate another fresh one seamlessly."
-          className="flex-1 w-full bg-slate-50 border border-slate-200 rounded-xl p-5 text-slate-700 resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400/20 focus:border-indigo-400 transition-all font-medium text-[1rem] leading-relaxed custom-scrollbar"
+          className="flex-1 w-full bg-bg-input border border-border rounded-xl p-5 text-main resize-none focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium text-[1rem] leading-relaxed custom-scrollbar placeholder:text-muted/50"
         />
-        <div className={`absolute bottom-4 right-4 text-xs font-bold px-3 py-1.5 rounded transition-all bg-white shadow-sm border border-slate-100 ${saving ? 'text-indigo-400 opacity-100' : (noteId ? 'text-emerald-500 opacity-100' : 'opacity-0')}`}>
+        <div className={`absolute bottom-4 right-4 text-xs font-bold px-3 py-1.5 rounded transition-all bg-card shadow-sm border border-border ${saving ? 'text-primary opacity-100' : (noteId ? 'text-emerald-500 opacity-100' : 'opacity-0')}`}>
           {saving ? 'Saving...' : 'Auto-saved'}
         </div>
       </div>

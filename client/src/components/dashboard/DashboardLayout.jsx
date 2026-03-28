@@ -83,22 +83,22 @@ const DashboardLayout = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4 text-slate-400">
-          <Loader2 className="w-8 h-8 animate-spin text-indigo-500" />
-          <p className="font-semibold text-sm tracking-wide uppercase">Syncing LifeOS Cloud...</p>
+      <div className="min-h-screen bg-site flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4 text-muted">
+          <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          <p className="font-semibold text-sm tracking-wide uppercase text-muted">Syncing LifeOS Cloud...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] font-sans flex">
+    <div className="min-h-screen bg-site font-sans flex transition-colors duration-300">
       <TopNav />
       <Sidebar />
       <BottomNav />
       
-      <main className="flex-1 ml-0 md:ml-[260px] pt-20 md:pt-24 pb-20 md:pb-8 p-4 md:p-8 overflow-y-auto w-full">
+      <main className="flex-1 ml-0 md:ml-[260px] pt-20 md:pt-24 pb-20 md:pb-8 p-4 md:p-8 overflow-y-auto w-full bg-site transition-colors duration-300">
         <div className="w-full space-y-6 max-w-[1400px] mx-auto">
           <ProgressSummaryWidget 
             completedTasks={completedTasks} 

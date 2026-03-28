@@ -11,21 +11,28 @@
 }
 
 [data-theme="dark"], .dark {
-  --bg-site: #020617;
-  --bg-card: #0f172a;
-  --bg-input: #1e293b;
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  --border: #1e293b;
-  --border-hover: #334155;
+  --bg-site: #030712; /* Deeper background */
+  --bg-card: #111827; /* Rich dark card */
+  --bg-input: #1f2937;
+  --text-main: #f9fafb;
+  --text-muted: #9ca3af;
+  --border: #374151;
+  --border-hover: #4b5563;
   
-  /* Tailwind v4 selective overrides */
-  --color-white: #0f172a;
-  --color-slate-50: #1e293b;
-  --color-slate-100: #1e293b;
-  --color-slate-200: #1e293b;
-  --color-slate-800: #f8fafc;
+  /* Tailwind v4 selective overrides for a premium look */
+  --color-white: #111827;
+  --color-slate-50: #030712;
+  --color-slate-100: #1f2937;
+  --color-slate-200: #374151;
+  --color-slate-300: #4b5563;
+  --color-slate-400: #9ca3af;
+  --color-slate-500: #d1d5db;
+  --color-slate-600: #e5e7eb;
+  --color-slate-700: #f3f4f6;
+  --color-slate-800: #f9fafb;
+  --color-slate-900: #ffffff;
 }
+
 
 @theme {
   --color-primary: #6366f1;
