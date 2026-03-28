@@ -55,7 +55,8 @@ const Notes = () => {
           headers: { Authorization: `Bearer ${token}` }
         });
         setNotes(res.data || []);
-        if (res.data && res.data.length > 0) setActiveNote(res.data[0]);
+        // Only auto-select note on desktop (md breakpoint: 768px)
+        if (res.data && res.data.length > 0 && window.innerWidth >= 768) setActiveNote(res.data[0]);
       } catch (err) { console.error(err); }
       finally { setIsLoading(false); }
     };
