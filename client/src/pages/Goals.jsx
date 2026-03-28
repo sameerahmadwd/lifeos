@@ -190,7 +190,7 @@ const Goals = () => {
                        <div className="flex items-center gap-2">
                           <Rocket className="w-4 h-4 text-primary/60" />
                           <span className="text-xs font-bold uppercase tracking-tight">
-                            Level {Math.min(Math.floor(progress / (100 / (goal.levelConfig?.numberOfLevels || 5))) + 1, goal.levelConfig?.numberOfLevels || 5)}
+                            Level {(goal.milestones?.filter(m => m.isCompleted).length || 0) + 1}
                           </span>
                        </div>
                        <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

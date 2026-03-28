@@ -23,7 +23,7 @@ const GoalWidget = ({ goal }) => {
   }
 
   const progress = Math.min(Math.round((goal.currentValue / goal.targetValue) * 100), 100);
-  const level = Math.min(Math.floor(progress / (100 / (goal.levelConfig?.numberOfLevels || 5))) + 1, goal.levelConfig?.numberOfLevels || 5);
+  const level = (goal.milestones?.filter(m => m.isCompleted).length || 0) + 1;
 
   return (
     <div 

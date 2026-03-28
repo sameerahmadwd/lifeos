@@ -104,18 +104,16 @@ const GoalDetail = () => {
 
   const currentLevel = useMemo(() => {
     if (!goal) return { level: 1, label: 'Novice' };
-    const numLevels = goal.levelConfig?.numberOfLevels || 5;
-    const labels = goal.levelConfig?.levelLabels || ['Novice', 'Apprentice', 'Journeyman', 'Expert', 'Master'];
-    const segment = 100 / numLevels;
     
-    // Calculate which segment the progress falls into
-    const levelIdx = Math.min(Math.floor(progressPercentage / segment), numLevels - 1);
+    // Level is based on completed milestones
+    const completedCount = goal.milestones?.filter(m => m.isCompleted).length || 0;
+    const labels = goal.levelConfig?.levelLabels || ['Novice', 'Apprentice', 'Journeyman', 'Expert', 'Master'];
     
     return {
-      level: levelIdx + 1,
-      label: labels[levelIdx] || `Level ${levelIdx + 1}`
+      level: completedCount + 1,
+      label: labels[completedCount] || labels[labels.length - 1] || 'Achiever'
     };
-  }, [goal, progressPercentage]);
+  }, [goal]);
 
   const chartData = useMemo(() => {
     if (!logs.length || !goal) return [];
