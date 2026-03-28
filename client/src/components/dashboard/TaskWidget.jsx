@@ -80,7 +80,7 @@ const TaskWidget = ({ tasks, setTasks }) => {
               </div>
               <button 
                 onClick={(e) => { e.stopPropagation(); deleteTask(task.id); }}
-                className="opacity-0 group-hover:opacity-100 p-2 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
+                className="opacity-100 md:opacity-0 md:group-hover:opacity-100 p-2 text-muted/60 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-all"
               >
                 <Trash2 className="w-4 h-4" />
               </button>
