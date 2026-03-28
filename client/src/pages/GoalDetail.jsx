@@ -388,32 +388,30 @@ const GoalDetail = () => {
                       <h3 className="text-base font-black tracking-tight">Milestones</h3>
                    </div>
                    
-                   <div className="space-y-2 max-h-[280px] overflow-y-auto pr-1">
-                      {goal.milestones.map((milestone, idx) => (
-                        <div 
-                          key={idx}
-                          className={`flex items-center justify-between p-4 rounded-2xl border-2 transition-all ${
-                            milestone.isCompleted 
-                              ? 'bg-emerald-500/5 border-emerald-500/10' 
-                              : 'bg-input/30 border-transparent hover:border-border/50'
-                          }`}
-                        >
-                           <div className="flex items-center gap-4">
-                              <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
-                                milestone.isCompleted ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/20' : 'bg-input text-muted border border-border mt-0.5'
-                              }`}>
-                                {milestone.isCompleted ? <CheckCircle2 className="w-5 h-5" /> : <Circle className="w-5 h-5" />}
+                    <div className="grid grid-cols-2 gap-2 mt-2">
+                       {goal.milestones.map((milestone, idx) => (
+                         <div 
+                           key={idx}
+                           className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border transition-all text-center ${
+                             milestone.isCompleted 
+                               ? "bg-emerald-500/5 border-emerald-500/20" 
+                               : "bg-input/30 border-transparent hover:border-border/50"
+                           }`}
+                         >
+                            <div className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 transition-all ${
+                              milestone.isCompleted ? "bg-emerald-500 text-white shadow-md shadow-emerald-500/20" : "bg-input text-muted border border-border mt-0.5"
+                            }`}>
+                              {milestone.isCompleted ? <CheckCircle2 className="w-4 h-4" /> : <Circle className="w-4 h-4" />}
+                            </div>
+                            <div className="space-y-0.5">
+                              <div className={`text-[0.7rem] font-black tracking-tight leading-tight ${milestone.isCompleted ? "text-main" : "text-muted"}`}>{milestone.label}</div>
+                              <div className={`text-[0.55rem] font-bold uppercase tracking-widest ${milestone.isCompleted ? "text-emerald-600/70" : "text-muted/40"}`}>
+                                {milestone.value.toLocaleString()} {goal.unit}
                               </div>
-                              <div className="space-y-0.5">
-                                <div className={`text-[0.9rem] font-black tracking-tight ${milestone.isCompleted ? 'text-main' : 'text-muted'}`}>{milestone.label}</div>
-                                <div className={`text-[0.65rem] font-bold uppercase tracking-widest ${milestone.isCompleted ? 'text-emerald-600/70' : 'text-muted/40'}`}>
-                                   Threshold: {milestone.value.toLocaleString()} {goal.unit}
-                                </div>
-                              </div>
-                           </div>
-                        </div>
-                      ))}
-                   </div>
+                            </div>
+                         </div>
+                       ))}
+                    </div>
                 </div>
 
                 {/* Productivity Action Card */}
