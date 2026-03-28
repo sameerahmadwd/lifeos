@@ -3,6 +3,14 @@ import { Clock, Zap, History, TrendingUp } from 'lucide-react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+const getLocalDateStr = () => {
+  const d = new Date();
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
 const TimeTrackerWidget = ({ variant = 'default' }) => {
   const [totalSeconds, setTotalSeconds] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -12,7 +20,7 @@ const TimeTrackerWidget = ({ variant = 'default' }) => {
       const userInfo = JSON.parse(localStorage.getItem('userInfo'));
       if (!userInfo?.token) return;
 
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/sessions/today`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/sessions/today?date=${getLocalDateStr()}`, {
         headers: { Authorization: `Bearer ${userInfo.token}` }
       });
       setTotalSeconds(res.data.totalDuration || 0);

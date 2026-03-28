@@ -5,6 +5,14 @@ const IDLE_TIMEOUT = 60 * 1000; // 60 seconds of no activity
 const HEARTBEAT_INTERVAL = 15 * 1000; // 15 seconds
 const MASTER_TIMEOUT = 20 * 1000; // 20 seconds to consider a tab inactive
 
+const getLocalDateStr = () => {
+  const d = new Date();
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
 const useActiveSession = (user) => {
   const [isActive, setIsActive] = useState(false);
   const [isIdle, setIsIdle] = useState(false);
@@ -38,7 +46,7 @@ const useActiveSession = (user) => {
     }
 
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/sessions/heartbeat`, {}, {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/sessions/heartbeat`, { date: getLocalDateStr() }, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setSessionData(res.data);
@@ -55,7 +63,7 @@ const useActiveSession = (user) => {
   const startSession = useCallback(async () => {
     if (!user?.token) return;
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/sessions/start`, {}, {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/sessions/start`, { date: getLocalDateStr() }, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setSessionData(res.data);

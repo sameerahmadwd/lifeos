@@ -8,7 +8,7 @@ const { protect } = require('../middleware/authMiddleware');
 // @desc    Start a new tracking session
 router.post('/start', protect, async (req, res) => {
   try {
-    const today = new Date().toISOString().split('T')[0];
+    const today = req.body.date || new Date().toISOString().split('T')[0];
     
     // Check if there is already an active session for this user today
     let session = await Session.findOne({ userId: req.user.id, status: 'active', date: today });
@@ -37,12 +37,16 @@ router.post('/start', protect, async (req, res) => {
 // @desc    Update last active time and duration
 router.post('/heartbeat', protect, async (req, res) => {
   try {
-    const today = new Date().toISOString().split('T')[0];
-    const session = await Session.findOne({ 
-      userId: req.user.id, 
-      status: 'active',
-      date: today 
-    });
+    const { date } = req.body;
+    // Find session: prefer specified date, but fallback to any active session (handles midnight spans)
+    let session;
+    if (date) {
+      session = await Session.findOne({ userId: req.user.id, status: 'active', date });
+    }
+    
+    if (!session) {
+      session = await Session.findOne({ userId: req.user.id, status: 'active' }).sort({ startTime: -1 });
+    }
 
     if (!session) {
       return res.status(404).json({ msg: 'No active session found' });
@@ -98,7 +102,7 @@ router.post('/stop', protect, async (req, res) => {
 // @desc    Get total active time for today
 router.get('/today', protect, async (req, res) => {
   try {
-    const today = new Date().toISOString().split('T')[0];
+    const today = req.query.date || new Date().toISOString().split('T')[0];
     const sessions = await Session.find({ userId: req.user.id, date: today });
     
     const totalDuration = sessions.reduce((acc, s) => acc + s.duration, 0);
