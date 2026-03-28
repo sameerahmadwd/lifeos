@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Clock, Bell, LogOut, Sun, Moon, CloudSun, 
-  History, Zap, Megaphone, X 
+  History, Zap, Megaphone, X, Settings 
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -184,6 +184,15 @@ const TopNav = () => {
             <span className="text-[0.65rem] text-slate-400 font-bold uppercase tracking-wider">Verified Account</span>
           </div>
           
+          {/* Settings Link (Mobile Only) */}
+          <button 
+            onClick={() => navigate('/settings')}
+            className="md:hidden p-2.5 bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-primary hover:bg-indigo-50 dark:hover:bg-primary/20 rounded-xl transition-all duration-300 group"
+            title="Settings"
+          >
+            <Settings className="w-5 h-5 group-hover:scale-110 transition-transform" />
+          </button>
+
           {/* Theme Toggle */}
           <button 
             onClick={toggleTheme}
