@@ -26,6 +26,9 @@ const GoalDetail = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [newLog, setNewLog] = useState({ value: '', note: '' });
   const [editData, setEditData] = useState(null);
+  const [showEditLogModal, setShowEditLogModal] = useState(false);
+  const [editingLogId, setEditingLogId] = useState(null);
+  const [editLogData, setEditLogData] = useState({ value: '', note: '' });
 
   const token = JSON.parse(localStorage.getItem('userInfo'))?.token;
 
@@ -94,6 +97,33 @@ const GoalDetail = () => {
       fetchGoalData();
     } catch (err) {
       console.error('Logging progress failed:', err);
+    }
+  };
+
+  const handleEditLog = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put(`${import.meta.env.VITE_API_URL}/goals/${id}/progress/${editingLogId}`, editLogData, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setShowEditLogModal(false);
+      setEditingLogId(null);
+      fetchGoalData();
+    } catch (err) {
+      console.error('Editing log failed:', err);
+    }
+  };
+
+  const handleDeleteLog = async (logId) => {
+    if (window.confirm('Delete this progress entry? Your goal total will be recalibrated.')) {
+      try {
+        await axios.delete(`${import.meta.env.VITE_API_URL}/goals/${id}/progress/${logId}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        fetchGoalData();
+      } catch (err) {
+        console.error('Deleting log failed:', err);
+      }
     }
   };
 
@@ -316,7 +346,27 @@ const GoalDetail = () => {
                            <div className="flex-1">
                               <div className="flex items-baseline justify-between mb-0.5">
                                  <div className="text-lg font-black tracking-tight">+{log.value.toLocaleString()} <span className="text-[0.6rem] font-bold text-muted uppercase">{goal.unit}</span></div>
-                                 <div className="text-[0.65rem] font-bold text-muted uppercase tracking-widest">{new Date(log.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</div>
+                                  <div className="text-[0.65rem] font-bold text-muted uppercase tracking-widest">{new Date(log.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</div>
+                                  <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                     <button 
+                                       onClick={() => {
+                                         setEditingLogId(log._id);
+                                         setEditLogData({ value: log.value, note: log.note || '' });
+                                         setShowEditLogModal(true);
+                                       }}
+                                       className="p-1.5 hover:text-primary transition-colors"
+                                       title="Edit Entry"
+                                     >
+                                       <Edit className="w-3.5 h-3.5" />
+                                     </button>
+                                     <button 
+                                       onClick={() => handleDeleteLog(log._id)}
+                                       className="p-1.5 hover:text-red-500 transition-colors"
+                                       title="Delete Entry"
+                                     >
+                                       <Trash2 className="w-3.5 h-3.5" />
+                                     </button>
+                                  </div>
                               </div>
                               {log.note && <p className="text-xs font-medium text-muted/80">{log.note}</p>}
                            </div>
@@ -533,6 +583,62 @@ const GoalDetail = () => {
                   className="flex-[2] bg-primary text-white py-5 rounded-2xl font-black shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all text-sm uppercase tracking-widest flex items-center justify-center gap-2"
                 >
                   <Save className="w-5 h-5" /> Save Changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Log Modal */}
+      {showEditLogModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-site/80 backdrop-blur-md" onClick={() => setShowEditLogModal(false)} />
+          <div className="bg-card w-full max-w-md rounded-[2.5rem] p-10 shadow-2xl border border-border relative z-10">
+            <div className="flex items-center gap-4 mb-8">
+               <div className="p-2.5 bg-primary/10 text-primary rounded-2xl">
+                  <Edit className="w-8 h-8" />
+               </div>
+               <h2 className="text-2xl font-black tracking-tight">Edit Entry</h2>
+            </div>
+            
+            <form onSubmit={handleEditLog} className="space-y-6">
+              <div className="space-y-2">
+                <label className="text-[0.7rem] font-black text-muted uppercase tracking-widest pl-1">Amount ({goal.unit})</label>
+                <div className="relative">
+                   <input 
+                    type="number" 
+                    required
+                    value={editLogData.value}
+                    onChange={(e) => setEditLogData({...editLogData, value: e.target.value})}
+                    className="w-full bg-input border border-border rounded-2xl py-5 px-6 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none font-black text-3xl tracking-tighter tabular-nums text-main transition-all"
+                  />
+                  <div className="absolute right-6 top-1/2 -translate-y-1/2 font-black text-muted text-sm uppercase">{goal.unit}</div>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[0.7rem] font-black text-muted uppercase tracking-widest pl-1">Note</label>
+                <textarea 
+                  value={editLogData.note}
+                  onChange={(e) => setEditLogData({...editLogData, note: e.target.value})}
+                  className="w-full bg-input border border-border rounded-2xl py-4 px-6 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none font-bold text-main transition-all min-h-[100px] resize-none"
+                />
+              </div>
+
+              <div className="flex gap-3 pt-2">
+                <button 
+                  type="button"
+                  onClick={() => setShowEditLogModal(false)}
+                  className="flex-1 bg-input text-muted py-4 rounded-xl font-black hover:bg-border transition-all text-sm uppercase tracking-widest"
+                >
+                  Cancel
+                </button>
+                <button 
+                  type="submit"
+                  className="flex-[2] bg-primary text-white py-4 rounded-xl font-black shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all text-sm uppercase tracking-widest"
+                >
+                  Save Entry
                 </button>
               </div>
             </form>

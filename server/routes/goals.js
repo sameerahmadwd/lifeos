@@ -160,6 +160,69 @@ router.put('/:id', protect, async (req, res) => {
   }
 });
 
+// @route   PUT /api/goals/:id/progress/:logId
+// @desc    Update a progress log and recalibrate goal
+router.put('/:id/progress/:logId', protect, async (req, res) => {
+  try {
+    const { value, note } = req.body;
+    const goal = await Goal.findOne({ _id: req.params.id, user: req.user.id });
+    if (!goal) return res.status(404).json({ msg: 'Goal not found' });
+
+    const log = await ProgressLog.findOne({ _id: req.params.logId, goal: req.params.id });
+    if (!log) return res.status(404).json({ msg: 'Log not found' });
+
+    if (value !== undefined) log.value = Number(value);
+    if (note !== undefined) log.note = note;
+    await log.save();
+
+    // Recalculate goal total from all logs
+    const allLogs = await ProgressLog.find({ goal: goal._id });
+    const totalProgress = allLogs.reduce((acc, l) => acc + l.value, 0);
+    goal.currentValue = goal.startValue + totalProgress;
+
+    // Refresh milestones
+    goal.milestones.forEach(m => {
+      if (goal.currentValue >= m.value) m.isCompleted = true;
+      else m.isCompleted = false;
+    });
+
+    await goal.save();
+    res.json({ log, goal });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route   DELETE /api/goals/:id/progress/:logId
+// @desc    Delete a progress log and recalibrate goal
+router.delete('/:id/progress/:logId', protect, async (req, res) => {
+  try {
+    const goal = await Goal.findOne({ _id: req.params.id, user: req.user.id });
+    if (!goal) return res.status(404).json({ msg: 'Goal not found' });
+
+    const log = await ProgressLog.findOneAndDelete({ _id: req.params.logId, goal: req.params.id });
+    if (!log) return res.status(404).json({ msg: 'Log not found' });
+
+    // Recalculate goal total from all remaining logs
+    const allLogs = await ProgressLog.find({ goal: goal._id });
+    const totalProgress = allLogs.reduce((acc, l) => acc + l.value, 0);
+    goal.currentValue = goal.startValue + totalProgress;
+
+    // Refresh milestones
+    goal.milestones.forEach(m => {
+      if (goal.currentValue >= m.value) m.isCompleted = true;
+      else m.isCompleted = false;
+    });
+
+    await goal.save();
+    res.json({ msg: 'Log deleted', goal });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+});
+
 // @route   DELETE /api/goals/:id
 router.delete('/:id', protect, async (req, res) => {
     try {
