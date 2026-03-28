@@ -12,6 +12,7 @@ const TopNav = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [settings, setSettings] = useState(null);
   const [announcementDismissed, setAnnouncementDismissed] = useState(false);
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
 
   const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
   const { name: userName, timezone = 'UTC' } = userInfo;
@@ -31,6 +32,11 @@ const TopNav = () => {
     };
     fetchSettings();
   }, []);
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
@@ -56,6 +62,10 @@ const TopNav = () => {
       localStorage.removeItem('userInfo');
       navigate('/login');
     }
+  };
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
   };
 
   const dismissAnnouncement = () => {
@@ -163,12 +173,26 @@ const TopNav = () => {
         {/* Right: Actions */}
         <div className="flex items-center gap-4 w-auto md:w-[260px] justify-end ml-auto">
           <div className="hidden md:flex flex-col items-end mr-2">
-            <span className="text-xs font-black text-slate-800 leading-none">{userName}</span>
+            <span className="text-xs font-black text-slate-800 leading-none dark:text-slate-200">{userName}</span>
             <span className="text-[0.65rem] text-slate-400 font-bold uppercase tracking-wider">Verified Account</span>
           </div>
+          
+          {/* Theme Toggle */}
+          <button 
+            onClick={toggleTheme}
+            className="p-2.5 bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-xl transition-all duration-300 group"
+            title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
+          >
+            {theme === 'light' ? (
+              <Moon className="w-5 h-5 group-hover:scale-110 transition-transform" />
+            ) : (
+              <Sun className="w-5 h-5 group-hover:scale-110 transition-transform text-amber-400" />
+            )}
+          </button>
+
           <button 
             onClick={handleLogout}
-            className="p-2.5 bg-slate-50 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all duration-300 group"
+            className="p-2.5 bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-xl transition-all duration-300 group"
             title="Sign Out"
           >
             <LogOut className="w-5 h-5 group-hover:scale-110 transition-transform" />

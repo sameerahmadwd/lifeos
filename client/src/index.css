@@ -5,22 +5,34 @@
   --color-primary-hover: #4f46e5;
   --color-secondary: #ec4899;
   
+  /* Semantic Variables - Light Default */
   --color-bg-site: #f8fafc;
-  --color-text-site: #0f172a;
+  --color-bg-card: #ffffff;
+  --color-bg-input: #f1f5f9;
+  --color-text-main: #0f172a;
+  --color-text-muted: #64748b;
+  --color-border: #e2e8f0;
+  --color-border-hover: #cbd5e1;
 }
 
 [data-theme="dark"] {
-  --color-bg-site: #0f172a;
-  --color-text-site: #f8fafc;
+  --color-bg-site: #020617;
+  --color-bg-card: #0f172a;
+  --color-bg-input: #1e293b;
+  --color-text-main: #f8fafc;
+  --color-text-muted: #94a3b8;
+  --color-border: #1e293b;
+  --color-border-hover: #334155;
 }
+
 
 @layer base {
   body {
     font-family: 'Inter', system-ui, sans-serif;
     background-color: var(--color-bg-site);
-    color: var(--color-text-site);
+    color: var(--color-text-main);
     -webkit-font-smoothing: antialiased;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
   }
 }
 
@@ -35,12 +47,13 @@
 }
 
 .auth-card {
-  background: #ffffff;
+  background: var(--color-bg-card);
   width: 100%;
   max-width: 440px;
   border-radius: 1.5rem;
   padding: 2.5rem;
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  border: 1px solid var(--color-border);
   position: relative;
   overflow: hidden;
 }
@@ -65,7 +78,7 @@
 }
 
 .auth-subtitle {
-  color: #64748b;
+  color: var(--color-text-muted);
   font-size: 0.95rem;
   margin-bottom: 2rem;
 }
@@ -79,7 +92,7 @@
   font-size: 0.875rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
-  color: #0f172a;
+  color: var(--color-text-main);
 }
 
 .form-input-container {
@@ -100,15 +113,16 @@
 .form-input {
   width: 100%;
   padding: 0.875rem 1rem 0.875rem 3rem;
-  border: 1px solid #e2e8f0;
-  background-color: #f1f5f9;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-input);
   border-radius: 1rem;
-  color: #0f172a;
+  color: var(--color-text-main);
+  transition: all 0.3s;
 }
 
 .form-input:focus {
-  background-color: #ffffff;
-  border-color: #6366f1;
+  background-color: var(--color-bg-card);
+  border-color: var(--color-primary);
   outline: none;
   box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
 }
@@ -136,7 +150,7 @@
   text-align: center;
   margin-top: 2rem;
   font-size: 0.95rem;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .auth-link {

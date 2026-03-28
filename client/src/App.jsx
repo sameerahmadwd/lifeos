@@ -32,6 +32,10 @@ function App() {
   const { isActive, isIdle } = useActiveSession(userInfo);
 
   React.useEffect(() => {
+    // Initialize theme
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+
     const fetchSettings = async () => {
       try {
         const res = await axios.get(`${import.meta.env.VITE_API_URL}/settings`);
