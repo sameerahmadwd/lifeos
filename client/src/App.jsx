@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
-import Register from './pages/Register';
 import DashboardLayout from './components/dashboard/DashboardLayout';
 import Habits from './pages/Habits';
 import Notes from './pages/Notes';
@@ -92,12 +91,8 @@ function App() {
             <Login />
           </AuthGate>
         } />
-        <Route path="/register" element={
-          <AuthGate>
-            <Register />
-          </AuthGate>
-        } />
         <Route path="/forgot-password" element={
+
           <AuthGate>
             <ForgotPassword />
           </AuthGate>
