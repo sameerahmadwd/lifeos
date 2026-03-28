@@ -205,9 +205,9 @@ const Tasks = () => {
       <Sidebar />
       <BottomNav />
       <main className="flex-1 ml-0 md:ml-[260px] pt-[72px] pb-[72px] md:pb-0 flex flex-col h-screen overflow-hidden bg-site transition-colors duration-300">
-        <div className="flex-1 flex overflow-hidden bg-card shadow-sm md:border-t md:border-l border-border mt-0 md:mt-2 ml-0 md:ml-2 md:rounded-tl-3xl relative">
+        <div className="flex-1 min-h-0 flex overflow-hidden bg-card shadow-sm md:border-t md:border-l border-border mt-0 md:mt-2 ml-0 md:ml-2 md:rounded-tl-3xl relative">
           
-          <div className="w-full flex flex-col h-full overflow-hidden">
+          <div className="w-full flex-1 min-h-0 flex flex-col overflow-hidden">
              
              {/* Header Section */}
              <div className="px-4 md:px-8 py-4 md:py-6 border-b border-border bg-card">
@@ -388,7 +388,7 @@ const Tasks = () => {
              </div>
 
              {/* Main Board - Split Kanban */}
-             <div className="flex-1 flex flex-col md:flex-row gap-6 p-4 md:p-8 overflow-y-auto md:overflow-x-auto bg-site/10 custom-scrollbar pb-32 md:pb-8">
+             <div className="flex-1 min-h-0 flex flex-col md:flex-row gap-6 p-4 md:p-8 overflow-y-auto md:overflow-x-auto bg-site/10 custom-scrollbar pb-32 md:pb-8 overscroll-contain transition-colors duration-300" style={{ WebkitOverflowScrolling: 'touch' }}>
                 
                 {/* PENDING COLUMN */}
                 <div className={`${mobileView === 'pending' ? 'flex' : 'hidden md:flex'} flex-1 flex flex-col min-w-full md:min-w-[400px]`}>
