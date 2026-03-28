@@ -21,7 +21,8 @@ services:
       - JWT_SECRET=69babb8195bc2dfeec9f98b6
       - EMAIL_USER=sameerahmadsaifi@gmail.com
       - EMAIL_PASS=qtqn qcxl mjoo bycn
-      - CLIENT_URL=http://localhost
+      - CLIENT_URL=http://187.127.136.83:8080
+      - VITE_API_URL=http://187.127.136.83:5000/api
     depends_on:
       - mongodb
     networks:
