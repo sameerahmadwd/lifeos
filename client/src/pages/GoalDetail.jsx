@@ -176,7 +176,7 @@ const GoalDetail = () => {
       <BottomNav />
 
       <main className="flex-1 ml-0 md:ml-[260px] pt-16 md:pt-24 p-4 md:p-8 pb-24 md:pb-8 w-full overflow-y-auto">
-        <div className="max-w-[1000px] mx-auto space-y-8">
+        <div className="max-w-[1000px] mx-auto space-y-5">
           
           {/* Back Navigation */}
           <Link to="/goals" className="inline-flex items-center gap-2 text-muted hover:text-primary transition-colors font-bold text-sm group">
@@ -184,7 +184,7 @@ const GoalDetail = () => {
           </Link>
 
           {/* Top Section: Goal Overview */}
-          <div className="bg-card rounded-[2.5rem] p-8 md:p-10 border border-border shadow-sm space-y-8 relative overflow-hidden">
+          <div className="bg-card rounded-[2.5rem] p-6 md:p-8 border border-border shadow-sm space-y-5 relative overflow-hidden">
              {/* Decorative Background Glow */}
              <div className="absolute -right-20 -top-20 w-64 h-64 bg-primary/5 rounded-full blur-[100px]" />
              
@@ -269,7 +269,7 @@ const GoalDetail = () => {
                       <div className="text-[0.65rem] font-black text-muted uppercase tracking-widest bg-input px-3 py-1 rounded-full">Cumulative History</div>
                    </div>
                    
-                   <div className="h-[300px] w-full mt-4">
+                   <div className="h-[200px] w-full mt-4">
                      {chartData.length > 0 ? (
                        <ResponsiveContainer width="100%" height="100%">
                          <AreaChart data={chartData}>
@@ -339,7 +339,7 @@ const GoalDetail = () => {
                       </button>
                    </div>
 
-                   <div className="space-y-1">
+                   <div className="space-y-1 max-h-[400px] overflow-y-auto pr-1">
                       {logs.length > 0 ? logs.map((log, idx) => (
                         <div key={log._id} className="group flex items-center gap-6 p-5 rounded-2xl hover:bg-input/50 transition-all relative border border-transparent hover:border-border/30">
                            <div className="w-1.5 h-1.5 rounded-full bg-primary/20 group-hover:bg-primary transition-colors flex-shrink-0" />
