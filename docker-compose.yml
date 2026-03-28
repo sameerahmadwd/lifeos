@@ -1,50 +1,45 @@
-version: '3.8'
 
 services:
   mongodb:
     image: mongo:latest
-    container_name: lifeos_mongodb
-    restart: unless-stopped
+    container_name: mongodb
+    ports:
+      - "27017:27017"
     volumes:
-      - mongodb_data:/data/db
+      - mongo-data:/data/db
+    networks:
+      - lifeos-network
 
   backend:
-    build:
-      context: ./server
-      dockerfile: Dockerfile
-    container_name: lifeos_backend
-    restart: unless-stopped
+    build: ./server
+    container_name: lifeos-backend
+    ports:
+      - "5000:5000"
     environment:
       - PORT=5000
       - MONGO_URI=mongodb://mongodb:27017/lifeos
-      - JWT_SECRET=${JWT_SECRET:-supersecret_default_key}
+      - JWT_SECRET=69babb8195bc2dfeec9f98b6
+      - EMAIL_USER=sameerahmadsaifi@gmail.com
+      - EMAIL_PASS=qtqn qcxl mjoo bycn
+      - CLIENT_URL=http://localhost
     depends_on:
       - mongodb
+    networks:
+      - lifeos-network
 
   frontend:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
-      args:
-        - VITE_API_URL=/api
-    container_name: lifeos_frontend
-    restart: unless-stopped
+    build: ./client
+    container_name: lifeos-frontend
+    ports:
+      - "80:80"
     depends_on:
       - backend
     networks:
-      - default
-      - proxy
-    labels:
-      - "traefik.enable=true"
-      # REPLACE lifeos.yourdomain.com with your actual domain
-      - "traefik.http.routers.lifeos.rule=Host(`lifeos.yourdomain.com`)"
-      - "traefik.http.routers.lifeos.entrypoints=websecure"
-      - "traefik.http.routers.lifeos.tls.certresolver=myresolver"
-      - "traefik.http.services.lifeos.loadbalancer.server.port=80"
+      - lifeos-network
 
 networks:
-  proxy:
-    external: true
+  lifeos-network:
+    driver: bridge
 
 volumes:
-  mongodb_data:
+  mongo-data:
