@@ -111,10 +111,12 @@ const GoalDetail = () => {
       fetchGoalData();
     } catch (err) {
       console.error('Editing log failed:', err);
+      alert('Editing log failed: ' + (err.response?.data?.msg || err.message));
     }
   };
 
   const handleDeleteLog = async (logId) => {
+    console.log('handleDeleteLog called for:', logId);
     if (window.confirm('Delete this progress entry? Your goal total will be recalibrated.')) {
       try {
         await axios.delete(`${import.meta.env.VITE_API_URL}/goals/${id}/progress/${logId}`, {
@@ -123,6 +125,7 @@ const GoalDetail = () => {
         fetchGoalData();
       } catch (err) {
         console.error('Deleting log failed:', err);
+        alert('Deleting log failed: ' + (err.response?.data?.msg || err.message));
       }
     }
   };
@@ -346,8 +349,8 @@ const GoalDetail = () => {
                            <div className="flex-1">
                               <div className="flex items-baseline justify-between mb-0.5">
                                  <div className="text-lg font-black tracking-tight">+{log.value.toLocaleString()} <span className="text-[0.6rem] font-bold text-muted uppercase">{goal.unit}</span></div>
-                                  <div className="text-[0.65rem] font-bold text-muted uppercase tracking-widest">{new Date(log.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</div>
-                                  <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                     <div className="text-[0.65rem] font-bold text-muted uppercase tracking-widest">{new Date(log.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</div>
+                                     <div className="flex items-center gap-1 opacity-100 transition-opacity">
                                      <button 
                                        onClick={() => {
                                          setEditingLogId(log._id);
