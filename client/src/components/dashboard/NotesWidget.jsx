@@ -84,7 +84,7 @@ const NotesWidget = () => {
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="Start typing your quick note... It auto-saves instantly to your Journal module! Click 'New Note' above to generate another fresh one seamlessly."
-          className="flex-1 w-full bg-bg-input border border-border rounded-xl p-5 text-main resize-none focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium text-[1rem] leading-relaxed custom-scrollbar placeholder:text-muted/50"
+          className="flex-1 w-full bg-input border border-border rounded-xl p-5 text-main resize-none focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium text-[1rem] leading-relaxed custom-scrollbar placeholder:text-muted/50"
         />
         <div className={`absolute bottom-4 right-4 text-xs font-bold px-3 py-1.5 rounded transition-all bg-card shadow-sm border border-border ${saving ? 'text-primary opacity-100' : (noteId ? 'text-emerald-500 opacity-100' : 'opacity-0')}`}>
           {saving ? 'Saving...' : 'Auto-saved'}

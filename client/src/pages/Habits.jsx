@@ -115,7 +115,7 @@ const Habits = () => {
               <h1 className="text-2xl md:text-3xl font-black text-main tracking-tight">Habit Tracker</h1>
               <p className="text-muted font-medium mt-1 text-sm md:text-base">Configure daily habits and instantly map your sequential history cleanly effortlessly.</p>
             </div>
-            <button onClick={() => navigate('/')} className="w-full md:w-auto flex justify-center items-center gap-2 px-4 py-2 bg-card border border-border shadow-sm rounded-lg hover:bg-bg-input text-muted font-semibold transition-colors">
+            <button onClick={() => navigate('/')} className="w-full md:w-auto flex justify-center items-center gap-2 px-4 py-2 bg-card border border-border shadow-sm rounded-lg hover:bg-input text-muted font-semibold transition-colors">
               <ArrowLeft className="w-4 h-4" /> Back to Dashboard
             </button>
           </div>
@@ -125,7 +125,7 @@ const Habits = () => {
             <div className="bg-card rounded-2xl shadow-sm border border-border p-8 h-fit">
               <h2 className="text-xl font-bold text-main mb-6">Define Habits</h2>
 
-              <form onSubmit={handleAdd} className="flex gap-4 mb-8 bg-bg-input p-2 rounded-2xl border border-border">
+              <form onSubmit={handleAdd} className="flex gap-4 mb-8 bg-input p-2 rounded-2xl border border-border">
                 <input
                   type="text"
                   value={newHabitName}
@@ -147,10 +147,10 @@ const Habits = () => {
 
                       {editingId === habit._id ? (
                         <div className="flex items-center gap-4 w-full">
-                          <input type="text" value={editName} onChange={e => setEditName(e.target.value)} className="flex-1 border-b-2 border-primary bg-bg-input rounded-t px-3 py-1.5 focus:outline-none focus:border-primary font-bold text-main text-[1rem]" autoFocus />
+                          <input type="text" value={editName} onChange={e => setEditName(e.target.value)} className="flex-1 border-b-2 border-primary bg-input rounded-t px-3 py-1.5 focus:outline-none focus:border-primary font-bold text-main text-[1rem]" autoFocus />
                           <div className="flex items-center gap-1">
                             <button onClick={saveEdit} disabled={!editName.trim()} className="p-2 bg-emerald-500/10 text-emerald-500 rounded-lg hover:bg-emerald-500/20 transition-colors disabled:opacity-50"><Check className="w-5 h-5" strokeWidth={3} /> </button>
-                            <button onClick={() => setEditingId(null)} className="p-2 bg-bg-input text-muted rounded-lg hover:bg-muted/10 transition-colors"><X className="w-5 h-5" strokeWidth={3} /> </button>
+                            <button onClick={() => setEditingId(null)} className="p-2 bg-input text-muted rounded-lg hover:bg-muted/10 transition-colors"><X className="w-5 h-5" strokeWidth={3} /> </button>
                           </div>
                         </div>
                       ) : (
@@ -172,7 +172,7 @@ const Habits = () => {
             <div className="bg-card rounded-2xl shadow-sm border border-border p-8 h-fit">
               <div className="flex items-center justify-between mb-8">
                 <h2 className="text-[1.3rem] font-bold text-main">Tracking Heatmap</h2>
-                <div className="flex items-center gap-5 bg-bg-input px-4 py-2.5 rounded-xl border border-border shadow-sm">
+                <div className="flex items-center gap-5 bg-input px-4 py-2.5 rounded-xl border border-border shadow-sm">
                   <button onClick={handlePrevMonth} className="text-muted/40 hover:text-primary hover:scale-110 transition-all"><ChevronLeft className="w-5 h-5" strokeWidth={3} /></button>
                   <span className="text-[0.95rem] font-bold text-main uppercase tracking-widest min-w-[150px] text-center">
                     {currentDate.toLocaleString('default', { month: 'short', year: 'numeric' })}
@@ -182,7 +182,7 @@ const Habits = () => {
               </div>
 
               {/* UI Legend Panel */}
-              <div className="flex items-center gap-6 mb-6 px-4 py-3 bg-bg-input border border-border rounded-xl relative">
+              <div className="flex items-center gap-6 mb-6 px-4 py-3 bg-input border border-border rounded-xl relative">
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-md bg-primary/5 border border-primary/20"></div>
                   <span className="text-xs font-bold text-muted uppercase tracking-wider">Partial Effort</span>
@@ -195,7 +195,7 @@ const Habits = () => {
 
               <div className="grid grid-cols-7 gap-3 mb-6">
                 {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((d, i) => (
-                  <div key={i} className="text-center text-[0.8rem] font-bold text-muted uppercase tracking-widest mb-2 bg-bg-input/50 py-1 rounded">{d}</div>
+                  <div key={i} className="text-center text-[0.8rem] font-bold text-muted uppercase tracking-widest mb-2 bg-input/50 py-1 rounded">{d}</div>
                 ))}
                 {Array.from({ length: new Date(year, month - 1, 1).getDay() }).map((_, i) => (
                   <div key={`empty-${i}`} className="aspect-square rounded-xl bg-transparent"></div>
@@ -207,7 +207,7 @@ const Habits = () => {
                   const total = log ? log.totalCount : activeHabits.length;
                   const completedNames = log ? log.completedHabits : [];
 
-                  let cellColor = 'bg-bg-input border-border hover:border-muted/30';
+                  let cellColor = 'bg-input border-border hover:border-muted/30';
                   let textColor = 'text-muted/30';
 
                   if (comps > 0 && comps < total) {

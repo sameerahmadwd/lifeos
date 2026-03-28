@@ -46,7 +46,7 @@ const InputField = ({ label, value, onChange, placeholder, type = "text" }) => (
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full px-4 py-3 bg-bg-input border border-border rounded-xl text-sm font-bold text-main focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-muted/30"
+      className="w-full px-4 py-3 bg-input border border-border rounded-xl text-sm font-bold text-main focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-muted/30"
     />
   </div>
 );
@@ -199,7 +199,7 @@ const Settings = () => {
                   <select 
                     value={settings.backupFrequency}
                     onChange={(e) => updateSettings({ backupFrequency: e.target.value })}
-                    className="w-full px-4 py-3 bg-bg-input border border-border rounded-xl text-sm font-bold text-main outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                    className="w-full px-4 py-3 bg-input border border-border rounded-xl text-sm font-bold text-main outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                   >
                     <option value="daily">Daily</option>
                     <option value="weekly">Weekly</option>

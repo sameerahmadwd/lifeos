@@ -128,7 +128,7 @@ const SessionHistory = () => {
                   <h3 className="text-xl font-black text-main tracking-tight">
                     Sessions on {selectedDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                   </h3>
-                  <div className="px-3 py-1 bg-bg-input rounded-full text-[0.65rem] font-bold text-muted uppercase">
+                  <div className="px-3 py-1 bg-input rounded-full text-[0.65rem] font-bold text-muted uppercase">
                     {sessions.length} Sessions
                   </div>
                 </div>
@@ -136,13 +136,13 @@ const SessionHistory = () => {
                 {isLoading ? (
                   <div className="space-y-4">
                     {[1,2,3].map(i => (
-                      <div key={i} className="h-20 bg-bg-input rounded-2xl animate-pulse"></div>
+                      <div key={i} className="h-20 bg-input rounded-2xl animate-pulse"></div>
                     ))}
                   </div>
                 ) : sessions.length > 0 ? (
                   <div className="space-y-4">
                     {sessions.map((session, idx) => (
-                      <div key={session._id} className="group relative bg-bg-input/50 hover:bg-card hover:shadow-xl hover:shadow-primary/5 border border-transparent hover:border-primary/20 rounded-2xl p-5 transition-all duration-300">
+                      <div key={session._id} className="group relative bg-input/50 hover:bg-card hover:shadow-xl hover:shadow-primary/5 border border-transparent hover:border-primary/20 rounded-2xl p-5 transition-all duration-300">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-4">
                             <div className={`p-3 rounded-xl ${session.duration > 1500 ? 'bg-primary text-white' : 'bg-card text-muted shadow-sm'}`}>
@@ -178,7 +178,7 @@ const SessionHistory = () => {
                   </div>
                 ) : (
                   <div className="h-full flex flex-col items-center justify-center py-20 text-center">
-                    <div className="w-20 h-20 bg-bg-input rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <div className="w-20 h-20 bg-input rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                       <Clock className="w-10 h-10 text-muted/20" />
                     </div>
                     <h4 className="text-lg font-black text-muted mb-2 tracking-tight">No activity recorded</h4>

@@ -41,8 +41,8 @@ const TimeTrackerWidget = ({ variant = 'default' }) => {
   if (isLoading) {
     return (
       <div className={`${isCompact ? 'bg-card rounded-2xl' : 'bg-card rounded-3xl'} p-6 shadow-sm border border-border animate-pulse`}>
-        <div className="h-4 w-24 bg-bg-input rounded mb-4"></div>
-        <div className="h-8 w-32 bg-bg-input rounded"></div>
+        <div className="h-4 w-24 bg-input rounded mb-4"></div>
+        <div className="h-8 w-32 bg-input rounded"></div>
       </div>
     );
   }
@@ -64,7 +64,7 @@ const TimeTrackerWidget = ({ variant = 'default' }) => {
           </div>
           <Link 
             to="/sessions" 
-            className="p-1.5 hover:bg-bg-input rounded-lg text-muted hover:text-primary transition-colors"
+            className="p-1.5 hover:bg-input rounded-lg text-muted hover:text-primary transition-colors"
           >
             <History className="w-4 h-4" />
           </Link>
@@ -81,7 +81,7 @@ const TimeTrackerWidget = ({ variant = 'default' }) => {
         </div>
 
         <div className="mt-4 flex items-center gap-2">
-          <div className="flex-1 h-1.5 bg-bg-input rounded-full overflow-hidden">
+          <div className="flex-1 h-1.5 bg-input rounded-full overflow-hidden">
             <div 
               className={`h-full ${isCompact ? 'bg-emerald-500' : 'bg-indigo-500'} rounded-full transition-all duration-1000`}
               style={{ width: `${Math.min((totalSeconds / (8 * 3600)) * 100, 100)}%` }}

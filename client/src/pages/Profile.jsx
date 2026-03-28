@@ -23,7 +23,7 @@ const TIMEZONES = [
 ];
 
 const StatCard = ({ icon: Icon, label, value, color }) => (
-  <div className="bg-bg-input rounded-xl p-4 border border-border flex items-center gap-4">
+  <div className="bg-input rounded-xl p-4 border border-border flex items-center gap-4">
     <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${color}`}>
       <Icon className="w-5 h-5" />
     </div>
@@ -249,7 +249,7 @@ const Profile = () => {
                       <div className="flex gap-2 w-full sm:w-auto">
                         <button
                           onClick={() => setIsEditing(false)}
-                          className="flex-1 sm:flex-none justify-center items-center flex gap-2 px-4 py-2 bg-bg-input text-muted hover:bg-muted/10 rounded-xl text-sm font-bold transition-all"
+                          className="flex-1 sm:flex-none justify-center items-center flex gap-2 px-4 py-2 bg-input text-muted hover:bg-muted/10 rounded-xl text-sm font-bold transition-all"
                         >
                           <X className="w-4 h-4" /> Cancel
                         </button>
@@ -276,7 +276,7 @@ const Profile = () => {
                           value={form.name}
                           onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
                           disabled={!isEditing}
-                          className="w-full pl-10 pr-4 py-2.5 border border-border rounded-xl text-sm font-semibold text-main bg-card outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 disabled:bg-bg-input disabled:text-muted/50 transition-all"
+                          className="w-full pl-10 pr-4 py-2.5 border border-border rounded-xl text-sm font-semibold text-main bg-card outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 disabled:bg-input disabled:text-muted/50 transition-all"
                         />
                       </div>
                     </div>
@@ -306,7 +306,7 @@ const Profile = () => {
                           onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
                           disabled={!isEditing}
                           placeholder="e.g. +91 300 1234567"
-                          className="w-full pl-10 pr-4 py-2.5 border border-border rounded-xl text-sm font-semibold text-main bg-card outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 disabled:bg-bg-input disabled:text-muted/50 transition-all"
+                          className="w-full pl-10 pr-4 py-2.5 border border-border rounded-xl text-sm font-semibold text-main bg-card outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 disabled:bg-input disabled:text-muted/50 transition-all"
                         />
                       </div>
                     </div>
@@ -322,7 +322,7 @@ const Profile = () => {
                           onChange={e => setForm(f => ({ ...f, jobTitle: e.target.value }))}
                           disabled={!isEditing}
                           placeholder="e.g. Software Engineer"
-                          className="w-full pl-10 pr-4 py-2.5 border border-border rounded-xl text-sm font-semibold text-main bg-card outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 disabled:bg-bg-input disabled:text-muted/50 transition-all"
+                          className="w-full pl-10 pr-4 py-2.5 border border-border rounded-xl text-sm font-semibold text-main bg-card outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 disabled:bg-input disabled:text-muted/50 transition-all"
                         />
                       </div>
                     </div>
@@ -336,7 +336,7 @@ const Profile = () => {
                           value={form.timezone}
                           onChange={e => setForm(f => ({ ...f, timezone: e.target.value }))}
                           disabled={!isEditing}
-                          className="w-full pl-10 pr-4 py-2.5 border border-border rounded-xl text-sm font-semibold text-main bg-card outline-none appearance-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 disabled:bg-bg-input disabled:text-muted/50 transition-all cursor-pointer"
+                          className="w-full pl-10 pr-4 py-2.5 border border-border rounded-xl text-sm font-semibold text-main bg-card outline-none appearance-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 disabled:bg-input disabled:text-muted/50 transition-all cursor-pointer"
                         >
                           {TIMEZONES.map(tz => <option key={tz} value={tz}>{tz}</option>)}
                         </select>
@@ -352,7 +352,7 @@ const Profile = () => {
                         disabled={!isEditing}
                         placeholder="A short bio about yourself..."
                         rows={3}
-                        className="w-full px-4 py-2.5 border border-border rounded-xl text-sm font-semibold text-main bg-card outline-none resize-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 disabled:bg-bg-input disabled:text-muted/50 transition-all"
+                        className="w-full px-4 py-2.5 border border-border rounded-xl text-sm font-semibold text-main bg-card outline-none resize-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 disabled:bg-input disabled:text-muted/50 transition-all"
                       />
                     </div>
                   </div>

@@ -219,7 +219,7 @@ const Tasks = () => {
                       <p className="text-muted text-sm font-medium mt-1">Manage and track your tasks.</p>
                    </div>
                    <div className="flex items-center gap-4">
-                      <div className="flex items-center gap-2 px-4 py-2 bg-bg-input rounded-xl border border-border shadow-sm">
+                      <div className="flex items-center gap-2 px-4 py-2 bg-input rounded-xl border border-border shadow-sm">
                         <div className="text-center">
                           <span className="block text-[0.6rem] font-bold text-muted uppercase tracking-widest">Active</span>
                           <span className="text-lg font-black text-primary leading-none">{stats.active}</span>
@@ -251,7 +251,7 @@ const Tasks = () => {
                         <select 
                           value={newTaskCategory}
                           onChange={(e) => setNewTaskCategory(e.target.value)}
-                          className="bg-bg-input border border-border rounded-xl py-2 pl-9 pr-6 text-xs font-bold text-muted appearance-none outline-none focus:ring-2 focus:ring-primary/10 cursor-pointer hover:bg-muted/5 transition-colors"
+                          className="bg-input border border-border rounded-xl py-2 pl-9 pr-6 text-xs font-bold text-muted appearance-none outline-none focus:ring-2 focus:ring-primary/10 cursor-pointer hover:bg-muted/5 transition-colors"
                         >
                           {CATEGORIES.map(cat => <option key={cat} value={cat}>{cat}</option>)}
                         </select>
@@ -305,11 +305,11 @@ const Tasks = () => {
                     {isCalendarOpen && (
                       <div className="absolute top-11 left-0 w-[280px] bg-card border border-border rounded-2xl shadow-xl p-4 z-50">
                         <div className="flex items-center justify-between mb-4">
-                          <button onClick={handlePrevMonth} className="p-1 hover:bg-bg-input rounded text-muted"><ChevronLeft className="w-5 h-5"/></button>
+                          <button onClick={handlePrevMonth} className="p-1 hover:bg-input rounded text-muted"><ChevronLeft className="w-5 h-5"/></button>
                           <span className="font-bold text-sm text-main">
                             {calendarDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
                           </span>
-                          <button onClick={handleNextMonth} className="p-1 hover:bg-bg-input rounded text-muted"><ChevronRight className="w-5 h-5"/></button>
+                          <button onClick={handleNextMonth} className="p-1 hover:bg-input rounded text-muted"><ChevronRight className="w-5 h-5"/></button>
                         </div>
                         <div className="grid grid-cols-7 gap-1 mb-2">
                           {['Su','Mo','Tu','We','Th','Fr','Sa'].map((d) => (
@@ -336,7 +336,7 @@ const Tasks = () => {
                                   isSelected ? 'bg-primary text-white font-bold' :
                                   isInRange ? 'bg-primary/10 text-primary font-bold' :
                                   hasTasks ? 'bg-primary/5 text-primary font-bold hover:bg-primary/15' :
-                                  'hover:bg-bg-input text-muted/40'
+                                  'hover:bg-input text-muted/40'
                                 } ${isToday && !isSelected ? 'ring-2 ring-primary ring-offset-1 dark:ring-offset-card' : ''}`}
                               >
                                 {day}
@@ -393,7 +393,7 @@ const Tasks = () => {
                                 <div 
                                   key={task._id} 
                                   onClick={() => toggleTask(task)}
-                                  className="group flex flex-col p-3 rounded-xl border-2 bg-bg-input/50 border-transparent hover:bg-card hover:border-primary/20 hover:shadow-md transition-all duration-300 cursor-pointer relative overflow-hidden active:scale-[0.98]"
+                                  className="group flex flex-col p-3 rounded-xl border-2 bg-input/50 border-transparent hover:bg-card hover:border-primary/20 hover:shadow-md transition-all duration-300 cursor-pointer relative overflow-hidden active:scale-[0.98]"
                                 >
                                   <div className="flex items-center gap-3">
                                     <div className="transition-all duration-300 transform text-muted/30 group-hover:text-primary">
@@ -403,7 +403,7 @@ const Tasks = () => {
                                       <span className="text-[1.05rem] font-semibold text-main leading-tight truncate">
                                         {task.text}
                                       </span>
-                                      <span className={`px-2 py-0.5 rounded-full text-[0.6rem] font-bold uppercase tracking-wider flex-shrink-0 ${CATEGORY_COLORS[task.category || 'General'] || 'bg-bg-input text-muted'}`}>
+                                      <span className={`px-2 py-0.5 rounded-full text-[0.6rem] font-bold uppercase tracking-wider flex-shrink-0 ${CATEGORY_COLORS[task.category || 'General'] || 'bg-input text-muted'}`}>
                                         {task.category || 'General'}
                                       </span>
                                     </div>
@@ -460,7 +460,7 @@ const Tasks = () => {
                                       <span className="text-[1.05rem] font-semibold text-muted line-through decoration-muted/50 leading-tight truncate">
                                         {task.text}
                                       </span>
-                                      <span className={`px-2 py-0.5 rounded-full text-[0.6rem] font-bold uppercase tracking-wider flex-shrink-0 opacity-50 ${CATEGORY_COLORS[task.category || 'General'] || 'bg-bg-input text-muted'}`}>
+                                      <span className={`px-2 py-0.5 rounded-full text-[0.6rem] font-bold uppercase tracking-wider flex-shrink-0 opacity-50 ${CATEGORY_COLORS[task.category || 'General'] || 'bg-input text-muted'}`}>
                                         {task.category || 'General'}
                                       </span>
                                     </div>

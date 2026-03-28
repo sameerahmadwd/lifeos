@@ -37,7 +37,7 @@ const TaskWidget = ({ tasks, setTasks }) => {
             value={newTask}
             onChange={(e) => setNewTask(e.target.value)}
             placeholder="Add a new task..."
-            className="w-full bg-bg-input border border-border rounded-xl py-3 pl-4 pr-12 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm text-main"
+            className="w-full bg-input border border-border rounded-xl py-3 pl-4 pr-12 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm text-main"
           />
           <button 
             type="submit"
@@ -61,7 +61,7 @@ const TaskWidget = ({ tasks, setTasks }) => {
               key={task.id} 
               className={`group flex items-center justify-between p-4 rounded-xl border transition-all duration-200 cursor-pointer ${
                 task.completed 
-                  ? 'bg-bg-input border-transparent' 
+                  ? 'bg-input border-transparent' 
                   : 'bg-card border-border hover:border-primary/30'
               }`}
               onClick={() => toggleTask(task.id)}

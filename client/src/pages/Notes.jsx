@@ -191,7 +191,7 @@ const Notes = () => {
                 <h2 className="text-xl font-black text-main tracking-tight flex items-center gap-2">
                   <BookOpen className="w-5 h-5 text-primary" />
                   Journals
-                  <span className="ml-1 px-2 py-0.5 bg-bg-input text-muted text-[0.65rem] font-black rounded-full border border-border uppercase tracking-tighter">
+                  <span className="ml-1 px-2 py-0.5 bg-input text-muted text-[0.65rem] font-black rounded-full border border-border uppercase tracking-tighter">
                     {notes.length} Total
                   </span>
                 </h2>
@@ -212,7 +212,7 @@ const Notes = () => {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search journals..."
-                  className="w-full bg-bg-input border border-border rounded-xl py-2 pl-9 pr-4 text-sm font-semibold text-main outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all placeholder:text-muted/30"
+                  className="w-full bg-input border border-border rounded-xl py-2 pl-9 pr-4 text-sm font-semibold text-main outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all placeholder:text-muted/30"
                 />
               </div>
 
@@ -223,7 +223,7 @@ const Notes = () => {
                   className={`w-full flex items-center gap-2 justify-between px-3 py-2 rounded-xl border text-sm font-bold transition-all ${
                     hasActiveFilter
                       ? 'bg-primary/10 border-primary/20 text-primary'
-                      : 'bg-bg-input border-border text-muted hover:border-primary/30'
+                      : 'bg-input border-border text-muted hover:border-primary/30'
                   }`}
                 >
                   <div className="flex items-center gap-2">
@@ -244,14 +244,14 @@ const Notes = () => {
                     <div className="flex items-center justify-between mb-3">
                       <button
                         onClick={() => setCalendarDate(new Date(calYear, calMonth - 1, 1))}
-                        className="p-1 hover:bg-bg-input rounded text-muted text-xs font-bold"
+                        className="p-1 hover:bg-input rounded text-muted text-xs font-bold"
                       >‹</button>
                       <span className="text-xs font-black text-main">
                         {calendarDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
                       </span>
                       <button
                         onClick={() => setCalendarDate(new Date(calYear, calMonth + 1, 1))}
-                        className="p-1 hover:bg-bg-input rounded text-muted text-xs font-bold"
+                        className="p-1 hover:bg-input rounded text-muted text-xs font-bold"
                       >›</button>
                     </div>
 
@@ -285,7 +285,7 @@ const Notes = () => {
                               (isStart || isEnd) ? 'bg-primary text-white font-bold' :
                               inRange ? 'bg-primary/10 text-primary font-bold' :
                               hasNote ? 'bg-primary/5 text-primary font-bold hover:bg-primary/10 cursor-pointer' :
-                              'hover:bg-bg-input text-muted/30'
+                              'hover:bg-input text-muted/30'
                             } ${isToday && !(isStart || isEnd) ? 'ring-2 ring-primary ring-offset-1 dark:ring-offset-card' : ''}`}
                           >
                             {day}
@@ -322,7 +322,7 @@ const Notes = () => {
                     <div key={dateKey}>
                       <button
                         onClick={() => toggleDateCollapse(dateKey)}
-                        className="w-full flex items-center gap-2 px-5 py-2 hover:bg-bg-input transition-colors group"
+                        className="w-full flex items-center gap-2 px-5 py-2 hover:bg-input transition-colors group"
                       >
                         {isCollapsed
                           ? <ChevronRight className="w-3.5 h-3.5 text-muted/30" />
@@ -331,7 +331,7 @@ const Notes = () => {
                         <span className="text-[0.62rem] font-black text-muted uppercase tracking-widest">
                           {dateKey}
                         </span>
-                        <span className="ml-auto text-[0.6rem] font-bold text-muted bg-bg-input group-hover:bg-card px-1.5 py-0.5 rounded-full transition-colors">
+                        <span className="ml-auto text-[0.6rem] font-bold text-muted bg-input group-hover:bg-card px-1.5 py-0.5 rounded-full transition-colors">
                           {group.length}
                         </span>
                       </button>
