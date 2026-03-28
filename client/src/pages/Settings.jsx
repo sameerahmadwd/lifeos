@@ -67,10 +67,10 @@ const Settings = () => {
     backupFrequency: 'daily',
     announcement: { message: '', enabled: false },
     primaryColor: '#6366f1',
-    defaultTheme: 'light',
     logo: '',
     favicon: ''
   });
+
 
   useEffect(() => {
     if (!token) return navigate('/login');
@@ -95,7 +95,6 @@ const Settings = () => {
       setTimeout(() => setSuccess(false), 3000);
       
       // Apply theme/branding immediately if changed
-      if (updates.defaultTheme) document.documentElement.setAttribute('data-theme', updates.defaultTheme);
       if (updates.primaryColor) {
         document.documentElement.style.setProperty('--color-primary', updates.primaryColor);
         document.documentElement.style.setProperty('--color-primary-hover', `${updates.primaryColor}dd`);
@@ -170,14 +169,9 @@ const Settings = () => {
                     label="Default Timezone" 
                     value={settings.defaultTimezone} 
                     onChange={(val) => updateSettings({ defaultTimezone: val })}
-                    placeholder="e.g. UTC"
                   />
                 </div>
-                <Toggle 
-                  label="Maintenance Mode" 
-                  enabled={settings.maintenanceMode} 
-                  onChange={(val) => updateSettings({ maintenanceMode: val })}
-                />
+
               </SettingsSection>
 
               {/* 2. Automation & Data */}
@@ -255,34 +249,9 @@ const Settings = () => {
                     label="Favicon URL" 
                     value={settings.favicon} 
                     onChange={(val) => updateSettings({ favicon: val })}
-                    placeholder="https://example.com/favicon.ico"
                   />
                 </div>
-                <div className="flex flex-col gap-2">
-                  <label className="text-xs font-black text-slate-400 uppercase tracking-widest leading-none">Default Theme</label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
-                    {[
-                      { id: 'light', label: 'Light', icon: Sun },
-                      { id: 'dark', label: 'Dark', icon: Moon },
-                      { id: 'system', label: 'System', icon: Monitor }
-                    ].map((t) => (
-                      <button
-                        key={t.id}
-                        onClick={() => updateSettings({ defaultTheme: t.id })}
-                        className={`flex flex-col items-center gap-3 p-4 rounded-2xl border-2 transition-all ${
-                          settings.defaultTheme === t.id 
-                            ? 'border-indigo-500 bg-indigo-50/50' 
-                            : 'border-slate-100 bg-white hover:border-slate-200'
-                        }`}
-                      >
-                        <t.icon className={`w-6 h-6 ${settings.defaultTheme === t.id ? 'text-indigo-500' : 'text-slate-400'}`} />
-                        <span className={`text-sm font-black ${settings.defaultTheme === t.id ? 'text-indigo-600' : 'text-slate-600'}`}>
-                          {t.label}
-                        </span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
+
               </SettingsSection>
 
             </div>

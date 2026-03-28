@@ -32,7 +32,7 @@ router.put('/', protect, async (req, res) => {
     if (req.body.appName !== undefined) settings.appName = req.body.appName;
     if (req.body.siteTitle !== undefined) settings.siteTitle = req.body.siteTitle;
     if (req.body.defaultTimezone !== undefined) settings.defaultTimezone = req.body.defaultTimezone;
-    if (req.body.maintenanceMode !== undefined) settings.maintenanceMode = req.body.maintenanceMode;
+
 
     // 2. Automation
     if (req.body.autoDeleteInactiveDays !== undefined) settings.autoDeleteInactiveDays = req.body.autoDeleteInactiveDays;
@@ -52,7 +52,6 @@ router.put('/', protect, async (req, res) => {
     if (req.body.logo !== undefined) settings.logo = req.body.logo;
     if (req.body.favicon !== undefined) settings.favicon = req.body.favicon;
     if (req.body.primaryColor !== undefined) settings.primaryColor = req.body.primaryColor;
-    if (req.body.defaultTheme !== undefined) settings.defaultTheme = req.body.defaultTheme;
     
     // 11. Dashboard Control
     if (req.body.dashboardWidgets !== undefined) {

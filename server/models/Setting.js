@@ -8,7 +8,6 @@ const settingSchema = new mongoose.Schema({
   appName: { type: String, default: 'LifeOS' },
   siteTitle: { type: String, default: 'LifeOS' },
   defaultTimezone: { type: String, default: 'UTC' },
-  maintenanceMode: { type: Boolean, default: false },
 
   // 2. Automation & Data
   autoDeleteInactiveDays: { type: Number, default: 30 },
@@ -26,7 +25,6 @@ const settingSchema = new mongoose.Schema({
   logo: { type: String, default: '' },
   favicon: { type: String, default: '' },
   primaryColor: { type: String, default: '#6366f1' },
-  defaultTheme: { type: String, enum: ['light', 'dark', 'system'], default: 'light' },
 
   // 11. Dashboard Control
   dashboardWidgets: {
