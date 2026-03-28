@@ -5,7 +5,7 @@ import {
   Trophy, ArrowLeft, Plus, Target, 
   Calendar, CheckCircle2, Circle, 
   TrendingUp, Rocket, Medal, Star,
-  LineChart as LineChartIcon, Clock, ChevronRight
+  LineChart as LineChartIcon, Clock, ChevronRight, Loader2
 } from 'lucide-react';
 import { 
   LineChart, Line, XAxis, YAxis, CartesianGrid, 
