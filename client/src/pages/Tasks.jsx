@@ -27,8 +27,11 @@ const Tasks = () => {
   
   const [isLoading, setIsLoading] = useState(true);
   const [tasks, setTasks] = useState([]);
+  const [goals, setGoals] = useState([]);
   const [newTaskText, setNewTaskText] = useState('');
   const [newTaskCategory, setNewTaskCategory] = useState('General');
+  const [newTaskGoal, setNewTaskGoal] = useState('');
+  const [newTaskProgressValue, setNewTaskProgressValue] = useState(0);
   
   // Advanced Filters
   const [searchQuery, setSearchQuery] = useState('');
@@ -53,16 +56,22 @@ const Tasks = () => {
 
   useEffect(() => {
     if (!token) return navigate('/login');
-    const fetchTasks = async () => {
+    const fetchData = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/tasks`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setTasks(res.data || []);
+        const [tasksRes, goalsRes] = await Promise.all([
+          axios.get(`${import.meta.env.VITE_API_URL}/tasks`, {
+            headers: { Authorization: `Bearer ${token}` }
+          }),
+          axios.get(`${import.meta.env.VITE_API_URL}/goals`, {
+            headers: { Authorization: `Bearer ${token}` }
+          })
+        ]);
+        setTasks(tasksRes.data || []);
+        setGoals(goalsRes.data || []);
       } catch (err) { console.error(err); }
       finally { setIsLoading(false); }
     };
-    fetchTasks();
+    fetchData();
   }, [token, navigate]);
 
   const handleAdd = async (e) => {
@@ -71,12 +80,18 @@ const Tasks = () => {
     console.log('FRONTEND: Adding task with category:', newTaskCategory);
     try {
       const res = await axios.post(`${import.meta.env.VITE_API_URL}/tasks`, 
-        { text: newTaskText, category: newTaskCategory }, 
+        { 
+          text: newTaskText, 
+          category: newTaskCategory,
+          goal: newTaskGoal || undefined,
+          progressValue: Number(newTaskProgressValue) || 0
+        }, 
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      console.log('FRONTEND: Server responded with task:', res.data);
       setTasks([res.data, ...tasks]);
       setNewTaskText('');
+      setNewTaskGoal('');
+      setNewTaskProgressValue(0);
     } catch(err) { console.error(err); }
   };
 
@@ -257,6 +272,36 @@ const Tasks = () => {
                           {CATEGORIES.map(cat => <option key={cat} value={cat}>{cat}</option>)}
                         </select>
                       </div>
+                      
+                      {/* Goal Link Selection */}
+                      {goals.length > 0 && (
+                        <>
+                          <div className="relative">
+                            <Trophy className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-primary/40" />
+                            <select 
+                              value={newTaskGoal}
+                              onChange={(e) => setNewTaskGoal(e.target.value)}
+                              className="bg-input border border-border rounded-xl py-1.5 pl-9 pr-5 text-[0.65rem] font-bold text-primary appearance-none outline-none focus:ring-2 focus:ring-primary/10 cursor-pointer hover:bg-muted/5 transition-colors max-w-[120px] truncate"
+                            >
+                              <option value="">No Goal</option>
+                              {goals.map(g => <option key={g._id} value={g._id}>{g.title}</option>)}
+                            </select>
+                          </div>
+                          {newTaskGoal && (
+                            <div className="relative w-16">
+                              <Plus className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-emerald-500" />
+                              <input 
+                                type="number"
+                                value={newTaskProgressValue}
+                                onChange={(e) => setNewTaskProgressValue(e.target.value)}
+                                placeholder="0"
+                                className="w-full bg-input border border-border rounded-xl py-1.5 pl-6 pr-2 text-[0.65rem] font-bold text-emerald-600 outline-none focus:ring-2 focus:ring-emerald-500/10 transition-all"
+                              />
+                            </div>
+                          )}
+                        </>
+                      )}
+
                       <button 
                         type="submit"
                         disabled={!newTaskText.trim()}

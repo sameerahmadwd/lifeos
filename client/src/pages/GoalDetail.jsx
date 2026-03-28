@@ -15,14 +15,6 @@ import Sidebar from '../components/dashboard/Sidebar';
 import TopNav from '../components/dashboard/TopNav';
 import BottomNav from '../components/dashboard/BottomNav';
 
-const LEVEL_THRESHOLDS = [
-  { level: 1, min: 0, max: 10, label: 'Novice' },
-  { level: 2, min: 10, max: 25, label: 'Apprentice' },
-  { level: 3, min: 25, max: 50, label: 'Journeyman' },
-  { level: 4, min: 50, max: 75, label: 'Expert' },
-  { level: 5, min: 75, max: 100, label: 'Master' },
-];
-
 const GoalDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -73,8 +65,16 @@ const GoalDetail = () => {
   }, [goal]);
 
   const currentLevel = useMemo(() => {
-    return LEVEL_THRESHOLDS.find(t => progressPercentage <= t.max) || LEVEL_THRESHOLDS[4];
-  }, [progressPercentage]);
+    if (!goal || !goal.levelConfig) return { level: 1, label: 'Novice' };
+    const { numberOfLevels, levelLabels } = goal.levelConfig;
+    const segment = 100 / numberOfLevels;
+    // Calculate which segment the progress falls into
+    const levelIdx = Math.min(Math.floor(progressPercentage / segment), numberOfLevels - 1);
+    return {
+      level: levelIdx + 1,
+      label: levelLabels?.[levelIdx] || `Level ${levelIdx + 1}`
+    };
+  }, [goal, progressPercentage]);
 
   const chartData = useMemo(() => {
     if (!logs.length || !goal) return [];

@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Task = require('../models/Task');
+const Goal = require('../models/Goal');
+const ProgressLog = require('../models/ProgressLog');
 const { protect } = require('../middleware/authMiddleware');
 
 router.get('/', protect, async (req, res) => {
@@ -12,8 +14,7 @@ router.get('/', protect, async (req, res) => {
 
 router.post('/', protect, async (req, res) => {
   try {
-    console.log('BACKEND: Received body:', req.body);
-    let { text, date, category } = req.body;
+    const { text, date, category, goal, progressValue } = req.body;
     if (!date) {
       const d = new Date();
       date = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
@@ -23,7 +24,9 @@ router.post('/', protect, async (req, res) => {
       text,
       date,
       category: category || 'General',
-      completed: false
+      completed: false,
+      goal,
+      progressValue: Number(progressValue) || 0
     });
     await newTask.save();
     res.json(newTask);
@@ -39,11 +42,34 @@ router.put('/:id', protect, async (req, res) => {
     if (completed !== undefined) updateFields.completed = completed;
     if (category !== undefined) updateFields.category = category;
     
+    const originalTask = await Task.findOne({ _id: req.params.id, user: req.user.id });
+    if (!originalTask) return res.status(404).json({ message: 'Task not found' });
+
     const task = await Task.findOneAndUpdate(
       { _id: req.params.id, user: req.user.id },
       updateFields,
       { new: true }
     );
+
+    // Automation: If task is newly completed and linked to a goal
+    if (completed === true && originalTask.completed === false && task.goal && task.progressValue > 0) {
+      const goal = await Goal.findById(task.goal);
+      if (goal) {
+        const log = new ProgressLog({
+          goal: goal._id,
+          user: req.user.id,
+          value: task.progressValue,
+          note: `Completed task: ${task.text}`
+        });
+        await log.save();
+        goal.currentValue += task.progressValue;
+        // Update milestones
+        goal.milestones.forEach(m => {
+          if (goal.currentValue >= m.value) m.isCompleted = true;
+        });
+        await goal.save();
+      }
+    }
     res.json(task);
   } catch (err) { res.status(500).json({ message: 'Server Error' }); }
 });

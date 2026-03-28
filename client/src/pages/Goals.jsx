@@ -28,11 +28,29 @@ const Goals = () => {
     unit: '',
     category: 'General',
     deadline: '',
-    startValue: 0
+    startValue: 0,
+    numberOfLevels: 5,
+    levelLabels: ['Novice', 'Apprentice', 'Journeyman', 'Expert', 'Master']
   });
 
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem('userInfo'))?.token;
+
+  const handleLevelCountChange = (count) => {
+    const default5 = ['Novice', 'Apprentice', 'Journeyman', 'Expert', 'Master'];
+    const default10 = Array.from({length: 10}, (_, i) => `Level ${i + 1}`);
+    setNewGoal({
+      ...newGoal, 
+      numberOfLevels: count, 
+      levelLabels: count === 10 ? default10 : default5
+    });
+  };
+
+  const handleLabelChange = (idx, val) => {
+    const updated = [...newGoal.levelLabels];
+    updated[idx] = val;
+    setNewGoal({ ...newGoal, levelLabels: updated });
+  };
 
   useEffect(() => {
     fetchGoals();
@@ -188,7 +206,9 @@ const Goals = () => {
                     <div className="mt-6 pt-6 border-t border-border/50 flex items-center justify-between text-muted">
                        <div className="flex items-center gap-2">
                           <Rocket className="w-4 h-4 text-primary/60" />
-                          <span className="text-xs font-bold uppercase tracking-tight">Level {Math.ceil(progress / 20) || 1}</span>
+                          <span className="text-xs font-bold uppercase tracking-tight">
+                            Level {Math.min(Math.floor(progress / (100 / (goal.levelConfig?.numberOfLevels || 5))) + 1, goal.levelConfig?.numberOfLevels || 5)}
+                          </span>
                        </div>
                        <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </div>
@@ -286,6 +306,39 @@ const Goals = () => {
                   />
                 </div>
               </div>
+
+              {/* Level Definition Section */}
+              <div className="space-y-4 pt-4 border-t border-border/50">
+                 <div className="flex items-center justify-between">
+                    <label className="text-[0.7rem] font-black text-muted uppercase tracking-widest pl-1 text-primary">Level Gamification</label>
+                    <div className="flex bg-input rounded-xl p-1 gap-1">
+                       {[5, 10].map(count => (
+                         <button
+                           key={count}
+                           type="button"
+                           onClick={() => handleLevelCountChange(count)}
+                           className={`px-3 py-1 rounded-lg text-[0.65rem] font-black transition-all ${newGoal.numberOfLevels === count ? 'bg-primary text-white shadow-sm' : 'text-muted hover:text-main'}`}
+                         >
+                           {count} Levels
+                         </button>
+                       ))}
+                    </div>
+                 </div>
+                 
+                 <div className="grid grid-cols-2 gap-3 max-h-[150px] overflow-y-auto pr-2 custom-scrollbar">
+                    {newGoal.levelLabels.map((lbl, i) => (
+                      <div key={i} className="relative">
+                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[0.5rem] font-black text-primary/40 uppercase">L{i+1}</span>
+                        <input 
+                          type="text"
+                          value={lbl}
+                          onChange={(e) => handleLabelChange(i, e.target.value)}
+                          className="w-full bg-input/50 border border-border rounded-xl py-2 pl-8 pr-3 text-[0.75rem] font-bold outline-none focus:border-primary/30 transition-all placeholder:text-muted/20"
+                        />
+                      </div>
+                    ))}
+                 </div>
+               </div>
 
               <button 
                 type="submit"

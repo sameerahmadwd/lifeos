@@ -9,7 +9,9 @@ const schema = new mongoose.Schema({
     enum: ['General', 'Work', 'Personal', 'Health', 'Finance', 'Urgent'],
     default: 'General'
   },
-  completed: { type: Boolean, default: false }
+  completed: { type: Boolean, default: false },
+  goal: { type: mongoose.Schema.Types.ObjectId, ref: 'Goal' },
+  progressValue: { type: Number, default: 0 }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Task', schema);

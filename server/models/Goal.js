@@ -42,7 +42,8 @@ const goalSchema = new mongoose.Schema({
     }
   ],
   levelConfig: {
-    levels: { type: Number, default: 5 }
+    numberOfLevels: { type: Number, default: 5 },
+    levelLabels: [String]
   }
 }, { timestamps: true });
 
