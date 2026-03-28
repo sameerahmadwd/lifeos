@@ -170,12 +170,12 @@ const GoalDetail = () => {
   }
 
   return (
-    <div className="min-h-screen bg-site font-sans flex text-main">
+    <div className="h-screen bg-site font-sans flex text-main overflow-hidden">
       <TopNav />
       <Sidebar />
       <BottomNav />
 
-      <main className="flex-1 ml-0 md:ml-[260px] pt-16 md:pt-24 p-4 md:p-8 pb-24 md:pb-8 w-full overflow-y-auto">
+      <main className="flex-1 ml-0 md:ml-[260px] pt-16 md:pt-20 p-4 md:p-6 pb-20 md:pb-6 w-full overflow-y-auto">
         <div className="max-w-[1000px] mx-auto space-y-5">
           
           {/* Back Navigation */}
@@ -211,7 +211,7 @@ const GoalDetail = () => {
                        </button>
                     </div>
                  </div>
-                 <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-tight">{goal.title}</h1>
+                 <h1 className="text-2xl md:text-3xl font-black tracking-tight leading-tight">{goal.title}</h1>
                  <div className="flex flex-wrap items-center gap-6 text-muted">
                     <div className="flex items-center gap-2">
                        <Target className="w-5 h-5" />
@@ -226,10 +226,10 @@ const GoalDetail = () => {
                  </div>
                </div>
 
-               <div className="bg-primary/5 border border-primary/10 rounded-3xl p-6 text-center min-w-[160px] backdrop-blur-sm">
-                  <Medal className="w-10 h-10 text-amber-500 mx-auto mb-2" />
+               <div className="bg-primary/5 border border-primary/10 rounded-2xl p-4 text-center min-w-[120px] backdrop-blur-sm">
+                  <Medal className="w-7 h-7 text-amber-500 mx-auto mb-1" />
                   <div className="text-[0.65rem] font-black text-muted uppercase tracking-widest leading-none mb-1">Current Status</div>
-                  <div className="text-2xl font-black text-primary tracking-tighter">Level {currentLevel.level}</div>
+                  <div className="text-lg font-black text-primary tracking-tighter">Level {currentLevel.level}</div>
                   <div className="text-[0.7rem] font-bold text-amber-600/70 uppercase tracking-wider">{currentLevel.label}</div>
                </div>
              </div>
@@ -242,7 +242,7 @@ const GoalDetail = () => {
                        {goal.currentValue.toLocaleString()} <span className="text-muted text-sm font-bold uppercase transition-opacity">/ {goal.targetValue.toLocaleString()} {goal.unit}</span>
                     </div>
                   </div>
-                  <div className="text-4xl font-black text-primary tracking-tighter">{progressPercentage}%</div>
+                  <div className="text-2xl font-black text-primary tracking-tighter">{progressPercentage}%</div>
                 </div>
                 <div className="w-full h-5 bg-input rounded-full overflow-hidden p-1 border border-border shadow-inner">
                   <div 
@@ -255,14 +255,14 @@ const GoalDetail = () => {
              </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
              {/* Left Column: Stats & Charts */}
-             <div className="lg:col-span-8 space-y-8">
+             <div className="lg:col-span-8 space-y-4">
                 
                 {/* Visual Chart Area */}
-                <div className="bg-card rounded-[2.5rem] p-8 border border-border shadow-sm">
-                   <div className="flex items-center justify-between mb-8">
-                      <h3 className="text-xl font-black tracking-tight flex items-center gap-3">
+                <div className="bg-card rounded-2xl p-5 border border-border shadow-sm">
+                   <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-base font-black tracking-tight flex items-center gap-2">
                         <TrendingUp className="w-6 h-6 text-primary" />
                         Growth Progress
                       </h3>
@@ -325,10 +325,10 @@ const GoalDetail = () => {
                 </div>
 
                 {/* Progress History List */}
-                <div className="bg-card rounded-[2.5rem] p-8 border border-border shadow-sm">
-                   <div className="flex items-center justify-between mb-8">
-                      <h3 className="text-xl font-black tracking-tight flex items-center gap-3">
-                        <Clock className="w-6 h-6 text-primary" />
+                <div className="bg-card rounded-2xl p-5 border border-border shadow-sm">
+                   <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-base font-black tracking-tight flex items-center gap-2">
+                        <Clock className="w-5 h-5 text-primary" />
                         Activity History
                       </h3>
                       <button 
@@ -339,9 +339,9 @@ const GoalDetail = () => {
                       </button>
                    </div>
 
-                   <div className="space-y-1 max-h-[400px] overflow-y-auto pr-1">
+                   <div className="space-y-0.5 max-h-[220px] overflow-y-auto pr-1">
                       {logs.length > 0 ? logs.map((log, idx) => (
-                        <div key={log._id} className="group flex items-center gap-6 p-5 rounded-2xl hover:bg-input/50 transition-all relative border border-transparent hover:border-border/30">
+                        <div key={log._id} className="group flex items-center gap-4 p-3 rounded-xl hover:bg-input/50 transition-all relative border border-transparent hover:border-border/30">
                            <div className="w-1.5 h-1.5 rounded-full bg-primary/20 group-hover:bg-primary transition-colors flex-shrink-0" />
                            <div className="flex-1">
                               <div className="flex items-baseline justify-between mb-0.5">
@@ -379,16 +379,16 @@ const GoalDetail = () => {
              </div>
 
              {/* Right Column: Milestones & Actions */}
-             <div className="lg:col-span-4 space-y-8">
+             <div className="lg:col-span-4 space-y-4">
                 
                 {/* Milestone System */}
-                <div className="bg-card rounded-[2.5rem] p-8 border border-border shadow-sm overflow-hidden relative">
-                   <div className="flex items-center gap-3 mb-8">
-                      <Medal className="w-6 h-6 text-indigo-500" />
-                      <h3 className="text-xl font-black tracking-tight">Milestones</h3>
+                <div className="bg-card rounded-2xl p-5 border border-border shadow-sm overflow-hidden relative">
+                   <div className="flex items-center gap-2 mb-4">
+                      <Medal className="w-5 h-5 text-indigo-500" />
+                      <h3 className="text-base font-black tracking-tight">Milestones</h3>
                    </div>
                    
-                   <div className="space-y-5">
+                   <div className="space-y-2 max-h-[280px] overflow-y-auto pr-1">
                       {goal.milestones.map((milestone, idx) => (
                         <div 
                           key={idx}
@@ -417,15 +417,15 @@ const GoalDetail = () => {
                 </div>
 
                 {/* Productivity Action Card */}
-                <div className="bg-primary rounded-[2.5rem] p-8 shadow-2xl shadow-primary/30 text-white space-y-6 relative overflow-hidden group">
+                <div className="bg-primary rounded-2xl p-5 shadow-xl shadow-primary/20 text-white space-y-3 relative overflow-hidden group">
                    <Rocket className="absolute -right-4 -bottom-4 w-32 h-32 text-white/10 group-hover:rotate-12 group-hover:scale-110 transition-transform duration-500" />
                    <div className="space-y-2 relative z-10">
-                     <h4 className="text-2xl font-black tracking-tight">Feeling Productive?</h4>
+                     <h4 className="text-lg font-black tracking-tight">Feeling Productive?</h4>
                      <p className="text-white/70 text-sm font-medium leading-relaxed">Regular updates increase goal achievement probability by 42%. Log your wins now!</p>
                    </div>
                    <button 
                      onClick={() => setShowLogModal(true)}
-                     className="w-full bg-white text-primary px-4 py-4 rounded-2xl font-black shadow-lg hover:bg-slate-50 active:scale-95 transition-all text-sm relative z-10 uppercase tracking-widest"
+                     className="w-full bg-white text-primary px-4 py-3 rounded-xl font-black shadow-lg hover:bg-slate-50 active:scale-95 transition-all text-xs relative z-10 uppercase tracking-widest"
                    >
                      Update Progress
                    </button>
