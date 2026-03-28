@@ -400,7 +400,7 @@ const Tasks = () => {
                       </h3>
                    </div>
                    
-                   <div className="flex-1 overflow-y-auto custom-scrollbar pr-3 space-y-6">
+                   <div className="flex-1 pr-3 space-y-6">
                       {pendingData.sorted.length === 0 ? (
                         <div className="flex flex-col items-center justify-center h-full py-12 opacity-40">
                            <ListTodo className="w-12 h-12 text-muted mb-4" />
@@ -458,7 +458,7 @@ const Tasks = () => {
                       </h3>
                    </div>
 
-                   <div className="flex-1 overflow-y-auto custom-scrollbar pr-3 space-y-6">
+                   <div className="flex-1 pr-3 space-y-6">
                       {completedData.sorted.length === 0 ? (
                         <div className="flex flex-col items-center justify-center h-full py-12 opacity-40">
                            <CheckCircle2 className="w-12 h-12 text-muted mb-4" />
