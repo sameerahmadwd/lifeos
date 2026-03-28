@@ -7,8 +7,6 @@ services:
     restart: unless-stopped
     volumes:
       - mongodb_data:/data/db
-    networks:
-      - internal
 
   backend:
     build:
@@ -22,8 +20,6 @@ services:
       - JWT_SECRET=${JWT_SECRET:-supersecret_default_key}
     depends_on:
       - mongodb
-    networks:
-      - internal
 
   frontend:
     build:
@@ -36,7 +32,7 @@ services:
     depends_on:
       - backend
     networks:
-      - internal
+      - default
       - proxy
     labels:
       - "traefik.enable=true"
@@ -47,7 +43,6 @@ services:
       - "traefik.http.services.lifeos.loadbalancer.server.port=80"
 
 networks:
-  internal:
   proxy:
     external: true
 
