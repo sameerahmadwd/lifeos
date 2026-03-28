@@ -210,49 +210,49 @@ const Tasks = () => {
           <div className="w-full flex-1 min-h-0 flex flex-col overflow-hidden">
              
              {/* Header Section */}
-             <div className="px-4 md:px-8 py-4 md:py-6 border-b border-border bg-card">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 md:mb-6">
+             <div className="px-4 md:px-8 py-3 md:py-4 border-b border-border bg-card">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-3 md:mb-4">
                    <div>
-                      <h1 className="text-2xl font-black text-main tracking-tight flex items-center gap-2">
-                        <ListTodo className="w-6 h-6 text-primary" />
+                      <h1 className="text-xl font-black text-main tracking-tight flex items-center gap-2">
+                        <ListTodo className="w-5 h-5 text-primary" />
                         Master Tasks
                       </h1>
-                      <p className="text-muted text-sm font-medium mt-1">Manage and track your tasks.</p>
+                      <p className="text-muted text-[0.7rem] font-medium mt-1 uppercase tracking-wider opacity-60">Manage and track your tasks.</p>
                    </div>
                    <div className="flex items-center gap-4">
-                      <div className="flex items-center gap-2 px-4 py-2 bg-input rounded-xl border border-border shadow-sm">
+                      <div className="flex items-center gap-2 px-3 py-1.5 bg-input rounded-xl border border-border shadow-sm">
                         <div className="text-center">
-                          <span className="block text-[0.6rem] font-bold text-muted uppercase tracking-widest">Active</span>
-                          <span className="text-lg font-black text-primary leading-none">{stats.active}</span>
+                          <span className="block text-[0.55rem] font-bold text-muted uppercase tracking-widest">Active</span>
+                          <span className="text-base font-black text-primary leading-none">{stats.active}</span>
                         </div>
-                        <div className="w-px h-6 bg-border mx-2"></div>
+                        <div className="w-px h-5 bg-border mx-1"></div>
                         <div className="text-center">
-                          <span className="block text-[0.6rem] font-bold text-muted uppercase tracking-widest">Done</span>
-                          <span className="text-lg font-black text-emerald-500 leading-none">{stats.completed}</span>
+                          <span className="block text-[0.55rem] font-bold text-muted uppercase tracking-widest">Done</span>
+                          <span className="text-base font-black text-emerald-500 leading-none">{stats.completed}</span>
                         </div>
                       </div>
                    </div>
                 </div>
 
                 {/* Creation Area - Elevated */}
-                <form onSubmit={handleAdd} className="flex flex-col sm:flex-row gap-3 bg-card p-2 md:p-2 rounded-2xl border-2 border-border shadow-sm focus-within:border-primary/30 transition-all">
-                   <div className="flex-1 flex items-center gap-3 pl-3 md:pl-4">
-                      <Plus className="w-5 h-5 text-muted/30" />
+                <form onSubmit={handleAdd} className="flex flex-col sm:flex-row gap-3 bg-card p-1.5 rounded-2xl border-2 border-border shadow-sm focus-within:border-primary/30 transition-all">
+                   <div className="flex-1 flex items-center gap-3 pl-3">
+                      <Plus className="w-4 h-4 text-muted/30" />
                       <input 
                         type="text"
                         value={newTaskText}
                         onChange={(e) => setNewTaskText(e.target.value)}
                         placeholder="Create a new task..."
-                        className="w-full bg-transparent py-2.5 focus:outline-none font-bold text-main placeholder:text-muted/30"
+                        className="w-full bg-transparent py-1.5 focus:outline-none font-bold text-sm text-main placeholder:text-muted/30"
                       />
                    </div>
                    <div className="flex items-center gap-2 pr-1">
                       <div className="relative">
-                        <Tag className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted" />
+                        <Tag className="absolute left-3 top-1/2 -translate-y-1/2 w-3 h-3 text-muted" />
                         <select 
                           value={newTaskCategory}
                           onChange={(e) => setNewTaskCategory(e.target.value)}
-                          className="bg-input border border-border rounded-xl py-2 pl-9 pr-6 text-xs font-bold text-muted appearance-none outline-none focus:ring-2 focus:ring-primary/10 cursor-pointer hover:bg-muted/5 transition-colors"
+                          className="bg-input border border-border rounded-xl py-1.5 pl-8 pr-5 text-[0.65rem] font-bold text-muted appearance-none outline-none focus:ring-2 focus:ring-primary/10 cursor-pointer hover:bg-muted/5 transition-colors"
                         >
                           {CATEGORIES.map(cat => <option key={cat} value={cat}>{cat}</option>)}
                         </select>
@@ -260,7 +260,7 @@ const Tasks = () => {
                       <button 
                         type="submit"
                         disabled={!newTaskText.trim()}
-                        className="bg-primary text-white px-6 py-2.5 rounded-xl font-black text-sm hover:bg-primary-hover disabled:opacity-40 transition-all shadow-md shadow-primary/20 active:scale-95"
+                        className="bg-primary text-white px-5 py-1.5 rounded-xl font-black text-[0.7rem] hover:bg-primary-hover disabled:opacity-40 transition-all shadow-md shadow-primary/20 active:scale-95 uppercase tracking-wider"
                       >
                         Create Task
                       </button>
@@ -269,16 +269,16 @@ const Tasks = () => {
              </div>
 
              {/* View Controls & Filters */}
-             <div className="px-4 md:px-8 py-4 bg-site/50 border-b border-border flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
-               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1">
-                  <div className="relative flex-1 max-w-sm">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
+             <div className="px-4 md:px-8 py-2 md:py-3 bg-site/50 border-b border-border flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 flex-1">
+                  <div className="relative flex-1 max-w-xs">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted" />
                     <input 
                       type="text"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="Search tasks..."
-                      className="w-full bg-card border border-border rounded-xl py-2 pl-9 pr-4 text-sm font-semibold text-main focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary/30 transition-all"
+                      className="w-full bg-card border border-border rounded-xl py-1.5 pl-9 pr-4 text-xs font-semibold text-main focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary/20 transition-all"
                     />
                   </div>
 
@@ -364,26 +364,26 @@ const Tasks = () => {
              </div>
              
              {/* Mobile View Switcher */}
-             <div className="md:hidden flex p-1.5 bg-input/50 mx-4 mt-6 rounded-2xl border border-border shadow-inner">
+             <div className="md:hidden flex p-1 bg-input/50 mx-4 mt-3 rounded-xl border border-border shadow-inner">
                 <button 
                   onClick={() => setMobileView('pending')}
-                  className={`flex-1 flex items-center justify-center gap-3 py-3 rounded-xl text-sm font-black transition-all ${
-                    mobileView === 'pending' ? 'bg-card text-primary shadow-lg border border-border' : 'text-muted/60'
+                  className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-black transition-all ${
+                    mobileView === 'pending' ? 'bg-card text-primary shadow-md border border-border' : 'text-muted/60'
                   }`}
                 >
-                  <div className={`w-2 h-2 rounded-full ${mobileView === 'pending' ? 'bg-primary' : 'bg-muted/20'}`}></div>
+                  <div className={`w-1.5 h-1.5 rounded-full ${mobileView === 'pending' ? 'bg-primary' : 'bg-muted/20'}`}></div>
                   Pending
-                  <span className="text-[0.65rem] opacity-50 font-bold">({stats.active})</span>
+                  <span className="text-[0.6rem] opacity-50 font-bold">({stats.active})</span>
                 </button>
                 <button 
                   onClick={() => setMobileView('completed')}
-                  className={`flex-1 flex items-center justify-center gap-3 py-3 rounded-xl text-sm font-black transition-all ${
-                    mobileView === 'completed' ? 'bg-card text-emerald-500 shadow-lg border border-border' : 'text-muted/60'
+                  className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-black transition-all ${
+                    mobileView === 'completed' ? 'bg-card text-emerald-500 shadow-md border border-border' : 'text-muted/60'
                   }`}
                 >
-                  <div className={`w-2 h-2 rounded-full ${mobileView === 'completed' ? 'bg-emerald-500' : 'bg-muted/20'}`}></div>
+                  <div className={`w-1.5 h-1.5 rounded-full ${mobileView === 'completed' ? 'bg-emerald-500' : 'bg-muted/20'}`}></div>
                   Completed
-                  <span className="text-[0.65rem] opacity-50 font-bold">({stats.completed})</span>
+                  <span className="text-[0.6rem] opacity-50 font-bold">({stats.completed})</span>
                 </button>
              </div>
 
