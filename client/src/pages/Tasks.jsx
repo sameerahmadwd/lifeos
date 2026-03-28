@@ -34,6 +34,7 @@ const Tasks = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [dateFilter, setDateFilter] = useState({ start: null, end: null });
   const [categoryFilter, setCategoryFilter] = useState('all');
+  const [mobileView, setMobileView] = useState('pending'); // 'pending' or 'completed'
 
   // Calendar State
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -361,12 +362,36 @@ const Tasks = () => {
                   </div>
                </div>
              </div>
+             
+             {/* Mobile View Switcher */}
+             <div className="md:hidden flex p-1.5 bg-input/50 mx-4 mt-6 rounded-2xl border border-border shadow-inner">
+                <button 
+                  onClick={() => setMobileView('pending')}
+                  className={`flex-1 flex items-center justify-center gap-3 py-3 rounded-xl text-sm font-black transition-all ${
+                    mobileView === 'pending' ? 'bg-card text-primary shadow-lg border border-border' : 'text-muted/60'
+                  }`}
+                >
+                  <div className={`w-2 h-2 rounded-full ${mobileView === 'pending' ? 'bg-primary' : 'bg-muted/20'}`}></div>
+                  Pending
+                  <span className="text-[0.65rem] opacity-50 font-bold">({stats.active})</span>
+                </button>
+                <button 
+                  onClick={() => setMobileView('completed')}
+                  className={`flex-1 flex items-center justify-center gap-3 py-3 rounded-xl text-sm font-black transition-all ${
+                    mobileView === 'completed' ? 'bg-card text-emerald-500 shadow-lg border border-border' : 'text-muted/60'
+                  }`}
+                >
+                  <div className={`w-2 h-2 rounded-full ${mobileView === 'completed' ? 'bg-emerald-500' : 'bg-muted/20'}`}></div>
+                  Completed
+                  <span className="text-[0.65rem] opacity-50 font-bold">({stats.completed})</span>
+                </button>
+             </div>
 
              {/* Main Board - Split Kanban */}
-             <div className="flex-1 flex gap-6 p-4 md:p-8 overflow-x-auto bg-site/30 custom-scrollbar pb-24 md:pb-8">
+             <div className="flex-1 flex flex-col md:flex-row gap-6 p-4 md:p-8 overflow-y-auto md:overflow-x-auto bg-site/10 custom-scrollbar pb-32 md:pb-8">
                 
                 {/* PENDING COLUMN */}
-                <div className="flex-1 flex flex-col min-w-[300px] md:min-w-[400px]">
+                <div className={`${mobileView === 'pending' ? 'flex' : 'hidden md:flex'} flex-1 flex flex-col min-w-full md:min-w-[400px]`}>
                    <div className="flex items-center justify-between mb-6">
                       <h3 className="text-lg font-black text-main flex items-center gap-3">
                         <div className="w-2 h-2 rounded-full bg-primary shadow-[0_0_10px_rgba(99,102,241,0.5)]"></div>
@@ -424,7 +449,7 @@ const Tasks = () => {
                 </div>
 
                 {/* COMPLETED COLUMN */}
-                <div className="flex-1 flex flex-col min-w-[300px] md:min-w-[400px]">
+                <div className={`${mobileView === 'completed' ? 'flex' : 'hidden md:flex'} flex-1 flex flex-col min-w-full md:min-w-[400px]`}>
                    <div className="flex items-center justify-between mb-6">
                       <h3 className="text-lg font-black text-main flex items-center gap-3">
                         <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
