@@ -58,7 +58,13 @@
     -webkit-font-smoothing: antialiased;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
   }
+
+  /* Global Fix for iOS Input Zoom */
+  input, textarea, select {
+    font-size: 16px !important;
+  }
 }
+
 
 /* Auth Pages Legacy Support */
 .app-container {

@@ -124,7 +124,7 @@ const Settings = () => {
       <TopNav />
       <Sidebar />
       <BottomNav />
-      <main className="flex-1 ml-0 md:ml-[260px] pt-[72px] pb-[72px] md:pb-0 flex flex-col h-screen overflow-hidden bg-site">
+      <main className="flex-1 ml-0 md:ml-[260px] pt-[72px] pb-32 pb-safe flex flex-col h-screen overflow-hidden bg-site">
         <div className="flex-1 flex overflow-hidden bg-card shadow-sm md:border-t md:border-l border-border mt-0 md:mt-2 ml-0 md:ml-2 md:rounded-tl-3xl">
           <div className="w-full flex flex-col h-full overflow-y-auto custom-scrollbar">
 

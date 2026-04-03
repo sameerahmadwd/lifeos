@@ -79,7 +79,7 @@ const SessionHistory = () => {
       <Sidebar />
       <BottomNav />
 
-      <main className="flex-1 ml-0 md:ml-[260px] pt-16 md:pt-24 p-4 md:p-8 pb-20 md:pb-8 overflow-y-auto w-full">
+      <main className="flex-1 ml-0 md:ml-[260px] pt-16 md:pt-24 p-4 md:p-8 pb-32 md:pb-8 pb-safe overflow-y-auto">
         <div className="max-w-[1200px] mx-auto space-y-6 md:space-y-8">
           
           {/* Header */}
