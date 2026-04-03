@@ -1,8 +1,16 @@
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+require('dotenv').config();
 const cron = require('node-cron');
+
+const authRoutes = require('./routes/auth');
+const seedUser = require('./seed');
 const notificationService = require('./services/notificationService');
 const notificationRoutes = require('./routes/notifications');
 
 const app = express();
+
 const PORT = process.env.PORT || 5000;
 
 // Middleware
