@@ -87,8 +87,8 @@ const NotificationCenter = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-3 w-[400px] bg-card border border-border rounded-2xl shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
-          <div className="p-4 border-b border-border flex items-center justify-between bg-input/50">
+        <div className="fixed sm:absolute inset-0 sm:inset-auto sm:right-0 sm:mt-3 w-full sm:w-[400px] h-full sm:h-auto bg-card sm:border sm:border-border sm:rounded-2xl shadow-2xl z-[100] flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom sm:slide-in-from-top-2 duration-200">
+          <div className="p-4 border-b border-border flex items-center justify-between bg-input/50 sticky top-0">
             <h3 className="font-bold text-main">Notifications</h3>
             <div className="flex items-center gap-3">
               {unreadCount > 0 && (
@@ -104,10 +104,17 @@ const NotificationCenter = () => {
                 className="p-1 hover:bg-input rounded-lg transition-colors"
                 title="Notification Settings"
               >
-                <Settings className="w-4 h-4 text-muted/60" />
+                <Settings className="w-5 h-5 sm:w-4 sm:h-4 text-muted/60" />
+              </button>
+              <button 
+                onClick={() => setIsOpen(false)}
+                className="sm:hidden p-1 hover:bg-input rounded-lg"
+              >
+                <X className="w-6 h-6 text-muted" />
               </button>
             </div>
           </div>
+
 
           <div className="max-h-[500px] overflow-y-auto">
             {notifications.length === 0 ? (
