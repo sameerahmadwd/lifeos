@@ -180,7 +180,7 @@ const Notes = () => {
       <TopNav />
       <Sidebar />
       <BottomNav />
-      <main className="flex-1 ml-0 md:ml-[260px] pt-16 md:pt-20 px-4 md:px-8 pb-32 md:pb-0 pb-safe h-screen overflow-hidden flex flex-col bg-site">
+      <main className="flex-1 ml-0 md:ml-[260px] pt-nav pb-nav px-4 md:px-8 h-screen overflow-hidden flex flex-col bg-site">
         <div className="flex-1 flex flex-col md:flex-row overflow-hidden bg-card shadow-sm md:border-t md:border-l border-border mt-0 md:mt-2 ml-0 md:ml-2 md:rounded-tl-3xl relative">
 
           {/* Left Sidebar Pane */}

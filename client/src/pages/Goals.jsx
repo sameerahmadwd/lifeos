@@ -77,7 +77,7 @@ const Goals = () => {
       <Sidebar />
       <BottomNav />
 
-      <main className="flex-1 ml-0 md:ml-[260px] pt-16 md:pt-24 pb-32 md:pb-8 pb-safe p-4 md:p-8 overflow-y-auto">
+      <main className="flex-1 ml-0 md:ml-[260px] pt-nav pb-nav p-4 md:p-8 overflow-y-auto">
         <div className="max-w-[1200px] mx-auto space-y-8">
           
           {/* Header Section */}

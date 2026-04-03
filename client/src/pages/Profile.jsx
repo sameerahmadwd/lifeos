@@ -131,7 +131,7 @@ const Profile = () => {
       <TopNav />
       <Sidebar />
       <BottomNav />
-      <main className="flex-1 ml-0 md:ml-[260px] pt-20 md:pt-24 p-4 md:p-8 pb-32 md:pb-8 pb-safe overflow-y-auto">
+      <main className="flex-1 ml-0 md:ml-[260px] pt-nav pb-nav p-4 md:p-8 overflow-y-auto">
         <div className="flex-1 flex overflow-hidden bg-card shadow-sm md:border-t md:border-l border-border mt-0 md:mt-2 ml-0 md:ml-2 md:rounded-tl-3xl">
           <div className="w-full flex flex-col h-full overflow-y-auto custom-scrollbar">
 

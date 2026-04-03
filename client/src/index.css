@@ -190,6 +190,22 @@
   font-weight: 600;
 }
 
+/* Definitive Navigation Clearance with Safe Areas */
+.pt-nav {
+  padding-top: calc(5rem + env(safe-area-inset-top, 0px)) !important;
+}
+.pb-nav {
+  padding-bottom: calc(6.5rem + env(safe-area-inset-bottom, 0px)) !important;
+}
+@media (min-width: 768px) {
+  .pt-nav {
+    padding-top: 6rem !important;
+  }
+  .pb-nav {
+    padding-bottom: 2rem !important;
+  }
+}
+
 .error-msg {
   color: #ef4444;
   background: #fef2f2;

@@ -105,7 +105,7 @@ const DashboardLayout = () => {
       <Sidebar />
       <BottomNav />
       
-      <main className="flex-1 ml-0 md:ml-[260px] pt-20 md:pt-24 pb-32 md:pb-8 pb-safe p-4 md:p-8 overflow-y-auto w-full bg-site transition-colors duration-300">
+      <main className="flex-1 ml-0 md:ml-[260px] pt-nav pb-nav p-4 md:p-8 overflow-y-auto w-full bg-site transition-colors duration-300">
         <div className="w-full space-y-6 max-w-[1400px] mx-auto">
           <ProgressSummaryWidget 
             completedTasks={completedTasks} 

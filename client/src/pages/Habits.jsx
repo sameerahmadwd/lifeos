@@ -107,7 +107,7 @@ const Habits = () => {
       <TopNav />
       <Sidebar />
       <BottomNav />
-      <main className="flex-1 ml-0 md:ml-[260px] pt-20 md:pt-24 pb-32 md:pb-8 pb-safe p-4 md:p-8 overflow-y-auto bg-site transition-colors duration-300">
+      <main className="flex-1 ml-0 md:ml-[260px] pt-nav pb-nav p-4 md:p-8 overflow-y-auto bg-site transition-colors duration-300">
         <div className="max-w-[1400px] mx-auto space-y-6 md:space-y-8">
 
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">

@@ -175,7 +175,7 @@ const GoalDetail = () => {
       <Sidebar />
       <BottomNav />
 
-      <main className="flex-1 ml-0 md:ml-[260px] pt-16 md:pt-20 p-4 md:p-6 pb-20 md:pb-6 w-full overflow-y-auto">
+      <main className="flex-1 ml-0 md:ml-[260px] pt-nav pb-nav p-4 md:p-6 w-full overflow-y-auto">
         <div className="max-w-[1000px] mx-auto space-y-5">
           
           {/* Back Navigation */}

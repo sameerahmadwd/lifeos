@@ -86,7 +86,7 @@ const NotificationSettings = () => {
       <Sidebar />
       <BottomNav />
       
-      <main className="flex-1 ml-0 md:ml-[260px] pt-[72px] pb-[72px] md:pb-0 h-screen overflow-y-auto">
+      <main className="flex-1 ml-0 md:ml-[260px] pt-nav pb-nav h-screen overflow-y-auto">
         <div className="max-w-4xl mx-auto p-4 md:p-8">
           <div className="mb-8 flex items-center justify-between">
             <div>
