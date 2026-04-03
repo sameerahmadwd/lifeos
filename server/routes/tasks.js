@@ -14,11 +14,12 @@ router.get('/', protect, async (req, res) => {
 
 router.post('/', protect, async (req, res) => {
   try {
-    const { text, date, category, goal, progressValue } = req.body;
+    let { text, date, category, goal, progressValue } = req.body;
     if (!date) {
       const d = new Date();
       date = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
     }
+
     const newTask = new Task({
       user: req.user.id,
       text,
