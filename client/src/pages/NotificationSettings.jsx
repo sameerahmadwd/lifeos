@@ -8,7 +8,7 @@ import {
   Settings, Zap, Target, BookOpen, Activity, LayoutDashboard
 } from 'lucide-react';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_URL = import.meta.env.VITE_API_URL || 'https://api.devxlab.tech/api';
 
 const CategoryToggle = ({ label, icon: Icon, enabled, onChange }) => (
   <div className="flex items-center justify-between py-4 border-b border-border last:border-0">

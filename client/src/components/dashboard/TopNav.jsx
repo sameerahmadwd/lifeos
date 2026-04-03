@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Clock, Bell, LogOut, Sun, Moon, CloudSun, 
-  History, Zap, Megaphone, X, Settings 
+import {
+  Clock, Bell, LogOut, Sun, Moon, CloudSun,
+  History, Zap, Megaphone, X, Settings
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -94,7 +94,7 @@ const TopNav = () => {
   const formattedTime = formatInTZ(currentTime, { hour: '2-digit', minute: '2-digit', hour12: true });
   const formattedDate = formatInTZ(currentTime, { weekday: 'long', month: 'long', day: 'numeric' });
   const hour = currentTime.getHours();
-  
+
   const getGreeting = () => {
     if (hour < 12) return { text: 'Good Morning', icon: Sun };
     if (hour < 18) return { text: 'Good Afternoon', icon: CloudSun };
@@ -113,7 +113,7 @@ const TopNav = () => {
         <div className="fixed top-0 left-0 right-0 z-[100] bg-indigo-600 text-white px-4 py-2 flex items-center justify-center gap-3 shadow-md">
           <Megaphone className="w-4 h-4 animate-bounce" />
           <span className="text-sm font-black tracking-tight">{settings.announcement.message}</span>
-          <button 
+          <button
             onClick={dismissAnnouncement}
             className="p-1 hover:bg-white/20 rounded-lg transition-colors ml-4"
           >
@@ -122,8 +122,10 @@ const TopNav = () => {
         </div>
       )}
 
-      <header className={`fixed top-0 left-0 right-0 h-16 bg-card/80 backdrop-blur-md border-b border-border z-[60] flex items-center px-4 md:px-8 transition-all duration-300 ${isScrolled ? 'shadow-sm' : ''} ${showBanner ? 'mt-10' : ''}`}>
-        {/* Left: Brand */}
+      <header className={`fixed top-0 left-0 right-0 h-auto min-h-[64px] pt-safe bg-card/80 backdrop-blur-md border-b border-border z-[60] flex items-center px-4 md:px-8 transition-all duration-300 ${isScrolled ? 'shadow-sm' : ''} ${showBanner ? 'mt-10' : ''}`}>
+        <div className="flex items-center w-full h-16">
+          {/* Left: Brand */}
+
         <div className="flex items-center gap-3 w-auto md:w-[260px] md:-ml-8 md:px-8">
           <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
             {settings?.logo ? (
@@ -139,7 +141,7 @@ const TopNav = () => {
 
         {/* Center: Greeting + Clock + Last Login */}
         <div className="hidden md:flex flex-1 items-center justify-center gap-6">
-          
+
           {/* Current Info (Greeting & Clock) */}
           <div className="flex flex-col items-end">
             <div className="flex items-center gap-2 text-main mb-0.5">
@@ -180,23 +182,15 @@ const TopNav = () => {
         </div>
 
         {/* Right: Actions */}
-        <div className="flex items-center gap-4 w-auto md:w-[260px] justify-end ml-auto">
+        <div className="flex items-center gap-4 w-auto md:w-[300px] justify-end ml-auto">
           <div className="hidden md:flex flex-col items-end mr-2">
             <span className="text-xs font-black text-slate-800 leading-none dark:text-slate-200">{userName}</span>
             <span className="text-[0.65rem] text-slate-400 font-bold uppercase tracking-wider">Verified Account</span>
           </div>
-          
-          {/* Settings Link (Mobile Only) */}
-          <button 
-            onClick={() => navigate('/settings')}
-            className="md:hidden p-2.5 bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-primary hover:bg-indigo-50 dark:hover:bg-primary/20 rounded-xl transition-all duration-300 group"
-            title="Settings"
-          >
-            <Settings className="w-5 h-5 group-hover:scale-110 transition-transform" />
-          </button>
 
           {/* Theme Toggle */}
-          <button 
+
+          <button
             onClick={toggleTheme}
             className="p-2.5 bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-xl transition-all duration-300 group"
             title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
@@ -210,7 +204,7 @@ const TopNav = () => {
 
           <NotificationCenter />
 
-          <button 
+          <button
             onClick={handleLogout}
 
             className="p-2.5 bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-xl transition-all duration-300 group"
@@ -219,7 +213,11 @@ const TopNav = () => {
             <LogOut className="w-5 h-5 group-hover:scale-110 transition-transform" />
           </button>
         </div>
-      </header>
+      </div>
+    </header>
+
+
+
     </>
   );
 };

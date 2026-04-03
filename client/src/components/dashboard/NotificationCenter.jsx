@@ -10,7 +10,7 @@ const NotificationCenter = () => {
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+  const API_URL = import.meta.env.VITE_API_URL || 'https://api.devxlab.tech/api';
 
   const fetchNotifications = async () => {
     try {
