@@ -125,7 +125,7 @@ const Habits = () => {
             <div className="bg-card rounded-2xl shadow-sm border border-border p-8 h-fit">
               <h2 className="text-xl font-bold text-main mb-6">Define Habits</h2>
 
-              <form onSubmit={handleAdd} className="flex gap-4 mb-8 bg-input p-2 rounded-2xl border border-border">
+              <form onSubmit={handleAdd} className="flex flex-col sm:flex-row gap-3 mb-8 bg-input p-1.5 rounded-2xl border border-border">
                 <input
                   type="text"
                   value={newHabitName}
@@ -133,7 +133,7 @@ const Habits = () => {
                   placeholder="e.g. Meditate for 20 minutes..."
                   className="flex-1 bg-transparent px-4 py-3 text-main outline-none focus:ring-0 font-bold text-[1.05rem] placeholder:font-semibold placeholder:text-muted/30"
                 />
-                <button type="submit" disabled={!newHabitName.trim()} className="bg-primary hover:bg-primary-hover text-white px-6 py-2.5 rounded-xl font-bold transition-colors disabled:opacity-50 flex items-center gap-2 shadow-sm text-[0.95rem]">
+                <button type="submit" disabled={!newHabitName.trim()} className="bg-primary hover:bg-primary-hover text-white px-6 py-2.5 rounded-xl font-bold transition-colors disabled:opacity-50 flex items-center justify-center gap-2 shadow-sm text-[0.95rem] w-full sm:w-auto">
                   <Plus className="w-5 h-5" strokeWidth={2.5} /> Add
                 </button>
               </form>
@@ -170,16 +170,17 @@ const Habits = () => {
             </div>
 
             <div className="bg-card rounded-2xl shadow-sm border border-border p-8 h-fit">
-              <div className="flex items-center justify-between mb-8">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
                 <h2 className="text-[1.3rem] font-bold text-main">Tracking Heatmap</h2>
-                <div className="flex items-center gap-5 bg-input px-4 py-2.5 rounded-xl border border-border shadow-sm">
-                  <button onClick={handlePrevMonth} className="text-muted/40 hover:text-primary hover:scale-110 transition-all"><ChevronLeft className="w-5 h-5" strokeWidth={3} /></button>
-                  <span className="text-[0.95rem] font-bold text-main uppercase tracking-widest min-w-[150px] text-center">
+                <div className="flex items-center gap-3 sm:gap-5 bg-input px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl border border-border shadow-sm w-full sm:w-auto justify-between sm:justify-center">
+                  <button onClick={handlePrevMonth} className="text-muted/40 hover:text-primary hover:scale-110 transition-all p-1"><ChevronLeft className="w-5 h-5" strokeWidth={3} /></button>
+                  <span className="text-[0.8rem] sm:text-[0.95rem] font-bold text-main uppercase tracking-widest min-w-[100px] sm:min-w-[150px] text-center">
                     {currentDate.toLocaleString('default', { month: 'short', year: 'numeric' })}
                   </span>
-                  <button onClick={handleNextMonth} className="text-muted/40 hover:text-primary hover:scale-110 transition-all"><ChevronRight className="w-5 h-5" strokeWidth={3} /></button>
+                  <button onClick={handleNextMonth} className="text-muted/40 hover:text-primary hover:scale-110 transition-all p-1"><ChevronRight className="w-5 h-5" strokeWidth={3} /></button>
                 </div>
               </div>
+
 
               {/* UI Legend Panel */}
               <div className="flex items-center gap-6 mb-6 px-4 py-3 bg-input border border-border rounded-xl relative">
