@@ -5,6 +5,8 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import NotificationCenter from './NotificationCenter';
+
 
 const TopNav = () => {
   const navigate = useNavigate();
@@ -206,8 +208,11 @@ const TopNav = () => {
             )}
           </button>
 
+          <NotificationCenter />
+
           <button 
             onClick={handleLogout}
+
             className="p-2.5 bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-xl transition-all duration-300 group"
             title="Sign Out"
           >

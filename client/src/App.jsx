@@ -12,7 +12,9 @@ import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import Goals from './pages/Goals';
 import GoalDetail from './pages/GoalDetail';
+import NotificationSettings from './pages/NotificationSettings';
 import axios from 'axios';
+
 import { ShieldAlert, Zap } from 'lucide-react';
 import useActiveSession from './hooks/useActiveSession';
 
@@ -140,6 +142,12 @@ function App() {
             <GoalDetail />
           </ProtectedRoute>
         } />
+        <Route path="/settings/notifications" element={
+          <ProtectedRoute>
+            <NotificationSettings />
+          </ProtectedRoute>
+        } />
+
 
         {/* Catch-all route - redirect to home if logged in, or login if not */}
         <Route path="*" element={<Navigate to="/" replace />} />

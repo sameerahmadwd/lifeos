@@ -11,7 +11,9 @@ const schema = new mongoose.Schema({
   },
   completed: { type: Boolean, default: false },
   goal: { type: mongoose.Schema.Types.ObjectId, ref: 'Goal' },
-  progressValue: { type: Number, default: 0 }
+  progressValue: { type: Number, default: 0 },
+  notifiedProcrastination: { type: Boolean, default: false }
 }, { timestamps: true });
+
 
 module.exports = mongoose.model('Task', schema);

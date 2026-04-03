@@ -3,6 +3,7 @@ const router = express.Router();
 const Task = require('../models/Task');
 const Goal = require('../models/Goal');
 const ProgressLog = require('../models/ProgressLog');
+const notificationService = require('../services/notificationService');
 const { protect } = require('../middleware/authMiddleware');
 
 router.get('/', protect, async (req, res) => {
@@ -30,9 +31,23 @@ router.post('/', protect, async (req, res) => {
       progressValue: Number(progressValue) || 0
     });
     await newTask.save();
+
+    // Notification Logic: Overload Warning (> 8 tasks for the same date)
+    const taskCount = await Task.countDocuments({ user: req.user.id, date });
+    if (taskCount >= 8) {
+        await notificationService.createNotification(req.user.id, {
+            type: 'task',
+            priority: 'medium',
+            title: 'Overload Warning',
+            message: `You have ${taskCount} tasks planned for ${date}. Focus on quality over quantity!`,
+            actionUrl: '/tasks'
+        });
+    }
+
     res.json(newTask);
   } catch (err) { res.status(500).json({ message: 'Server Error' }); }
 });
+
 
 router.put('/:id', protect, async (req, res) => {
   try {

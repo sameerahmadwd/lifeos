@@ -31,7 +31,9 @@ const userSchema = new mongoose.Schema({
   resetPasswordExpire: { type: Date },
   lastLogin: { type: Date },
   lastLogout: { type: Date },
+  lastActiveAt: { type: Date, default: Date.now }
 }, { timestamps: true });
+
 
 // Hash the password before saving
 userSchema.pre('save', async function() {

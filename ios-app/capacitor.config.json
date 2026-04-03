@@ -1,0 +1,5 @@
+{
+  "appId": "com.sameerahmad.lifeos",
+  "appName": "LifeOS",
+  "webDir": "../client/dist"
+}
